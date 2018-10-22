@@ -23,7 +23,7 @@ class Add_business extends React.Component {
         informations[inputName] = input;
         this.setState(() => ({informations : informations}))    
     }
-    verify_name = () => {
+    validate_name = () => {
         const name = this.state.informations.name
         if(!PersianRex.text.test(name)) {
             this.setState(()=>({name_error:true}));      
@@ -33,9 +33,9 @@ class Add_business extends React.Component {
         }
 
     }
-    verify_email = () => {
+    validate_email = () => {
         const email = this.state.informations.email
-        if(/[^A-Za-z0-9@.]/.test(email)) {
+        if(/^[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) {
             this.setState(()=>({email_error:true}));      
         }else{
             this.setState(()=>({email_error:false}));       
@@ -43,7 +43,7 @@ class Add_business extends React.Component {
         }
 
     }
-    verify_phone_number = () => {
+    validate_phone_number = () => {
         const phone_number = this.state.informations.phone_number;
         if(/[^0-9+]/.test(phone_number)) {
             this.setState(()=>({phone_number_error:true}));      
@@ -53,7 +53,7 @@ class Add_business extends React.Component {
         }
 
     }
-    verify_descriptopn = () => {
+    validate_descriptopn = () => {
         const description = this.state.informations.description;
         if(!PersianRex.text.test(description)) {
             this.setState(()=>({description_error:true}));      
@@ -75,9 +75,10 @@ class Add_business extends React.Component {
                         <Form.Field>
                             <Form.Input
                                 fluid
+                                error={this.state.name_error}
                                 label=" نام"
                                 name="name"
-                               onBlur={this.verify_name}
+                               onBlur={this.validate_name}
                                value={this.state.informations.name}
                                onChange={this.handle_change}
                             
@@ -92,17 +93,20 @@ class Add_business extends React.Component {
                     
                         </Form.Field>
                         <Form.Field>
-                            <Form.Input
-                                fluid
-                                label="شماره ی تماس "
-                                name="phone_number"
-                               onBlur={this.verify_phone_number}
-                               value={this.state.informations.phone_number}
-                               onChange={this.handle_change}
-                            
+                        <b><span>‌شماره‌ی تماس</span></b>
+                        <div dir="ltr">
+                                <Form.Input
+                                    fluid
+                                    error={this.state.phone_number_error}
+                                 //   label="شماره‌ی تماس "
+                                    name="phone_number"
+                                onBlur={this.validate_phone_number}
+                                value={this.state.informations.phone_number}
+                                onChange={this.handle_change}
                                 
-                            />
-
+                                    
+                                />
+                        </div>
                             {this.state.phone_number_error && (
                                 <Label basic pointing color="red">
                                     تنها میتوانید از ارقام ۰تا۹ استفاده کنید
@@ -113,9 +117,10 @@ class Add_business extends React.Component {
                         <Form.Field>
                             <Form.Input
                                 fluid
+                                error={this.state.email_error}
                                 label="ایمیل"
                                 name="email"
-                               onBlur={this.verify_email}
+                               onBlur={this.validate_email}
                                value={this.state.informations.email}
                                onChange={this.handle_change}
                             
@@ -132,9 +137,10 @@ class Add_business extends React.Component {
                         <Form.Field>
                             <Form.Input
                                 fluid
+                                error={this.state.description_error}
                                 label="توضیحات"
                                 name="description"
-                               onBlur={this.verify_descriptopn}
+                               onBlur={this.validate_descriptopn}
                                value={this.state.informations.description}
                                onChange={this.handle_change}
                             
