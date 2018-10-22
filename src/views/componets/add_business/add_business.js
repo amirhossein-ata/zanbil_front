@@ -56,9 +56,9 @@ class Add_business extends React.Component {
     verify_descriptopn = () => {
         const description = this.state.informations.description;
         if(!PersianRex.text.test(description)) {
-            this.setState(()=>({name_error:true}));      
+            this.setState(()=>({description_error:true}));      
         }else{
-            this.setState(()=>({name_error:false}));       
+            this.setState(()=>({description_error:false}));       
             
         }
 
@@ -141,7 +141,7 @@ class Add_business extends React.Component {
                                 
                             />
 
-                            {this.state.description_error_error && (
+                            {this.state.description_error && (
                                 <Label basic pointing color="red">
                                     فقط از زبان فارسی استفاده کنید
                                 </Label>    
