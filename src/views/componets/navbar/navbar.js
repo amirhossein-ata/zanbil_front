@@ -30,7 +30,7 @@ export default class Navbar extends Component {
             <Menu.Item
                 position="left"
             >
-                <Input icon='search' placeholder='Search...' />
+                <Input icon='search' fluid placeholder='Search...' />
             </Menu.Item>
         </Menu>
     )
