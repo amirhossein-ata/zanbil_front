@@ -1,13 +1,19 @@
 import React from 'react'
+import * as sessionAction from '../../../core/login&signup/login_actions'
+import {connect} from 'react-redux'
 import { Button, Segment, Form ,Grid,Label} from 'semantic-ui-react'
-class Login_form extends React.Component{
+class Signup_form extends React.Component{
     state={
         credentials:{
             username :'',
-            password:''
+            password:'',
+            password_again:'',
+            email:''
         },
+        email_error:false,
         username_error:false, 
-        password_error:false
+        password_error:false,
+        password_again_error:false
     }
 
     handle_change= (e) => {
@@ -28,7 +34,16 @@ class Login_form extends React.Component{
         }
 
     }
+    validate_email = () => {
+        const email = this.state.credentials.email
+        if(/[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) {
+            this.setState(()=>({email_error:true}));      
+        }else{
+            this.setState(()=>({email_error:false}));       
+            
+        }
 
+    }
     verify_password = () => {
         const password = this.state.credentials.password
         if(/[^A-Za-z0-9@.]/.test(password)) {
@@ -38,6 +53,19 @@ class Login_form extends React.Component{
         }
     }
     
+    verify_password_again = () => {
+        const password_again = this.state.credentials.password_again
+
+        if(password_again !== this.state.credentials.password){
+            this.setState(() => ({password_again_error:true}))
+        }
+        else{
+            this.setState(()=>({password_again_error:false}))
+        }
+    }
+    onSubmit = () => {
+        this.props.signup(this.state.credentials)
+    }
     render(){
         
         return(
@@ -47,7 +75,7 @@ class Login_form extends React.Component{
                     <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
                     <Grid.Column computer={10} tablet={12} mobile={14}>
                         <Segment raised color="blue" padded>  
-                        <Form>
+                        <Form onSubmit={this.onSubmit}>
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -68,6 +96,23 @@ class Login_form extends React.Component{
                         
                             </Form.Field>
                             <Form.Field>
+                            <Form.Input
+                                fluid
+                                error={this.state.email_error}
+                                label="ایمیل"
+                                name="email"
+                                onBlur={this.validate_email}
+                                value={this.state.credentials.email}
+                                onChange={this.handle_change}                                
+                            />
+
+                            {this.state.email_error && (
+                                <Label basic pointing color="red">
+                                    تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
+                                </Label>    
+                            )} 
+                            </Form.Field>
+                            <Form.Field>
                                 <Form.Input
                                     fluid
                                     label="رمز عبور"
@@ -84,6 +129,24 @@ class Login_form extends React.Component{
                                 )} 
                         
                             </Form.Field>
+                            <Form.Field>
+                                <Form.Input
+                                    fluid
+                                    label="تکرار رمز عبور"
+                                    name="password_again"
+                                    type='password'
+                                    onBlur={this.verify_password_again}
+                                    value={this.state.credentials.password_again}
+                                    onChange={this.handle_change}
+                                />
+                                {this.state.password_again_error && (
+                                    <Label basic pointing color="red">
+                                            تکرار رمزعبور باید با رمزعبور مطابقت داشته باشد. 
+                                    </Label>    
+                                )} 
+                        
+                            </Form.Field>
+                    
                             <Button primary type='submit'>ورود</Button>
                         </Form>
                         </Segment>
@@ -99,5 +162,16 @@ class Login_form extends React.Component{
         )
     }
 }
+const mapStateToProps = (state) => {
+    
+    return{
+        state:state
+    }
+}
 
-export default Login_form
+const mapDispatchToProps = (dispatch) => {
+    return{
+        signup : (credentials) => dispatch(sessionAction.login(credentials))
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Signup_form)
