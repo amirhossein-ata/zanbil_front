@@ -10,7 +10,7 @@ const AppRouter = () => (
         <Switch>
             <Route path="/" component={MainPage} exact={true}/>
             <Route path="/signUp" component={Signup_Form} />
-            <Route path="/" component={LoginForm} exact={true}/>
+            <Route path="/login" component={LoginForm}/>
         </Switch>
     </Router>
     
