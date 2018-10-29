@@ -37,9 +37,9 @@ class Signup_form extends React.Component{
     validate_email = () => {
         const email = this.state.credentials.email
         if(/[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) {
-            this.setState(()=>({email_error:true}));      
+            this.setState(()=>({email_error:false}));      
         }else{
-            this.setState(()=>({email_error:false}));       
+            this.setState(()=>({email_error:true}));       
             
         }
 
