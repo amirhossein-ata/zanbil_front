@@ -1,11 +1,18 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import Card from '../componets/card/card'
 import { Segment, Grid, Divider, Header} from 'semantic-ui-react';
+import * as business_page_actions from '../../core/business_page/business_page_actions'
 class Business_page extends React.Component{
+    async componentDidMount(){
+        await this.props.get_business_services()
+        console.log(this.props.services)
+    }
     render(){
+        console.log(this.props.services)
         return(
             <Segment raised>
-                <Grid >
+                <Grid textAlign="right" >
                     <Grid.Column computer={6}></Grid.Column>
                     <Grid.Column computer={8}>
                         <Card 
@@ -23,51 +30,17 @@ class Business_page extends React.Component{
 
                     <Grid.Column computer={14} mobile={15} tablet={15}>
                         <Grid textAlign="right">
-                            <Grid.Column computer={4}>
-                                <Card
-                                    header="نام سرویس"
-                                    meta2="امتیاز"
-                                    description="توضیحات سرویس"
-                                    meta1="نام سرویس دهنده"
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={4}>
-                                <Card
+                            {this.props.services[0] && this.props.services[0].map((service) => (
+                                <Grid.Column computer={4}>
+                                    <Card
+                                        header={service.title}
+                                        meta2={service.id}
+                                        description={service.body}
+                                        button="مشاهده جدول زمانی"
+                                    />
+                                </Grid.Column>
 
-                                    header="نام سرویس"
-                                    meta2="امتیاز"
-                                    description="توضیحات سرویس"
-                                    meta1="نام سرویس دهنده"
-                                />
-                            </Grid.Column>
-
-                            <Grid.Column computer={4}>
-                                <Card
-
-                                    header="نام سرویس"
-                                    meta2="امتیاز"
-                                    description="توضیحات سرویس"
-                                    meta1="نام سرویس دهنده"
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={4}>
-                                <Card
-
-                                    header="نام سرویس"
-                                    meta2="امتیاز"
-                                    description="توضیحات سرویس"
-                                    meta1="نام سرویس دهنده"
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={4}>
-                                <Card
-
-                                    header="نام سرویس"
-                                    meta2="امتیاز"
-                                    description="توضیحات سرویس"
-                                    meta1="نام سرویس دهنده"
-                                />
-                            </Grid.Column>
+                            ))}
                         </Grid>
                     </Grid.Column>
                 </Grid>        
@@ -77,4 +50,16 @@ class Business_page extends React.Component{
     }
 }
 
-export default Business_page;
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        services : state.business_page_reducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        get_business_services : () => dispatch(business_page_actions.get_services())
+    }
+}
+export default connect(mapStateToProps , mapDispatchToProps)(Business_page);

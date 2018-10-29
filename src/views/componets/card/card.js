@@ -1,8 +1,12 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image,Button } from 'semantic-ui-react'
 
+const style = {
+    height : '50vh'
+}
 const Card_component = (props) => (
-    <Card color="blue">
+    
+    <Card color="blue" style={style}>
         <Image src={props.image} />
         <Card.Content>
         <Card.Header>{props.header}</Card.Header>
@@ -11,9 +15,16 @@ const Card_component = (props) => (
         </Card.Meta>
         <Card.Description>{props.description}</Card.Description>
         </Card.Content>
-        <Card.Content extra>
-            {props.meta2}
-        </Card.Content>
+        {props.button && (
+            <Card.Content extra>
+
+                <div className='ui buttons'>
+                <Button primary>
+                    {props.button}
+                </Button>
+                </div>
+            </Card.Content>
+        )}
     </Card>
 )
 
