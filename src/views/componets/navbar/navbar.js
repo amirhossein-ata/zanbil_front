@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Dropdown,Input, Menu } from 'semantic-ui-react'
+import {connect} from 'react-redux'
 
 export default class Navbar extends Component {
     state = { activeItem: 'home' }
@@ -20,17 +21,15 @@ export default class Navbar extends Component {
                 onClick={this.handleItemClick} 
             />
             <Dropdown text="دسته بندی ها" pointing className='link item' >
-            <Dropdown.Menu style={style}>
-                {this.props.categories.map((category) => (
-                    <Dropdown.Item >{category}</Dropdown.Item>
-                ))}
+                <Dropdown.Menu style={style}>
+                    {this.props.categories.map((category) => (
+                        <Dropdown.Item >{category}</Dropdown.Item>
+                    ))}
 
-            </Dropdown.Menu>
+                </Dropdown.Menu>
             </Dropdown>
-            <Menu.Item
-                position="left"
-            >
-                <Input icon='search' fluid placeholder='Search...' />
+            <Menu.Item position="left">
+                
             </Menu.Item>
         </Menu>
     )

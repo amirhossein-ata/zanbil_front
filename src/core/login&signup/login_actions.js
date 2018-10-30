@@ -31,7 +31,7 @@ export const login = (credentials) => {
                             .then((response) => {
                                 if(response){
                                     console.log('response from login : ',response)
-                                    sessionStorage.setItem('token',response)
+                                    sessionStorage.setItem('token',response.jwt)
                                     dispatch(login_success())
                                 }else{
                                     console.log('there was an error with login')
