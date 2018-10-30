@@ -1,5 +1,5 @@
 import React from 'react'
-import * as sessionAction from '../../../core/login&signup/login_actions'
+import * as sessionAction from '../../../core/login&signup/session_actions'
 import {connect} from 'react-redux'
 import { Button, Segment, Form ,Grid,Label} from 'semantic-ui-react'
 class Signup_form extends React.Component{
@@ -155,7 +155,6 @@ class Signup_form extends React.Component{
                 
                 </Grid.Row>
                 
-                <Label>test</Label>
             </Grid>
             
             
@@ -171,7 +170,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        signup : (credentials) => dispatch(sessionAction.login(credentials))
+        signup : (credentials) => dispatch(sessionAction.signup(credentials))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Signup_form)

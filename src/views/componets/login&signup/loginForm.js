@@ -1,4 +1,6 @@
 import React from 'react'
+import * as sessionAction from '../../../core/login&signup/session_actions'
+import {connect} from 'react-redux'
 import { Button, Segment, Form ,Grid,Label} from 'semantic-ui-react'
 class Login_form extends React.Component{
     state={
@@ -38,6 +40,10 @@ class Login_form extends React.Component{
         }
     }
     
+    onSubmit = () => {
+        this.props.login(this.state.credentials)
+    }
+  
     render(){
         
         return(
@@ -47,7 +53,7 @@ class Login_form extends React.Component{
                     <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
                     <Grid.Column computer={10} tablet={12} mobile={14}>
                         <Segment raised color="blue" padded>  
-                        <Form>
+                        <Form onSubmit={this.onSubmit}>
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -99,5 +105,16 @@ class Login_form extends React.Component{
         )
     }
 }
+const mapStateToProps = (state) => {
+    
+    return{
+        state:state
+    }
+}
 
-export default Login_form
+const mapDispatchToProps = (dispatch) => {
+    return{
+        login : (credentials) => dispatch(sessionAction.login(credentials))
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Login_form)
