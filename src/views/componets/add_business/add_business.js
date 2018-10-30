@@ -1,18 +1,22 @@
 import React from 'react';
+import * as add_business_actions from '../../../core/add_business/add_business_actions';
 import { Button, Segment, Form ,Grid,Label} from 'semantic-ui-react';
 import PersianRex from "persian-rex";
+import {connect} from "react-redux";
 class Add_business extends React.Component {
     state = {
         informations:{
             name:"",
             phone_number:"",
             email:"",
-            description:""
+            description:"",
+            address:""
         },
         name_error: false,
         email_error: false,
         phone_number_error: false,
-        description_error: false
+        description_error: false,
+        address_error:false
 
     }
 
@@ -46,34 +50,49 @@ class Add_business extends React.Component {
     }
     validate_phone_number = () => {
         const phone_number = this.state.informations.phone_number;
-        if(/[^0-9+]/.test(phone_number)) {
-            this.setState(()=>({phone_number_error:true}));      
+        if(/[0-9+]/.test(phone_number)) {
+            this.setState(()=>({phone_number_error:false}));      
         }else{
-            this.setState(()=>({phone_number_error:false}));       
+            this.setState(()=>({phone_number_error:true}));       
             
         }
 
     }
+    validate_address = () => {
+        const address = this.state.informations.address;
+        if(!PersianRex.punctuation.test(address)) {
+            this.setState(()=>({address_error:true}));      
+        }else{
+            this.setState(()=>({address_error:false}));       
+            
+        }
+    }
+
     validate_descriptopn = () => {
         const description = this.state.informations.description;
-        if(!PersianRex.text.test(description)) {
+        if(!PersianRex.text.test(description) || /-/.test(description)) {
             this.setState(()=>({description_error:true}));      
         }else{
             this.setState(()=>({description_error:false}));       
             
         }
+    
 
+    }
+    onSubmit = () => {
+        this.props.add_business(this.state.informations)
     }
 
     render () {
         return (
-            <Grid className="login_form">
+            <Grid className="add_business_form">
             <Grid.Row verticalAlign="middle">
                 <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
                 <Grid.Column computer={10} tablet={12} mobile={14}>
                     <Segment stacked color="blue" padded>  
-                    <Form>
+                    <Form onSubmit={this.onSubmit}>
                         <Form.Field>
+                        <div dir = "rtl">
                             <Form.Input
                                 fluid
                                 error={this.state.name_error}
@@ -91,7 +110,7 @@ class Add_business extends React.Component {
                                    لطفا فقط از زبان فارسی استفاده کنید
                                 </Label>    
                             )} 
-                    
+                            </div>
                         </Form.Field>
                         <Form.Field>
                         <b><span>‌شماره‌ی تماس</span></b>
@@ -132,6 +151,25 @@ class Add_business extends React.Component {
                                 <Label basic pointing color="red">
                                     تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
                                 </Label>    
+                            )}
+                            </Form.Field>
+                            <Form.Field>
+                            <Form.Input
+                                fluid
+                                error={this.state.address_error}
+                                label="آدرس"
+                                name="address"
+                               onBlur={this.validate_address}
+                               value={this.state.informations.address}
+                               onChange={this.handle_change}
+                            
+                                
+                            />
+
+                            {this.state.address_error && (
+                                <Label basic pointing color="red">
+                                        لطفا فقط از زبان فارسی استفاده کنید.
+                                </Label>    
                             )} 
                     
                         </Form.Field>
@@ -167,4 +205,16 @@ class Add_business extends React.Component {
         );
     }
 }
-export default Add_business;
+const mapStateToProps = (state) => {
+    
+    return{
+        state:state
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        add_business : (informations) => dispatch(add_business_actions.add_business(informations))
+    };
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Add_business);
