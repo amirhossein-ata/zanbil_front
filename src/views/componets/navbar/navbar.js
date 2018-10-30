@@ -1,17 +1,32 @@
 import React, { Component } from 'react'
-import { Dropdown,Input, Menu } from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import { Dropdown,Modal, Menu ,Button, Icon} from 'semantic-ui-react'
+import LoginForm from '../login&signup/loginForm'
+import SignupForm from '../login&signup/signup_form'
+import ModalComponent from '../modal/Modal'
+import * as session_actions  from '../../../core/login&signup/session_actions'
 
-export default class Navbar extends Component {
-    state = { activeItem: 'home' }
+const LoginModal = ModalComponent('ورود')(LoginForm)
+const SignUpModal = ModalComponent('ثبت نام')(SignupForm)
+class Navbar extends Component {
+    state = { 
+        activeItem: 'home',
+    }
     
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+        
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    logout_click = () => {
+        this.props.logout()
+    }
     render() {
     const { activeItem } = this.state
     const style = {
         backgroundColor:'#84bae8',
         color:'white'
     }
+
+    
     return (
         <Menu pointing color="blue" inverted>
             <Menu.Item 
@@ -20,19 +35,47 @@ export default class Navbar extends Component {
                 onClick={this.handleItemClick} 
             />
             <Dropdown text="دسته بندی ها" pointing className='link item' >
-            <Dropdown.Menu style={style}>
-                {this.props.categories.map((category) => (
-                    <Dropdown.Item >{category}</Dropdown.Item>
-                ))}
+                <Dropdown.Menu style={style}>
+                    {this.props.categories.map((category) => (
+                        <Dropdown.Item >{category}</Dropdown.Item>
+                    ))}
 
-            </Dropdown.Menu>
+                </Dropdown.Menu>
             </Dropdown>
             <Menu.Item
                 position="left"
             >
-                <Input icon='search' placeholder='Search...' />
+                    {sessionStorage.getItem('token') ? (
+                        <Dropdown  icon="user circle outilne" pointing className='link item' >
+                            <Dropdown.Menu style={style}>
+                                <Dropdown.Item onClick={this.logout_click} >خروج</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
+                    ):(
+                        <span style={{
+                            display:'flex'
+                        }}>
+                            <LoginModal />
+                            <SignUpModal />
+                        </span>
+                    )}
             </Menu.Item>
         </Menu>
     )
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        logged_in : state.session_reducer.logged_in
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        logout : () => dispatch(session_actions.logout())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Navbar)

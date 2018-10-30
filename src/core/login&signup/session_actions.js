@@ -1,4 +1,5 @@
 import Session_api from '../api/session_api'
+import history from '../history/history'
 export const session_action_types = {
     LOGIN_SUCCESS : 'LOGIN_SUCCESS',
     LOGIN_FAILURE : 'LOGIN_FAILUR',
@@ -61,5 +62,6 @@ export const logout = () => {
     return function(dispatch){
             sessionStorage.removeItem('token');
             dispatch(logout_success())
+            history.push('/')
     }
 }
