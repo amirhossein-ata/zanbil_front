@@ -1,6 +1,7 @@
 import React from 'react';
 import * as add_business_actions from '../../../core/add_business/add_business_actions';
-import { Button, Segment, Form ,Grid,Label} from 'semantic-ui-react';
+import { Button, Segment, Form ,Grid,Label, Dropdown} from 'semantic-ui-react';
+import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
 class Add_business extends React.Component {
@@ -10,7 +11,8 @@ class Add_business extends React.Component {
             phone_number:"",
             email:"",
             description:"",
-            address:""
+            address:"",
+            category:""
         },
         name_error: false,
         email_error: false,
@@ -22,10 +24,18 @@ class Add_business extends React.Component {
 
     handle_change= (e) => {
         const input = e.target.value;
+        
         let informations = this.state.informations;
         const inputName = e.target.name;
+        
         informations[inputName] = input;
         this.setState(() => ({informations : informations}))    
+    }
+    on_category_change = (e, {value}) => {
+            let informations = this.state.informations;
+            console.log(value)
+            informations.category = value.toString();
+            this.setState(() => ({informations:informations}));
     }
     validate_name = () => {
         const name = this.state.informations.name
@@ -80,6 +90,7 @@ class Add_business extends React.Component {
 
     }
     onSubmit = () => {
+        console.log(this.state.informations)
         this.props.add_business(this.state.informations)
     }
 
@@ -112,6 +123,18 @@ class Add_business extends React.Component {
                             )} 
                             </div>
                         </Form.Field>
+                        <Dropdown
+                            fluid
+                            selection  
+                            options={categories}
+                            onChange={this.on_category_change}
+                        />
+                        {/*<Form.Select 
+                            name="category"
+                            label="دسته بندی" 
+                            onChange={this.handle_change}
+                        options = {categories}/>*/}
+                        
                         <Form.Field>
                         <b><span>‌شماره‌ی تماس</span></b>
                         <div dir="ltr">
@@ -134,6 +157,7 @@ class Add_business extends React.Component {
                             )} 
                     
                         </Form.Field>
+                        
                         <Form.Field>
                             <Form.Input
                                 fluid
