@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
-import { Checkbox } from 'semantic-ui-react';
+import { Checkbox, Label } from 'semantic-ui-react';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -13,7 +13,7 @@ class Time_range_slider extends React.Component{
     state={
         day_state:{
             checked:true,
-            range :undefined
+            range :[8 , 18]
         }
     }
     onRangeChange = (range) => {
@@ -45,28 +45,29 @@ class Time_range_slider extends React.Component{
                     fitted
                     toggle 
                     onChange={ this.onCheckBoxChange}
-                    />
-                    {this.state.day_state.checked ? (
-                        <div style={
-                            {
-                                width:'60%'
-                            }
-                        }>
-                            <Range
-                                min={6} 
-                                max={24} 
-                                defaultValue={[8, 18]} 
-                                onChange={value => this.onRangeChange(value)} 
-                                tipFormatter={value => `${value}`} 
-                            />
-                        </div>          
-                        
-                    ) : (
-                        <div style={
-                            {
-                                width:'60%'
-                            }}></div>
-                    )}     
+                />
+                {this.state.day_state.range && <Label circular size="large">{this.state.day_state.range[0]} - {this.state.day_state.range[1]}</Label>}
+                {this.state.day_state.checked ? (
+                    <div style={
+                        {
+                            width:'60%'
+                        }
+                    }>
+                        <Range
+                            min={6} 
+                            max={24} 
+                            defaultValue={[8, 18]} 
+                            onChange={value => this.onRangeChange(value)} 
+                            tipFormatter={value => `${value}`} 
+                        />
+                    </div>          
+                    
+                ) : (
+                    <div style={
+                        {
+                            width:'60%'
+                        }}></div>
+                )}     
                 
             </div>
         )
