@@ -32,7 +32,7 @@ export const signup = (credentials) => {
                             .then((response) => {
                                 if(response){
                                     console.log('response from signup : ',response)
-                                    sessionStorage.setItem('token',response)
+                                    sessionStorage.setItem('token',response.jwt)
                                     dispatch(login_success())
                                 }else{
                                     console.log('there was an error with signup')
@@ -47,7 +47,7 @@ export const login = (credentials) => {
         return Session_api.login(credentials)
                             .then((response) => {
                                 if(response){
-                                    console.log('response from login : ',response)
+                                    console.log('response from login : ',response.jwt)
                                     sessionStorage.setItem('token',response)
                                     dispatch(login_success())
                                 }else{
