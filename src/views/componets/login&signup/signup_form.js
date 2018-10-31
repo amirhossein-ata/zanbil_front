@@ -28,21 +28,21 @@ class Signup_form extends React.Component{
         const username = this.state.credentials.username
         if(/[^A-Za-z0-9_-]/.test(username) || !username) {
             this.setState(()=>({username_error:true}))
-            return true     
+            return false  
         }else{
             this.setState(()=>({username_error:false}))       
-            return false     
+            return true     
         }
 
     }
     validate_email = () => {
         const email = this.state.credentials.email
-        if( !(/[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) || !email) {
+        if( !(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-z0-9]/.test(email)) || !email) {
             this.setState(()=>({email_error:true}));   
-            return true
+            return false
         }else{
             this.setState(()=>({email_error:false}));       
-            return false
+            return true
         }
 
     }
@@ -50,10 +50,10 @@ class Signup_form extends React.Component{
         const password = this.state.credentials.password
         if(/[^A-Za-z0-9@.]/.test(password) || !password) {
             this.setState(()=>({password_error:true})) 
-            return true      
+            return false      
         }else{
             this.setState(()=>({password_error:false}))
-            return false       
+            return true       
         }
     }
     
@@ -62,11 +62,11 @@ class Signup_form extends React.Component{
 
         if(password_again !== this.state.credentials.password || !password_again){
             this.setState(() => ({password_again_error:true}))
-            return true
+            return false
         }
         else{
             this.setState(()=>({password_again_error:false}))
-            return false
+            return true
         }
     }
     onSubmit = () => {
@@ -74,7 +74,9 @@ class Signup_form extends React.Component{
         const password_valid = this.verify_password()
         const password_again_valid = this.verify_password_again()
         const email_valid = this.validate_email()
+        console.log(username_valid , password_valid , password_again_valid , email_valid)
         if(username_valid && password_valid && password_again_valid && email_valid){
+            console.log('signing up')
             this.props.signup(this.state.credentials)
         }
     }
