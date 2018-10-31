@@ -5,6 +5,7 @@
   "dependencies": {
     "node-sass": "^4.9.4",
     "persian-rex": "^2.3.3",
+    "rc-slider": "^8.6.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
