@@ -8,6 +8,7 @@ const Timetable = () => (
     <Segment>
         <Grid centered>
                 <Grid.Column computer={2} mobile={5}>
+                    
                     <Button fluid style={style}> 18:30 - 19:30 </Button>
                     <Button fluid style={style}> 18:30 - 19:30 </Button>
                     <Button fluid style={style}> 18:30 - 19:30 </Button>
