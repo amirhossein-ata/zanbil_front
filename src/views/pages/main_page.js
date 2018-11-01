@@ -12,13 +12,12 @@ class Main_page extends React.Component{
                 />
                 <Grid centered>
                     <Grid.Column computer={14}>
-                    
+                        <BusinessPage />
                     </Grid.Column>
                 </Grid>
 
                 <Grid centered>
                     <Grid.Column computer={14}>
-                        <TimetableSelect />
                     </Grid.Column>
                 </Grid>
             </div>

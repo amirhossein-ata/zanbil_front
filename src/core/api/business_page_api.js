@@ -1,11 +1,14 @@
+import * as api_urls from './api_urls'
 class business_page_api {
 
-    static get_business_services(){
-        const request = new Request('http://jsonplaceholder.typicode.com/posts',{
+    static get_business_info(business_id){
+        const request = new Request(`http://127.0.0.1:8000/api/business/?business_id=${business_id}`,{
             mode:'cors',
             method:'GET',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization':  `Bearer ${sessionStorage.getItem('token')}`
+
             },
         });
 
