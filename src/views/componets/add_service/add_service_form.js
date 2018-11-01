@@ -1,15 +1,44 @@
 import React from "react";
 import { Button, Segment, Form ,Grid,Label, Divider} from 'semantic-ui-react'
 import PersianRex from "persian-rex";
-
+import TimeRangeSlider from "../time_slider/time_slider";
 
 class Add_service_form extends React.Component{
         state = {
             informations:{
                 service_name:"",
                 contact_number:"",
-                description:"",
-                work_days:[]
+                description:""},
+                
+                day1:{
+                    checked:true , 
+                    range:undefined
+                },
+                day2:{
+                    checked:true , 
+                    range:undefined
+                },
+                day3:{
+                    checked:true , 
+                    range:undefined
+                },
+                day4:{
+                    checked:true , 
+                    range:undefined
+                },
+                day5:{
+                    checked:true , 
+                    range:undefined
+                },
+                day6:{
+                    checked:true , 
+                    range:undefined
+                },
+                day7:{
+                    checked:true , 
+                    range:undefined
+                
+                
                 
             },
             service_name_error:false,
@@ -23,6 +52,43 @@ class Add_service_form extends React.Component{
             informations[input_name] = input
             this.setState(() => ({informations : informations}))    
         }
+        changeDayStateChange = (key , value) => {
+            const day = key
+            console.log('key is : ' , key ,'checked is : ', value.day_state.checked ,'range is : ',value.day_state.range)
+            let newState = this.state[key]
+            console.log(newState)
+            newState.checked = value.day_state.checked
+            newState.range = value.day_state.range
+            console.log(newState)
+            switch(day){
+                case "day1":
+                    this.setState(() =>({ day1: newState}))
+                    console.log("day1" , this.state.day1)
+                    break
+                case 1:
+                    this.setState(() =>({ 1: newState}))
+                    break
+                case 2 :
+                    this.setState(() =>({ 2: newState}))
+                    break
+                case 3 :
+                    this.setState(() =>({ 3: newState}))
+                    break
+                case 4:
+                    this.setState(() =>({ 4: newState}))
+                    break
+                case 5 :
+                    this.setState(() =>({ 5: newState}))
+                    break
+                case 6 :
+                    this.setState(() =>({ 6: newState}))
+                    break
+                default:
+                    break   
+            }
+            console.log(this.state)
+    }
+
         validate_contact_number = () => {
             const contact_number = this.state.informations.contact_number;
             if(/[0-9+]/.test(contact_number)) {
@@ -113,112 +179,56 @@ class Add_service_form extends React.Component{
                                 )} 
                         
                             </Form.Field>
-                            <Grid.Row>
-                            <Divider horizontal>جدول زمانی ساعات کاری</Divider>
-                            <Form.Group inline>
-                                <b>شنبه </b>
-                                <Form.Input
-                                    
-                                    name="00"
-                                />
-                                
-                                <Form.Input
-                                    
-                                    name="01"
-                                    
-                                />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            <Grid.Row>
                             
-                            <Form.Group inline>
-                            <b>یکشنبه</b>
-                                <Form.Input
-                                    name="10"
-                                />
-                                <Form.Input
-                                    name="11"
-                                    
-                                />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            <Grid.Row>
                             
-                            <Form.Group inline>
-                            <b>دوشنبه</b>
-                                <Form.Input
-                                    name="20"
+                            <TimeRangeSlider 
+                                    id="day1" 
+                                    day_state={this.state[0]} 
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}
                                 />
-                                <Form.Input
-                                    name="21"
-                                    
+                                <br></br>
+                            <TimeRangeSlider 
+                                    id="day2"
+                                    day_state={this.state[1]}
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
                                 />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            <Grid.Row>
+                                <br></br>
+                            <TimeRangeSlider 
+                                    id="day3"
+                                    day_state={this.state[2]}
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                />
+                                <br></br>                
+                            <TimeRangeSlider 
+                                    id="day4"
+                                    day_state={this.state[3]}
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                />
+                                <br></br>                
+                            <TimeRangeSlider 
+                                    id="day5"
+                                    day_state={this.state[4]}
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                />
+                                <br></br>                
+                            <TimeRangeSlider 
+                                    id="day6"
+                                    day_state={this.state[5]}
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                />
+                                <br></br>                
+                            <TimeRangeSlider 
+                                    id="day7"
+                                    day_state={this.state[7]}
+                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                />
+                                <br></br>                
                             
-                            <Form.Group inline>
-                            <b>سه شنبه</b>
-                                <Form.Input
-                                    name="30"
-                                />
-                                <Form.Input
-                                    name="31"
-                                    
-                                />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            <Grid.Row>
-                            
-                            <Form.Group inline>
-                            <b>چهارشنبه</b>
-                                <Form.Input
-                                    name="40"
-                                />
-                                <Form.Input
-                                    name="41"
-                                    
-                                />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            <Grid.Row>
-                            
-                            <Form.Group inline>
-                            <b>پنجشنبه</b>
-                                <Form.Input
-                                    name="50"
-                                />
-                                <Form.Input
-                                    name="51"
-                                    
-                                />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            <Grid.Row>
-                            
-                            <Form.Group inline>
-                            <b>جمعه</b>
-                                <Form.Input
-                                    name="60"
-                                />
-                                <Form.Input
-                                    name="61"
-                                    
-                                />
-                                
-                            </Form.Group>
-                            </Grid.Row>
-                            
+                                            
                             <Button primary type='submit'>ایجاد سرویس</Button>
                         </Form>
                         </Segment>
-                    
+                        
                     </Grid.Column>
                 
                 </Grid.Row>
