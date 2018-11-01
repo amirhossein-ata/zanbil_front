@@ -1,8 +1,10 @@
 import React from 'react'
 import TimeRangeSlider from './time_slider'
+import { Input, Label, Grid } from 'semantic-ui-react';
 
 class TimetableSelect extends React.Component{
     state={
+        duration:1,
         day1:{
             checked:true , 
             first_range :[8,12],
@@ -32,6 +34,7 @@ class TimetableSelect extends React.Component{
             checked:true , 
             first_range :[8,12],
             second_range:[13,18],
+          
         },
         day7:{
             checked:true , 
@@ -119,9 +122,17 @@ class TimetableSelect extends React.Component{
         console.log(this.state)
     
     }
+
+    on_duration_change = (e) => {
+        const value = e.target.value
+        let newState = this.state.duration
+        newState = value
+        this.setState(() => ({duration:newState}))
+    }
     render(){
         return(
             <div>
+                
                 <TimeRangeSlider 
                     id="day1" 
                     day_state={this.state[0]} 
@@ -149,7 +160,30 @@ class TimetableSelect extends React.Component{
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-            </div>
+                <br></br><br></br>
+                <Grid centered>
+                    <Grid.Column computer={5}>
+                        <div style={{display:'flex',justifyContent:'space-between'}}>
+                            <div style={{width:'60%' , verticalAlign:'center'}}>
+                                <Label>
+                                    طول هر سانس
+                                </Label>
+                            </div>
+                            <div style={{width:'30%'}}>
+                                <Input
+                                    onChange={this.on_duration_change}
+                                    size="mini"
+                                    value={this.state.duration}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+                    </Grid.Column>
+                    
+                </Grid>
+                
+             </div>
         )
     }
 }
