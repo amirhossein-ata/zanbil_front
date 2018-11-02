@@ -1,6 +1,6 @@
 import React from "react";
 import * as add_service_actions from '../../../core/add_service/add_service_actions';
-import { Button, Segment, Form ,Grid,Label, Divider} from 'semantic-ui-react'
+import { Button, Segment, Form ,Grid,Label, Divider, Input} from 'semantic-ui-react'
 import PersianRex from "persian-rex";
 import TimeRangeSlider from "../time_slider/time_slider";
 import {connect} from "react-redux";
@@ -9,48 +9,48 @@ class Add_service extends React.Component{
         state = {
             informations:{
                 service_name:"",
-                contact_number:"",
+               
                 description:"",
                 price:""
-                },
                 
+                },
+                duration:"",
                 day1:{
-                    duration:"",
                     checked:true , 
-                    range:undefined
+                    first_range :[8,12],
+                    second_range:[13,18],
                 },
                 day2:{
                     checked:true , 
-                    range:undefined
+                    first_range :[8,12],
+                    second_range:[13,18],
                 },
                 day3:{
-                    duration:"",
-                    checked:true , 
-                    range:undefined
+                    checked:true ,          
+                    first_range :[8,12],
+                    second_range:[13,18],
                 },
                 day4:{
-                    duration:"",
                     checked:true , 
-                    range:undefined
+                    first_range :[8,12],
+                    second_range:[13,18],
                 },
                 day5:{
-                    duration:"",
                     checked:true , 
-                    range:undefined
+                    first_range :[8,12],
+                    second_range:[13,18],
                 },
                 day6:{
-                    duration:"",
                     checked:true , 
-                    range:undefined
+                    first_range :[8,12],
+                    second_range:[13,18],
+                  
                 },
                 day7:{
-                    duration:"",
                     checked:true , 
-                    range:undefined
-                
-                
-                
-            },
+                    first_range :[8,12],
+                    second_range:[13,18],
+                },
             price_error:false,
             service_name_error:false,
             contact_number_error:false,
@@ -65,74 +65,92 @@ class Add_service extends React.Component{
             informations[input_name] = input
             this.setState(() => ({informations : informations}))    
         }
-        handle_duration_change = (e) => {
-            const input = e.target.value;
-            const input_name = e.target.name;
-            let day = this.state[input_name];
-            day["duration"] = input;
-            switch(input_name){
-                case "day1":
-                    this.setState(() => ({day1:day}));
-                    break
-                case "day2":
-                    this.setState(() => ({day2:day}))
-                    break
-                case "day3":
-                    this.setState(() => ({day3:day}))
-                    break
-                case "day4":
-                    this.setState(() => ({day4:day}))
-                    break
-                case "day5":
-                    this.setState(() => ({day5:day}))
-                    break
-                case "day6":
-                    this.setState(() => ({day6:day}))
-                    break
-                case "day7":
-                    this.setState(() => ({day7:day}))
-                    break
-                default:
-                    console.log("notfound");
-            }
-            this.setState(() => ({}))
-
-        }
-        changeDayStateChange = (key , value) => {
+        change_first_range = (key , value) => {
             const day = key
-            console.log('key is : ' , key ,'checked is : ', value.day_state.checked ,'range is : ',value.day_state.range)
+            console.log('key is : ' , key ,'checked is : ', value.day_state.checked ,'first range is : ',value.day_state.first_range)
             let newState = this.state[key]
             console.log(newState)
             newState.checked = value.day_state.checked
-            newState.range = value.day_state.range
+            newState.first_range = value.day_state.first_range
+            
             console.log(newState)
+        
+        
             switch(day){
                 case "day1":
                     this.setState(() =>({ day1: newState}))
                     console.log("day1" , this.state.day1)
                     break
-                case 1:
-                    this.setState(() =>({ 1: newState}))
+                case "day2":
+                    this.setState(() =>({ day2: newState}))
                     break
-                case 2 :
-                    this.setState(() =>({ 2: newState}))
+                case "day3" :
+                    this.setState(() =>({ day3: newState}))
                     break
-                case 3 :
-                    this.setState(() =>({ 3: newState}))
+                case "day4" :
+                    this.setState(() =>({ day4: newState}))
                     break
-                case 4:
-                    this.setState(() =>({ 4: newState}))
+                case "day5":
+                    this.setState(() =>({ day5: newState}))
                     break
-                case 5 :
-                    this.setState(() =>({ 5: newState}))
+                case "day6" :
+                    this.setState(() =>({ day6: newState}))
                     break
-                case 6 :
-                    this.setState(() =>({ 6: newState}))
+                case "day7" :
+                    this.setState(() =>({ day7: newState}))
                     break
                 default:
                     break   
             }
             console.log(this.state)
+        }
+    change_second_range = (key , value) => {
+        const day = key
+        console.log('key is : ' , key ,'checked is : ', value.day_state.checked ,'second range is : ',value.day_state.second_range)
+        let newState = this.state[key]
+        console.log(newState)
+        newState.checked = value.day_state.checked
+        newState.second_range = value.day_state.second_range
+        
+        console.log(newState)
+
+        switch(day){
+            case "day1":
+                this.setState(() =>({ day1: newState}))
+                console.log("day1" , this.state.day1)
+                break
+            case "day2":
+                this.setState(() =>({ day2: newState}))
+                break
+            case "day3" :
+                this.setState(() =>({ day3: newState}))
+                break
+            case "day4" :
+                this.setState(() =>({ day4: newState}))
+                break
+            case "day5":
+                this.setState(() =>({ day5: newState}))
+                break
+            case "day6" :
+                this.setState(() =>({ day6: newState}))
+                break
+            case "day7" :
+                this.setState(() =>({ day7: newState}))
+                break
+            default:
+                break   
+        }
+        console.log(this.state)
+    
+    }
+
+    on_duration_change = (e) => {
+        const value = e.target.value
+        
+        let newState = this.state.duration
+        newState = value
+        
+        this.setState(() => ({duration:newState}))
     }
 
         validate_contact_number = () => {
@@ -176,14 +194,62 @@ class Add_service extends React.Component{
         }
         onSubmit = () => {
             console.log(this.state.informations)
-            
-            this.props.add_service(this.state.informations,[this.state.day1,
-                                                            this.state.day2,
-                                                            this.state.day3,
-                                                            this.state.day4,
-                                                            this.state.day5,
-                                                            this.state.day6,
-                                                            this.state.day7])
+            const d = [{open:this.state.day1.checked ? "1" : "0",
+                      start_time:this.state.day1.first_range[0].toString() + ":00",
+                      end_time:this.state.day1.first_range[1].toString()+ ":00",
+                      duration:this.state.duration,
+                      rest_start_time:this.state.day1.second_range[0].toString()+ ":00",
+                      rest_end_time:this.state.day1.second_range[1].toString()+ ":00"  
+                        },
+                    {open:this.state.day2.checked ? "1" : "0",
+                    start_time:this.state.day2.first_range[0].toString()+ ":00",
+                    end_time:this.state.day2.first_range[1].toString()+ ":00",
+                    duration:this.state.duration,
+                    rest_start_time:this.state.day2.second_range[0].toString()+ ":00",
+                    rest_end_time:this.state.day2.second_range[1].toString()+ ":00"  
+                        },
+                    {open:this.state.day3.checked ? "1" : "0",
+                    start_time:this.state.day3.first_range[0].toString()+ ":00",
+                    end_time:this.state.day3.first_range[1].toString()+ ":00",
+                    duration:this.state.duration,
+                    rest_start_time:this.state.day3.second_range[0].toString()+ ":00",
+                    rest_end_time:this.state.day3.second_range[1].toString()+ ":00"  
+                        },
+                    {open:this.state.day4.checked ? "1" : "0",
+                    start_time:this.state.day4.first_range[0].toString()+ ":00",
+                    end_time:this.state.day4.first_range[1].toString()+ ":00",
+                    duration:this.state.duration,
+                    rest_start_time:this.state.day4.second_range[0].toString()+ ":00",
+                    rest_end_time:this.state.day4.second_range[1].toString()+ ":00"  
+                        },
+                    {open:this.state.day5.checked ? "1" : "0",
+                    start_time:this.state.day5.first_range[0].toString()+ ":00",
+                    end_time:this.state.day5.first_range[1].toString()+ ":00",
+                    duration:this.state.duration,
+                    rest_start_time:this.state.day5.second_range[0].toString()+ ":00",
+                    rest_end_time:this.state.day5.second_range[1].toString()+ ":00"  
+                        },
+                    {open: this.state.day6.checked ? "1" : "0",
+                    start_time:this.state.day6.first_range[0].toString()+ ":00",
+                    end_time:this.state.day6.first_range[1].toString()+ ":00",
+                    duration:this.state.duration,
+                    rest_start_time:this.state.day6.second_range[0].toString()+ ":00",
+                    rest_end_time:this.state.day6.second_range[1].toString()+ ":00"  
+                        },
+                    {open:this.state.day7.checked ? "1" : "0",
+                    start_time:this.state.day7.first_range[0].toString()+ ":00",
+                    end_time:this.state.day7.first_range[1].toString()+ ":00",
+                    duration:this.state.duration,
+                    rest_start_time:this.state.day7.second_range[0].toString()+ ":00",
+                    rest_end_time:this.state.day7.second_range[1].toString()+ ":00"  
+                        }
+                    
+                    ]
+        
+                
+                
+            console.log(d)
+            this.props.add_service(this.state.informations,d)
         }
 
         render(){
@@ -233,23 +299,7 @@ class Add_service extends React.Component{
                         
                             </Form.Field>
                             
-                            <Form.Field>
-                            <Form.Input
-                                fluid
-                                error={this.state.contact_number_error}
-                                label=" شماره ی تماس"
-                                name="contact_number"
-                                onBlur={this.validate_contact_number}
-                                value={this.state.informations.contact_number}
-                                onChange={this.handle_change}                                
-                            />
-
-                            {this.state.contact_number_error && (
-                                <Label basic pointing color="red">
-                                   تنها میتوانید از اعداد ۰ تا ۹ استفاده کنید.
-                                </Label>    
-                            )} 
-                            </Form.Field>
+                            
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -266,154 +316,86 @@ class Add_service extends React.Component{
                                 )} 
                         
                             </Form.Field>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                id="day1" 
-                                day_state={this.state[0]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                    id="day1" 
+                    day_state={this.state[0]} 
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br>
+                <TimeRangeSlider 
+                    id="day2"
+                    day_state={this.state[1]}
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br>
+                <TimeRangeSlider 
+                    id="day3"
+                    day_state={this.state[2]}
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br>
+                <TimeRangeSlider 
+                    id="day4"
+                    day_state={this.state[3]}
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br>
+                <TimeRangeSlider 
+                    id="day5"
+                    day_state={this.state[4]}
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br>
+                <TimeRangeSlider 
+                    id="day6"
+                    day_state={this.state[5]}
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br>                
+                <TimeRangeSlider 
+                    id="day7"
+                    day_state={this.state[6]}
+                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                />
+                <br></br><br></br>
+                <Grid centered>
+                    <Grid.Column computer={5}>
+                        <div style={{display:'flex',justifyContent:'space-between'}}>
+                            <div style={{width:'60%' , verticalAlign:'center'}}>
+                             {/*   <Label>
+                                    طول هر سانس
+                             </Label>*/}
+                            </div>
+                            <div style={{width:'30%'}} dir="rtl">
                             <Form.Field>
+                            <Form.Input inline
+                             label="طول هر سانس"
+                             onChange={this.on_duration_change}
+                            />
+
+                            {/*
+                                <Input
+                                    onChange={this.on_duration_change}
+                                    size="mini"
+                                    value={this.state.duration}
+                             /> */}
+                             </Form.Field>
+                            </div>
                             
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day1"
-                                    onChange={this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
-                            <TimeRangeSlider 
-                                id="day2" 
-                                day_state={this.state[1]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
-                            <Form.Field>
-                            
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day2"
-                                    onChange={this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
-                            <TimeRangeSlider 
-                                id="day3" 
-                                day_state={this.state[2]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
-                            <Form.Field>
-                            
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day3"
-                                    onChange = {this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
-                            <TimeRangeSlider 
-                                id="day4" 
-                                day_state={this.state[3]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
-                            <Form.Field>
-                            
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day4"
-                                    onChange={this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
-                            <TimeRangeSlider 
-                                id="day5" 
-                                day_state={this.state[4]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
-                            <Form.Field>
-                            
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day5"
-                                    onChange={this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
-                            <TimeRangeSlider 
-                                id="day6" 
-                                day_state={this.state[5]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
-                            <Form.Field>
-                            
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day6"
-                                    onChange={this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            <Grid>
-                            <Grid.Column computer={13} tablet={11} mobile={13}>
-                            <TimeRangeSlider 
-                                id="day7" 
-                                day_state={this.state[6]} 
-                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
-                                />
-                            </Grid.Column>
-                            <Grid.Column computer={3} tablet={1} mobile={1}>
-                            <Form.Field>
-                            
-                            
-                                <Form.Input 
-                                    fluid
-                                    name="day7"
-                                    onChange={this.handle_duration_change}
-                                />
-                                <br></br>
-                            </Form.Field>
-                            </Grid.Column>
-                            </Grid>
-                            
+                        </div>
+                        
+                    </Grid.Column>
+                    
+                </Grid>
+                
+             
                                             
                             <Button primary type='submit'>ایجاد سرویس</Button>
                         </Form>
