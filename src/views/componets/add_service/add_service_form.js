@@ -1,16 +1,21 @@
 import React from "react";
+import * as add_service_actions from '../../../core/add_service/add_service_actions';
 import { Button, Segment, Form ,Grid,Label, Divider} from 'semantic-ui-react'
 import PersianRex from "persian-rex";
 import TimeRangeSlider from "../time_slider/time_slider";
+import {connect} from "react-redux";
 
-class Add_service_form extends React.Component{
+class Add_service extends React.Component{
         state = {
             informations:{
                 service_name:"",
                 contact_number:"",
-                description:""},
+                description:"",
+                price:""
+                },
                 
                 day1:{
+                    duration:"",
                     checked:true , 
                     range:undefined
                 },
@@ -19,38 +24,79 @@ class Add_service_form extends React.Component{
                     range:undefined
                 },
                 day3:{
+                    duration:"",
                     checked:true , 
                     range:undefined
                 },
                 day4:{
+                    duration:"",
                     checked:true , 
                     range:undefined
                 },
                 day5:{
+                    duration:"",
                     checked:true , 
                     range:undefined
                 },
                 day6:{
+                    duration:"",
                     checked:true , 
                     range:undefined
                 },
                 day7:{
+                    duration:"",
                     checked:true , 
                     range:undefined
                 
                 
                 
             },
+            price_error:false,
             service_name_error:false,
             contact_number_error:false,
             description_error:false
         }
         handle_change= (e) => {
             const input = e.target.value;
+            
             let informations = this.state.informations;
             const input_name = e.target.name
+            
             informations[input_name] = input
             this.setState(() => ({informations : informations}))    
+        }
+        handle_duration_change = (e) => {
+            const input = e.target.value;
+            const input_name = e.target.name;
+            let day = this.state[input_name];
+            day["duration"] = input;
+            switch(input_name){
+                case "day1":
+                    this.setState(() => ({day1:day}));
+                    break
+                case "day2":
+                    this.setState(() => ({day2:day}))
+                    break
+                case "day3":
+                    this.setState(() => ({day3:day}))
+                    break
+                case "day4":
+                    this.setState(() => ({day4:day}))
+                    break
+                case "day5":
+                    this.setState(() => ({day5:day}))
+                    break
+                case "day6":
+                    this.setState(() => ({day6:day}))
+                    break
+                case "day7":
+                    this.setState(() => ({day7:day}))
+                    break
+                default:
+                    console.log("notfound");
+            }
+            this.setState(() => ({}))
+
         }
         changeDayStateChange = (key , value) => {
             const day = key
@@ -99,6 +145,16 @@ class Add_service_form extends React.Component{
             }
     
         }
+        validate_price = () => {
+            const price = this.state.informations.price;
+            if(/[0-9.]/.test(price)) {
+                this.setState(()=>({price_error:false}));      
+            }else{
+                this.setState(()=>({price_error:true}));       
+                
+            }
+    
+        }
         validate_address = () => {
             const address = this.state.informations.address;
             if(!PersianRex.punctuation.test(address)) {
@@ -118,6 +174,17 @@ class Add_service_form extends React.Component{
                 
             }
         }
+        onSubmit = () => {
+            console.log(this.state.informations)
+            
+            this.props.add_service(this.state.informations,[this.state.day1,
+                                                            this.state.day2,
+                                                            this.state.day3,
+                                                            this.state.day4,
+                                                            this.state.day5,
+                                                            this.state.day6,
+                                                            this.state.day7])
+        }
 
         render(){
             return(
@@ -131,8 +198,8 @@ class Add_service_form extends React.Component{
                                 <Form.Input
                                     fluid
                                     label="نام سرویس"
-                                    name="service_service_name"
-                                    onBlur={this.validate_service_service_name}
+                                    name="service_name"
+                                    onBlur={this.validate_service_name}
                                     value={this.state.informations.service_name}
                                     onChange={this.handle_change}
                                 
@@ -147,9 +214,29 @@ class Add_service_form extends React.Component{
                         
                             </Form.Field>
                             <Form.Field>
+                                <Form.Input
+                                    fluid
+                                    label="قیمت سرویس"
+                                    name="price"
+                                    onBlur={this.validate_price}
+                                    value={this.state.informations.price}
+                                    onChange={this.handle_change}
+                                
+                                    
+                                />
+
+                                {this.state.price_error && (
+                                    <Label basic pointing color="red">
+                                        تنها میتوانید از اعداد استفاده کنید. 
+                                    </Label>    
+                                )} 
+                        
+                            </Form.Field>
+                            
+                            <Form.Field>
                             <Form.Input
                                 fluid
-                                error={this.state.email_error}
+                                error={this.state.contact_number_error}
                                 label=" شماره ی تماس"
                                 name="contact_number"
                                 onBlur={this.validate_contact_number}
@@ -157,7 +244,7 @@ class Add_service_form extends React.Component{
                                 onChange={this.handle_change}                                
                             />
 
-                            {this.state.email_error && (
+                            {this.state.contact_number_error && (
                                 <Label basic pointing color="red">
                                    تنها میتوانید از اعداد ۰ تا ۹ استفاده کنید.
                                 </Label>    
@@ -172,57 +259,160 @@ class Add_service_form extends React.Component{
                                     value={this.state.informations.description}
                                     onChange={this.handle_change}
                                 />
-                                {this.state.password_error && (
+                                {this.state.description_error && (
                                     <Label basic pointing color="red">
                                         تنها میتوانید از حروف فارسی استفاده کنید
                                     </Label>    
                                 )} 
                         
                             </Form.Field>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
+                            <TimeRangeSlider 
+                                id="day1" 
+                                day_state={this.state[0]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
+                                />
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
                             
                             
-                            <TimeRangeSlider 
-                                    id="day1" 
-                                    day_state={this.state[0]} 
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}
+                                <Form.Input 
+                                    fluid
+                                    name="day1"
+                                    onChange={this.handle_duration_change}
                                 />
                                 <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                    id="day2"
-                                    day_state={this.state[1]}
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                id="day2" 
+                                day_state={this.state[1]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
+                                />
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
+                            
+                            
+                                <Form.Input 
+                                    fluid
+                                    name="day2"
+                                    onChange={this.handle_duration_change}
                                 />
                                 <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                    id="day3"
-                                    day_state={this.state[2]}
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                id="day3" 
+                                day_state={this.state[2]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
                                 />
-                                <br></br>                
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
+                            
+                            
+                                <Form.Input 
+                                    fluid
+                                    name="day3"
+                                    onChange = {this.handle_duration_change}
+                                />
+                                <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                    id="day4"
-                                    day_state={this.state[3]}
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                id="day4" 
+                                day_state={this.state[3]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
                                 />
-                                <br></br>                
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
+                            
+                            
+                                <Form.Input 
+                                    fluid
+                                    name="day4"
+                                    onChange={this.handle_duration_change}
+                                />
+                                <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                    id="day5"
-                                    day_state={this.state[4]}
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                id="day5" 
+                                day_state={this.state[4]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
                                 />
-                                <br></br>                
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
+                            
+                            
+                                <Form.Input 
+                                    fluid
+                                    name="day5"
+                                    onChange={this.handle_duration_change}
+                                />
+                                <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                    id="day6"
-                                    day_state={this.state[5]}
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                id="day6" 
+                                day_state={this.state[5]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
                                 />
-                                <br></br>                
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
+                            
+                            
+                                <Form.Input 
+                                    fluid
+                                    name="day6"
+                                    onChange={this.handle_duration_change}
+                                />
+                                <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
+                            <Grid>
+                            <Grid.Column computer={13} tablet={11} mobile={13}>
                             <TimeRangeSlider 
-                                    id="day7"
-                                    day_state={this.state[7]}
-                                    handleChange={(key,value) => this.changeDayStateChange(key,value)}                
+                                id="day7" 
+                                day_state={this.state[6]} 
+                                handleChange={(key,value) => this.changeDayStateChange(key,value)}
                                 />
-                                <br></br>                
+                            </Grid.Column>
+                            <Grid.Column computer={3} tablet={1} mobile={1}>
+                            <Form.Field>
+                            
+                            
+                                <Form.Input 
+                                    fluid
+                                    name="day7"
+                                    onChange={this.handle_duration_change}
+                                />
+                                <br></br>
+                            </Form.Field>
+                            </Grid.Column>
+                            </Grid>
                             
                                             
                             <Button primary type='submit'>ایجاد سرویس</Button>
@@ -239,5 +429,17 @@ class Add_service_form extends React.Component{
             )
         }
 }
+const mapStateToProps = (state) => {
+    
+    return{
+        state:state
+    }
+};
 
-export default Add_service_form;
+const mapDispatchToProps = (dispatch) => {
+    return{
+        add_service : (informations, days) => dispatch(add_service_actions.add_service(informations, days))
+    };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Add_service);
