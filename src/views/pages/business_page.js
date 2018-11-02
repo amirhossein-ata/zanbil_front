@@ -4,12 +4,25 @@ import Card from '../componets/card/card'
 import { Segment, Grid, Divider, Header, Label, Button} from 'semantic-ui-react';
 import * as business_page_actions from '../../core/business_page/business_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
+import * as service_page_actions from '../../core/service_page/service_page_actions'
+import moment from 'jalali-moment' 
 
 class Business_page extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.on_service_click = this.on_service_click.bind(this)
+    }
     async componentDidMount(){
         await this.props.get_business_info(1)
         console.log(this.props.services , this.props.business)
 
+    }
+    async on_service_click(service_id){
+        const today_date = moment().locale('fa').format('YYYY/MM/DD')
+        await this.props.get_service_page_info(service_id,today_date)
+        console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
+        this.props.change_panel('service_page')
     }
     render(){
         console.log('active panel is : ',this.props.active_panel)
@@ -45,7 +58,7 @@ class Business_page extends React.Component{
                         <Grid textAlign="right">
                             {this.props.services[0] && this.props.services[0].map((service) => (
                                 <Grid.Column computer={4}>
-                                    <div onClick={() => this.props.change_panel('service_page')}>
+                                    <div onClick={()=>this.on_service_click(service.id)}>
                                         <Card
                                             header={service.name}
                                             meta2={service.rating}
@@ -77,7 +90,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
-        change_panel:(panel_name) => dispatch(change_panel(panel_name))
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+        get_service_page_info : (service_id,date) => dispatch(service_page_actions.get_services_page_info(service_id,date))
+
     }
 }
 export default connect(mapStateToProps , mapDispatchToProps)(Business_page);

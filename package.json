@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jalali-moment": "^3.2.3",
     "node-sass": "^4.9.4",
     "persian-rex": "^2.3.3",
     "rc-slider": "^8.6.3",

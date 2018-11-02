@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Navbar from '../componets/navbar/navbar'
 import BusinessPage from './business_page'
+import ServicePage from './service_page'
 import { Grid } from 'semantic-ui-react';
 import CategoryPage from './category_page'
 import AddBusinessPage from '../componets/add_business/add_business'
@@ -17,6 +18,8 @@ class Main_page extends React.Component{
                 return <AddBusinessPage />
             case 'add_service_page':
                 return <AddServicePage />
+            case 'service_page' :
+                return <ServicePage />
             default:
                 return ''
         }

@@ -4,6 +4,8 @@ import { Button, Segment, Form ,Grid,Label, Divider, Input} from 'semantic-ui-re
 import PersianRex from "persian-rex";
 import TimeRangeSlider from "../time_slider/time_slider";
 import {connect} from "react-redux";
+import * as business_page_actions from '../../../core/business_page/business_page_actions'
+import {change_panel} from '../../../core/main_page/active_panel_actions'
 
 class Add_service extends React.Component{
         state = {
@@ -250,6 +252,8 @@ class Add_service extends React.Component{
                 
             console.log(d)
             this.props.add_service(this.state.informations,d)
+            this.props.get_business_info(1)
+            this.props.change_panel('business_page')
         }
 
         render(){
@@ -420,7 +424,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        add_service : (informations, days) => dispatch(add_service_actions.add_service(informations, days))
+        add_service : (informations, days) => dispatch(add_service_actions.add_service(informations, days)),
+        get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+
     };
 }
 
