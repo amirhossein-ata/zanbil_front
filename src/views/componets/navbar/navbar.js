@@ -38,7 +38,7 @@ class Navbar extends Component {
             <Menu.Item 
                 name='خانه' 
                 active={activeItem === 'خانه'} 
-                onClick={this.handleItemClick} 
+                onClick={()=>this.props.change_panel('category')} 
             />
             <Dropdown text="دسته بندی ها" pointing className='link item' >
                 <Dropdown.Menu style={style}>

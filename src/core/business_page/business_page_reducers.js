@@ -12,7 +12,7 @@ export const business_page_reducer = (state=initialState ,action) => {
             return {
                 ...state,
                     business:action.business_info,
-                    services:[...state.services , action.services]
+                    services:[action.services]
             }
         default :
             return state

@@ -20,12 +20,12 @@ export const get_service_page_info_success = ({service,sanses}) => {
     }
 }
 
-export const get_services_page_info = (service_id) => {
+export const get_services_page_info = (service_id,date) => {
     return function(dispatch){
-        return (service_page_api.get_service_page_info(service_id))
+        return (service_page_api.get_service_page_info(service_id,date))
                                     .then((response) => {
                                         if(response){
-                                            console.log('response from get_business_page',response)
+                                            console.log('response from get_service_page',response)
                                             dispatch(get_service_page_info_success(response));
                                         }
                                         

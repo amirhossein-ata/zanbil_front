@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     add_business_reducer,
     add_service_reducer,
     category_page_reducer,
-    active_panel_reducer
+    active_panel_reducer,
     service_page_reducer
 })
 

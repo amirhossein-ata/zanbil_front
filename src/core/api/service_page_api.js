@@ -1,13 +1,21 @@
 import * as api_urls from './api_urls'
 class service_page_api {
 
-    static get_service_page_info(service_id){
-        const request = new Request(api_urls.SERVICEPAGE+`?service_id=${service_id}` ,{
+    static get_service_page_info(service_id,date){
+        console.log({
+            service_id:service_id,
+            date:date
+        })
+        const request = new Request(api_urls.SERV ,{
             mode:'cors',
-            method:'GET',
+            method:'POST',
             headers:{
                 'Content-Type':'application/json'
             },
+            body:JSON.stringify({
+                service_id:service_id,
+                date:date
+            })
         });
 
         return fetch(request)

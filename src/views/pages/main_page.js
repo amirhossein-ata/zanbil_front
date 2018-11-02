@@ -18,6 +18,8 @@ class Main_page extends React.Component{
                 return <AddBusinessPage />
             case 'add_service_page':
                 return <AddServicePage />
+            case 'service_page' :
+                return <ServicePage />
             default:
                 return ''
         }

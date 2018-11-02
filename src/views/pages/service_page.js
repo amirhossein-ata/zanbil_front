@@ -2,14 +2,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Card from '../componets/card/card'
 import Timetable from '../componets/timetable/timetable'
-import { Segment, Grid, Divider, Header} from 'semantic-ui-react';
+import { Segment, Grid, Divider} from 'semantic-ui-react';
 import * as service_page_actions from '../../core/service_page/service_page_actions'
+import moment from 'jalali-moment' 
+
 class Service_page extends React.Component{
     componentDidMount(){
-        this.props.get_service_page_info(1)
+        // this.props.get_service_page_info(this.props.service.id,moment().locale('fa').format('YYYY/MM/DD'))
+        console.log('service page mounnteeeeeeeeeeeeeeeeeeeeeeeed')
     }
     render(){
-        console.log(this.props.services)
         return(
             <Segment raised>
                 <Grid textAlign="right" >
@@ -48,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        get_service_page_info : (service_id) => dispatch(service_page_actions.get_services_page_info(service_id))
+        get_service_page_info : (service_id,date) => dispatch(service_page_actions.get_services_page_info(service_id,date))
 
     }
 }

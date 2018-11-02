@@ -12,7 +12,7 @@ export const service_page_reducer = (state=initialState ,action) => {
             return {
                 ...state,
                 service:action.service,
-                sanses:[...state.sanses , action.sanses]
+                sanses:[action.sanses]
             }
         default :
             return state
