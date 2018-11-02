@@ -7,7 +7,7 @@ import ModalComponent from '../modal/Modal'
 import {categories} from '../../../core/constants'
 import * as session_actions  from '../../../core/login&signup/session_actions'
 import * as category_page_actions from '../../../core/category_page/category_page_actions'
-
+import {change_panel} from '../../../core/main_page/active_panel_actions'
 const LoginModal = ModalComponent('ورود')(LoginForm)
 const SignUpModal = ModalComponent('ثبت نام')(SignupForm)
 class Navbar extends Component {
@@ -22,6 +22,7 @@ class Navbar extends Component {
         this.props.logout()
     }
     handle_category_click=(category_id)=>{
+        this.props.change_panel('category')
         this.props.get_category_businesses(category_id)
     }
     render() {
@@ -80,8 +81,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         logout : () => dispatch(session_actions.logout()),
-        get_category_businesses:(category_id) => dispatch(category_page_actions.get_category_businesses(category_id))
-
+        get_category_businesses:(category_id) => dispatch(category_page_actions.get_category_businesses(category_id)),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name))
     }
 }
 

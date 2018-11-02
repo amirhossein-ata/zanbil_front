@@ -17,7 +17,7 @@ export const get_category_businesses = (category_id) => {
         return category_page_api.get_category_businesses(category_id)
                                     .then((response) => {
                                         if(response){
-                                            console.log('response from get_business_page',response)
+                                            console.log('response from get_category_page',response)
                                             dispatch(get_category_businesses_success(response));
                                         }
                                         
