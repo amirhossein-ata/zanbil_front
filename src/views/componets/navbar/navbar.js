@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Dropdown,Modal, Menu ,Button, Icon} from 'semantic-ui-react'
+import { Dropdown , Menu} from 'semantic-ui-react'
 import LoginForm from '../login&signup/loginForm'
 import SignupForm from '../login&signup/signup_form'
 import ModalComponent from '../modal/Modal'
+import {categories} from '../../../core/constants'
 import * as session_actions  from '../../../core/login&signup/session_actions'
-
+import * as category_page_actions from '../../../core/category_page/category_page_actions'
+import {change_panel} from '../../../core/main_page/active_panel_actions'
 const LoginModal = ModalComponent('ورود')(LoginForm)
 const SignUpModal = ModalComponent('ثبت نام')(SignupForm)
 class Navbar extends Component {
@@ -18,6 +20,10 @@ class Navbar extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
     logout_click = () => {
         this.props.logout()
+    }
+    handle_category_click=(category_id)=>{
+        this.props.change_panel('category')
+        this.props.get_category_businesses(category_id)
     }
     render() {
     const { activeItem } = this.state
@@ -36,8 +42,8 @@ class Navbar extends Component {
             />
             <Dropdown text="دسته بندی ها" pointing className='link item' >
                 <Dropdown.Menu style={style}>
-                    {this.props.categories.map((category) => (
-                        <Dropdown.Item >{category}</Dropdown.Item>
+                    {categories.map((category) => (
+                        <Dropdown.Item onClick={()=>this.handle_category_click(category.value)} >{category.text}</Dropdown.Item>
                     ))}
 
                 </Dropdown.Menu>
@@ -74,7 +80,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        logout : () => dispatch(session_actions.logout())
+        logout : () => dispatch(session_actions.logout()),
+        get_category_businesses:(category_id) => dispatch(category_page_actions.get_category_businesses(category_id)),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name))
     }
 }
 

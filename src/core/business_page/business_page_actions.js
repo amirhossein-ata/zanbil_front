@@ -11,7 +11,9 @@ export const get_services_success = (services) => {
 }
 
 export const get_services = () => {
+    console.log('hello')
     return function(dispatch){
+        console.log('bye')
         return business_page_api.get_business_services()
                                     .then((response) => {
                                         if(response){
