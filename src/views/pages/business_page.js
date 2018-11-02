@@ -45,12 +45,14 @@ class Business_page extends React.Component{
                         <Grid textAlign="right">
                             {this.props.services[0] && this.props.services[0].map((service) => (
                                 <Grid.Column computer={4}>
-                                    <Card
-                                        header={service.name}
-                                        meta2={service.rating}
-                                        description={service.fee}
-                                        button="مشاهده جدول زمانی"
-                                    />
+                                    <div onClick={() => this.props.change_panel('service_page')}>
+                                        <Card
+                                            header={service.name}
+                                            meta2={service.rating}
+                                            description={service.fee}
+                                        />
+                                    
+                                    </div>    
                                 </Grid.Column>
 
                             ))}
@@ -67,14 +69,14 @@ const mapStateToProps = (state) => {
     console.log(state)
     return {
         business : state.business_page_reducer.business ,
-        services : state.business_page_reducer.services
+        services : state.business_page_reducer.services,
         active_panel:state.active_panel_reducer.active_panel
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id))
+        get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name))
     }
 }
