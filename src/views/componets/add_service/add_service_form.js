@@ -251,8 +251,8 @@ class Add_service extends React.Component{
                 
                 
             console.log(d)
-            this.props.add_service(this.state.informations,d)
-            this.props.get_business_info(1)
+            this.props.add_service(this.state.informations,d,this.props.business_id)
+            this.props.get_business_info(this.props.business_id)
             this.props.change_panel('business_page')
         }
 
@@ -418,13 +418,14 @@ class Add_service extends React.Component{
 const mapStateToProps = (state) => {
     
     return{
-        state:state
+        state:state,
+        business_id:state.business_page_reducer.business.id
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        add_service : (informations, days) => dispatch(add_service_actions.add_service(informations, days)),
+        add_service : (informations, days,business_id) => dispatch(add_service_actions.add_service(informations, days,business_id)),
         get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
 

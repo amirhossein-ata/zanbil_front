@@ -24,6 +24,7 @@ class Business_page extends React.Component{
         console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
         this.props.change_panel('service_page')
     }
+    
     render(){
         console.log('active panel is : ',this.props.active_panel)
         return(

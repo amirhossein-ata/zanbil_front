@@ -4,6 +4,8 @@ import { Button, Segment, Form ,Grid,Label, Dropdown} from 'semantic-ui-react';
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
+import {change_panel} from '../../../core/main_page/active_panel_actions'
+
 class Add_business extends React.Component {
     state = {
         informations:{
@@ -92,6 +94,7 @@ class Add_business extends React.Component {
     onSubmit = () => {
         console.log(this.state.informations)
         this.props.add_business(this.state.informations)
+        this.props.change_panel('category')
     }
 
     render () {
@@ -238,7 +241,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        add_business : (informations) => dispatch(add_business_actions.add_business(informations))
+        add_business : (informations) => dispatch(add_business_actions.add_business(informations)),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),    
     };
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Add_business);

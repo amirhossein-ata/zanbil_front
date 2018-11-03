@@ -10,9 +10,9 @@ export const add_service_success = (service_id) => {
     }
 }
 
-export const add_service = (informations, days) => {
+export const add_service = (informations, days,business_id) => {
     return function(dispatch){
-        return Add_service_api.add_service(informations, days)
+        return Add_service_api.add_service(informations, days,business_id)
                             .then((response) => {
                                 if(response) {
                                     console.log('response from add service : ',response);
