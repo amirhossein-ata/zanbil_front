@@ -1,12 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Grid} from 'semantic-ui-react'
 import CardComponent from '../componets/card/card'
 import * as category_page_actions from '../../core/category_page/category_page_actions'
+import * as business_page_actions from '../../core/business_page/business_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
+
 class Category_page extends React.Component{
     componentDidMount(){
-        this.props.get_category_businesses(1)
         console.log(this.props.businesses)
+    }
+    on_business_click=(business_id)=>{
+        this.props.get_business_info(business_id)
+        this.props.change_panel('business_page')
     }
     render(){
         console.log('active_panel is : ',this.props.active_panel)
@@ -15,17 +21,20 @@ class Category_page extends React.Component{
             console.log(this.props.businesses[0])
         }
         return(
-            <div>
+            <Grid textAlign="right">
                 {this.props.businesses && this.props.businesses.map((business) => (
-                    <div onClick={()=>this.props.change_panel('business_page')}>
-                        <CardComponent 
-                            header={business.name}
-                        />
-                     </div>
-                   
+                        <Grid.Column computer={4}>
+                            <div onClick={()=>this.on_business_click(business.id)}>
+                               <CardComponent 
+                                    header={business.name}
+                                    meta1={business.fee}
+                                    description={business.description}
+                                />                            
+                            </div>    
+                        </Grid.Column>
+                        
                 ))}
-                <div>heeeer</div>
-            </div>
+            </Grid>
         )
     }
 }
@@ -40,7 +49,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         get_category_businesses:(category_id) => dispatch(category_page_actions.get_category_businesses(category_id)),
-        change_panel:(panel_name) => dispatch(change_panel(panel_name))
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+        get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
+
 
     }
 }

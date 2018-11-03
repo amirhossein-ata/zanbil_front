@@ -1,6 +1,6 @@
 import * as api_urls from './api_urls'
 class Add_service_api{
-    static add_service(informations, days){
+    static add_service(informations, days,business_id){
         console.log(sessionStorage.getItem("token"))
         console.log(informations)
         console.log(days)
@@ -16,7 +16,7 @@ class Add_service_api{
                         
                         price:informations.price,
                         description:informations.description,
-                        business_id:"1",
+                        business_id:business_id,
                         days: days
 
 
