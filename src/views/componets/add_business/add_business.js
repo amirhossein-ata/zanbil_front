@@ -123,12 +123,14 @@ class Add_business extends React.Component {
                             )} 
                             </div>
                         </Form.Field>
+                        <b><span>دسته بندی</span></b>
                         <Dropdown
                             fluid
                             selection  
                             options={categories}
                             onChange={this.on_category_change}
                         />
+                        <br></br>
                         {/*<Form.Select 
                             name="category"
                             label="دسته بندی" 

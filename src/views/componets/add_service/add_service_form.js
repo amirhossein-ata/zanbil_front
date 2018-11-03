@@ -320,48 +320,103 @@ class Add_service extends React.Component{
                                 )} 
                         
                             </Form.Field>
-                            <TimeRangeSlider 
+                    <Divider horizontal> زمانبندی سانس ها</Divider>
+                    <Grid >
+                        <Grid.Column computer={3} tablet={2} mobile={3} > 
+                                    <span><b>روز هفته</b></span>
+                        </Grid.Column>
+                        <Grid.Column computer={3} tablet={2} mobile={3} > 
+                                    
+                        </Grid.Column>
+                        <Grid.Column computer={3} tablet={2} mobile={3} > 
+                                    <span><b>بازه ی استراحت</b></span>
+                        </Grid.Column>
+                        <Grid.Column computer={3} tablet={2} mobile={3} > 
+                                    <span><b>بازه ی کاری</b></span>
+                        </Grid.Column>
+                    
+                    </Grid>
+                    <Grid >
+                    <Grid.Column computer={3} tablet={2} mobile={3} > 
+                             <Grid.Row verticalAlign>   <span><b>شنبه</b>  </span></Grid.Row>
+                             
+                             
+                               
+                    </Grid.Column>
+                    </Grid>
+                    <TimeRangeSlider 
                     id="day1" 
                     day_state={this.state[0]} 
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-                <br></br>
+                
+                <Grid.Column computer={3} tablet={2} mobile={3} > 
+                            
+                            <Grid.Row verticalAlign>   <span><b>یکشنبه</b>  </span></Grid.Row>              
+                               
+                    </Grid.Column>
                 <TimeRangeSlider 
                     id="day2"
                     day_state={this.state[1]}
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-                <br></br>
+                
+                <Grid.Column computer={3} tablet={2} mobile={3} > 
+                <Grid.Row verticalAlign>   <span><b>دوشنبه</b>  </span></Grid.Row>
+                
+                
+                  
+                </Grid.Column>
                 <TimeRangeSlider 
                     id="day3"
                     day_state={this.state[2]}
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-                <br></br>
+                <Grid.Column computer={3} tablet={2} mobile={3} > 
+                <Grid.Row verticalAlign>   <span><b>سه‌شنبه</b>  </span></Grid.Row>
+                
+                
+                  
+                </Grid.Column>
                 <TimeRangeSlider 
                     id="day4"
                     day_state={this.state[3]}
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-                <br></br>
+                <Grid.Column computer={3} tablet={2} mobile={3} > 
+                <Grid.Row verticalAlign>   <span><b>چهارشنبه</b>  </span></Grid.Row>
+                
+                
+                  
+                </Grid.Column>
                 <TimeRangeSlider 
                     id="day5"
                     day_state={this.state[4]}
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-                <br></br>
+                <Grid.Column computer={3} tablet={2} mobile={3} > 
+                <Grid.Row verticalAlign>   <span><b>پنجشنبه</b>  </span></Grid.Row>
+                
+                
+                  
+                </Grid.Column>
                 <TimeRangeSlider 
                     id="day6"
                     day_state={this.state[5]}
                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                 />
-                <br></br>                
+                <Grid.Column computer={3} tablet={2} mobile={3} > 
+                <Grid.Row verticalAlign>   <span><b>جمعه</b>  </span></Grid.Row>
+                
+                
+                  
+                </Grid.Column>                
                 <TimeRangeSlider 
                     id="day7"
                     day_state={this.state[6]}
@@ -391,6 +446,7 @@ class Add_service extends React.Component{
                                     value={this.state.duration}
                              /> */}
                              </Form.Field>
+                             <Button primary type='submit'>ایجاد سرویس</Button>
                             </div>
                             
                         </div>
@@ -401,7 +457,7 @@ class Add_service extends React.Component{
                 
              
                                             
-                            <Button primary type='submit'>ایجاد سرویس</Button>
+                            
                         </Form>
                         </Segment>
                         
