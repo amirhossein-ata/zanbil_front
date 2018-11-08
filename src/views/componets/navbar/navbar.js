@@ -34,40 +34,40 @@ class Navbar extends Component {
 
     
     return (
-        <Menu pointing color="blue" inverted>
-            <Menu.Item 
-                name='خانه' 
-                active={activeItem === 'خانه'} 
-                onClick={()=>this.props.change_panel('category')} 
-            />
-            <Dropdown text="دسته بندی ها" pointing className='link item' >
-                <Dropdown.Menu style={style}>
-                    {categories.map((category) => (
-                        <Dropdown.Item onClick={()=>this.handle_category_click(category.value)} >{category.text}</Dropdown.Item>
-                    ))}
+           <Menu pointing >
+                <Menu.Item 
+                    name='خانه' 
+                    active={activeItem === 'خانه'} 
+                    onClick={()=>this.props.change_panel('category')} 
+                />
+                <Dropdown text="دسته بندی ها" pointing className='link item' >
+                    <Dropdown.Menu style={style}>
+                        {categories.map((category) => (
+                            <Dropdown.Item onClick={()=>this.handle_category_click(category.value)} >{category.text}</Dropdown.Item>
+                        ))}
 
-                </Dropdown.Menu>
-            </Dropdown>
-            <Menu.Item
-                position="left"
-            >
-                    {sessionStorage.getItem('token') ? (
-                        <Dropdown  icon="user circle outilne" pointing className='link item' >
-                            <Dropdown.Menu style={style}>
-                                <Dropdown.Item onClick={this.logout_click} >خروج</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                    </Dropdown.Menu>
+                </Dropdown>
+                <Menu.Item
+                    position="left"
+                >
+                        {sessionStorage.getItem('token') ? (
+                            <Dropdown  icon="user circle outilne" pointing className='link item' >
+                                <Dropdown.Menu style={style}>
+                                    <Dropdown.Item onClick={this.logout_click} >خروج</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
 
-                    ):(
-                        <span style={{
-                            display:'flex'
-                        }}>
-                            <LoginModal />
-                            <SignUpModal />
-                        </span>
-                    )}
-            </Menu.Item>
-        </Menu>
+                        ):(
+                            <span style={{
+                                display:'flex'
+                            }}>
+                                <LoginModal />
+                                <SignUpModal />
+                            </span>
+                        )}
+                </Menu.Item>
+            </Menu>
     )
     }
 }

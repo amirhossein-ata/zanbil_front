@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from '../componets/card/card'
-import { Segment, Grid, Divider, Header, Label, Button} from 'semantic-ui-react';
+import { Segment, Grid, Divider, Header ,Image,Button,Breadcrumb} from 'semantic-ui-react';
 import * as business_page_actions from '../../core/business_page/business_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
 import * as service_page_actions from '../../core/service_page/service_page_actions'
@@ -29,18 +29,30 @@ class Business_page extends React.Component{
         console.log('active panel is : ',this.props.active_panel)
         return(
             <Segment raised>
-                <Grid textAlign="right" >
-                    <Grid.Column computer={6}></Grid.Column>
-                    <Grid.Column computer={8}>
-                        {this.props.business && (
-                                <Card 
-                                    header={this.props.business.name}
-                                    description={this.props.business.description}
-                                />
-                            )
-                        }
-                                
-                    </Grid.Column>
+                <Grid textAlign="right" centered>
+                    <div style={{marginTop:'2%'}}>
+                        <Image 
+                            src='https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg' 
+                            fluid 
+                        />
+                    </div>
+                    {this.props.business && (
+                            <Segment padded="very" stacked textAlign="right">
+                                <p>مشخصات : </p>
+                                <p>{this.props.business.name}</p>
+                                <p>{this.props.business.description}</p>
+                                <Breadcrumb>
+                                    <Breadcrumb.Section>
+                                        {this.props.business.email}
+                                    </Breadcrumb.Section>
+                                    <Breadcrumb.Divider ></Breadcrumb.Divider>
+                                    <Breadcrumb.Section >
+                                        {this.props.business.phone_number}
+                                    </Breadcrumb.Section>
+                                </Breadcrumb>          
+                            </Segment>
+                        )
+                    }
                 </Grid>
                 <Divider
                     section

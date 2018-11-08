@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Grid} from 'semantic-ui-react'
+import {Grid, Header} from 'semantic-ui-react'
 import CardComponent from '../componets/card/card'
 import * as category_page_actions from '../../core/category_page/category_page_actions'
 import * as business_page_actions from '../../core/business_page/business_page_actions'
@@ -8,6 +8,7 @@ import {change_panel} from '../../core/main_page/active_panel_actions'
 
 class Category_page extends React.Component{
     componentDidMount(){
+
         console.log(this.props.businesses)
     }
     on_business_click=(business_id)=>{
@@ -21,20 +22,24 @@ class Category_page extends React.Component{
             console.log(this.props.businesses[0])
         }
         return(
-            <Grid textAlign="right">
-                {this.props.businesses && this.props.businesses.map((business) => (
-                        <Grid.Column computer={4}>
-                            <div onClick={()=>this.on_business_click(business.id)}>
-                               <CardComponent 
-                                    header={business.name}
-                                    meta1={business.fee}
-                                    description={business.description}
-                                />                            
-                            </div>    
-                        </Grid.Column>
-                        
-                ))}
-            </Grid>
+            <div>
+                <Header textAlign="right">رستوران ها</Header>
+
+                <Grid textAlign="right">
+                    {this.props.businesses && this.props.businesses.map((business) => (
+                            <Grid.Column computer={4}>
+                                <div onClick={()=>this.on_business_click(business.id)}>
+                                <CardComponent
+
+                                        header={business.name}
+                                        meta1={business.fee}
+                                        description={business.description}
+                                    />                            
+                                </div>    
+                            </Grid.Column>           
+                    ))}
+                </Grid>
+            </div>
         )
     }
 }

@@ -7,7 +7,7 @@ const style = {
 const Card_component = (props) => (
     
     <Card color="blue" style={style}>
-        <Image src={props.image} />
+        <Image size="big" src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" />
         <Card.Content>
         <Card.Header>{props.header}</Card.Header>
         <Card.Meta>
