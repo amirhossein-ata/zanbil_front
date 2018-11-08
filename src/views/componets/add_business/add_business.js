@@ -72,7 +72,7 @@ class Add_business extends React.Component {
     }
     validate_address = () => {
         const address = this.state.informations.address;
-        if(!PersianRex.punctuation.test(address)) {
+        if(!PersianRex.punctuation.test(address)|| /-/.test(address)) {
             this.setState(()=>({address_error:true}));      
         }else{
             this.setState(()=>({address_error:false}));       

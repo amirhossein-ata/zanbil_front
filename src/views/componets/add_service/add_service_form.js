@@ -258,7 +258,7 @@ class Add_service extends React.Component{
 
         render(){
             return(
-                <Grid classservice_name="add_service_form">
+                <Grid classservice_name="add_service_form" verticalAlign="right">
                 <Grid.Row verticalAlign="middle">
                     <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
                     <Grid.Column computer={10} tablet={12} mobile={14}>

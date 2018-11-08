@@ -86,7 +86,7 @@ class Timetable extends React.Component{
                                     
                     </Grid.Column>
                     <Grid.Column computer={2} mobile={5}>
-                        <div style={{textAlign:'center'}}> شنبه۵</div>
+                        <div style={{textAlign:'center'}}>۵شنبه</div>
 
                         {this.props.sanses[5].map((sans) => (
                             <Button color="linkedin" disabled={sans.is_reserved} fluid style={style}>{sans.sans.start_time} - {sans.sans.end_time}</Button>
