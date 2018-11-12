@@ -353,43 +353,124 @@ class Add_service extends React.Component{
                             
                         </div>
                         
-                        <TimeRangeSlider 
-                            id="day2"
-                            day_state={this.state[1]}
-                            handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                            handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                        />
-                    
-                        <TimeRangeSlider 
-                            id="day3"
-                            day_state={this.state[2]}
-                            handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                            handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                        />
-                        <TimeRangeSlider 
-                            id="day4"
-                            day_state={this.state[3]}
-                            handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                            handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                        />
-                        <TimeRangeSlider 
-                            id="day5"
-                            day_state={this.state[4]}
-                            handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                            handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                        />
-                        <TimeRangeSlider 
-                            id="day6"
-                            day_state={this.state[5]}
-                            handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                            handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                        />
-                        <TimeRangeSlider 
-                            id="day7"
-                            day_state={this.state[6]}
-                            handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                            handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                        />
+                        <div style={
+                            {
+                                
+                                display:'flex',
+                                justifyContent:'space-around'
+                            }
+                        }>
+                            <div style={{width:'10%'}}>۱شنبه</div>
+                            <div style={{width:'90%'}}>
+                                <TimeRangeSlider 
+                                    id="day2" 
+                                    day_state={this.state[1]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+                        <div style={
+                            {
+                                
+                                display:'flex',
+                                justifyContent:'space-around'
+                            }
+                        }>
+                            <div style={{width:'10%'}}>۲شنبه</div>
+                            <div style={{width:'90%'}}>
+                                <TimeRangeSlider 
+                                    id="day3" 
+                                    day_state={this.state[2]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div style={
+                            {
+                                
+                                display:'flex',
+                                justifyContent:'space-around'
+                            }
+                        }>
+                            <div style={{width:'10%'}}>۳شنبه</div>
+                            <div style={{width:'90%'}}>
+                                <TimeRangeSlider 
+                                    id="day4" 
+                                    day_state={this.state[3]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div style={
+                            {
+                                
+                                display:'flex',
+                                justifyContent:'space-around'
+                            }
+                        }>
+                            <div style={{width:'10%'}}>۴شنبه</div>
+                            <div style={{width:'90%'}}>
+                                <TimeRangeSlider 
+                                    id="day5" 
+                                    day_state={this.state[4]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div style={
+                            {
+                                
+                                display:'flex',
+                                justifyContent:'space-around'
+                            }
+                        }>
+                            <div style={{width:'10%'}}>۵شنبه</div>
+                            <div style={{width:'90%'}}>
+                                <TimeRangeSlider 
+                                    id="day6" 
+                                    day_state={this.state[5]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div style={
+                            {        
+                                display:'flex',
+                                justifyContent:'space-around'
+                            }
+                        }>
+                            <div style={{width:'10%'}}>جمعه</div>
+                            <div style={{width:'90%'}}>
+                                <TimeRangeSlider 
+                                    id="day7" 
+                                    day_state={this.state[6]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </div>
+                            
+                        </div>
+                        
+                        
                         <Form.Field>
                             <Form.Input inline
                                 label="طول هر سانس"

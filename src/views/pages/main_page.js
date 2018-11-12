@@ -27,7 +27,7 @@ class Main_page extends React.Component{
     render(){
         console.log('active panel is : ',this.props.active_panel )
         return(
-            <div style={{background:'#d9e5f9'}}>
+            <div style={{background:'#f4f6f9'}}>
                 <Grid className="landingPage__firstPart">
                     <GridColumn>
                         <Navbar />

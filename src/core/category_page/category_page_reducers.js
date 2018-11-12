@@ -4,7 +4,6 @@ const initialState = {
 }
 
 export const category_page_reducer = (state=initialState ,action) => {
-    console.log(action)
     switch(action.type){
         case category_page_action_types.GET_CATEGORY_BUSINESSES_SUCCESS:
             return {
