@@ -99,138 +99,134 @@ class Add_business extends React.Component {
 
     render () {
         return (
-            <Grid className="add_business_form">
-            <Grid.Row verticalAlign="middle">
-                <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
-                <Grid.Column computer={10} tablet={12} mobile={14}>
-                    <Segment stacked color="blue" padded>  
-                    <Form onSubmit={this.onSubmit}>
-                        <Form.Field>
-                        <div dir = "rtl">
-                            <Form.Input
-                                fluid
-                                error={this.state.name_error}
-                                label=" نام"
-                                name="name"
-                               onBlur={this.validate_name}
-                               value={this.state.informations.name}
-                               onChange={this.handle_change}
-                            
-                                
-                            />
+            <div>
 
-                            {this.state.name_error && (
-                                <Label basic pointing color="red">
-                                   لطفا فقط از زبان فارسی استفاده کنید
-                                </Label>    
-                            )} 
-                            </div>
-                        </Form.Field>
-                        <b><span>دسته بندی</span></b>
-                        <Dropdown
-                            fluid
-                            selection  
-                            options={categories}
-                            onChange={this.on_category_change}
-                        />
-                        <br></br>
-                        {/*<Form.Select 
-                            name="category"
-                            label="دسته بندی" 
-                            onChange={this.handle_change}
-                        options = {categories}/>*/}
-                        
-                        <Form.Field>
-                        <b><span>‌شماره‌ی تماس</span></b>
-                        <div dir="ltr">
-                                <Form.Input
-                                    fluid
-                                    error={this.state.phone_number_error}
-                                 //   label="شماره‌ی تماس "
-                                    name="phone_number"
-                                onBlur={this.validate_phone_number}
-                                value={this.state.informations.phone_number}
-                                onChange={this.handle_change}
-                                
+                <Grid className="add_business_form">
+                    <Grid.Row verticalAlign="middle">
+                        <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
+                        <Grid.Column computer={10} tablet={12} mobile={14}>
+                            <Segment stacked color="blue" padded>  
+                            <Form onSubmit={this.onSubmit}>
+                                <Form.Field>
+                                <div dir = "rtl">
+                                    <Form.Input
+                                        fluid
+                                        error={this.state.name_error}
+                                        label=" نام"
+                                        name="name"
+                                    onBlur={this.validate_name}
+                                    value={this.state.informations.name}
+                                    onChange={this.handle_change}
                                     
+                                        
+                                    />
+
+                                    {this.state.name_error && (
+                                        <Label basic pointing color="red">
+                                        لطفا فقط از زبان فارسی استفاده کنید
+                                        </Label>    
+                                    )} 
+                                    </div>
+                                </Form.Field>
+                                <b><span>دسته بندی</span></b>
+                                <Dropdown
+                                    fluid
+                                    selection  
+                                    options={categories}
+                                    onChange={this.on_category_change}
                                 />
-                        </div>
-                            {this.state.phone_number_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از ارقام ۰تا۹ استفاده کنید
-                                </Label>    
-                            )} 
-                    
-                        </Form.Field>
-                        
-                        <Form.Field>
-                            <Form.Input
-                                fluid
-                                error={this.state.email_error}
-                                label="ایمیل"
-                                name="email"
-                               onBlur={this.validate_email}
-                               value={this.state.informations.email}
-                               onChange={this.handle_change}
-                            
+                                <br></br>
                                 
-                            />
-
-                            {this.state.email_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                </Label>    
-                            )}
-                            </Form.Field>
-                            <Form.Field>
-                            <Form.Input
-                                fluid
-                                error={this.state.address_error}
-                                label="آدرس"
-                                name="address"
-                               onBlur={this.validate_address}
-                               value={this.state.informations.address}
-                               onChange={this.handle_change}
+                                <Form.Field>
+                                    <b><span>‌شماره‌ی تماس</span></b>
+                                    <div dir="ltr">
+                                            <Form.Input
+                                                fluid
+                                                error={this.state.phone_number_error}
+                                                //   label="شماره‌ی تماس "
+                                                name="phone_number"
+                                            onBlur={this.validate_phone_number}
+                                            value={this.state.informations.phone_number}
+                                            onChange={this.handle_change}
+                                            
+                                                
+                                            />
+                                    </div>
+                                    {this.state.phone_number_error && (
+                                        <Label basic pointing color="red">
+                                            تنها میتوانید از ارقام ۰تا۹ استفاده کنید
+                                        </Label>    
+                                    )} 
                             
-                                
-                            />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Form.Input
+                                        fluid
+                                        error={this.state.email_error}
+                                        label="ایمیل"
+                                        name="email"
+                                    onBlur={this.validate_email}
+                                    value={this.state.informations.email}
+                                    onChange={this.handle_change}
+                                    
+                                        
+                                    />
 
-                            {this.state.address_error && (
-                                <Label basic pointing color="red">
-                                        لطفا فقط از زبان فارسی استفاده کنید.
-                                </Label>    
-                            )} 
-                    
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input
-                                fluid
-                                error={this.state.description_error}
-                                label="توضیحات"
-                                name="description"
-                               onBlur={this.validate_descriptopn}
-                               value={this.state.informations.description}
-                               onChange={this.handle_change}
+                                    {this.state.email_error && (
+                                        <Label basic pointing color="red">
+                                            تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
+                                        </Label>    
+                                    )}
+                                    </Form.Field>
+                                <Form.Field>
+                                    <Form.Input
+                                        fluid
+                                        error={this.state.address_error}
+                                        label="آدرس"
+                                        name="address"
+                                    onBlur={this.validate_address}
+                                    value={this.state.informations.address}
+                                    onChange={this.handle_change}
+                                    
+                                        
+                                    />
+
+                                    {this.state.address_error && (
+                                        <Label basic pointing color="red">
+                                                لطفا فقط از زبان فارسی استفاده کنید.
+                                        </Label>    
+                                    )} 
                             
-                                
-                            />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Form.Input
+                                        fluid
+                                        error={this.state.description_error}
+                                        label="توضیحات"
+                                        name="description"
+                                    onBlur={this.validate_descriptopn}
+                                    value={this.state.informations.description}
+                                    onChange={this.handle_change}
+                                    
+                                        
+                                    />
 
-                            {this.state.description_error && (
-                                <Label basic pointing color="red">
-                                    فقط از زبان فارسی استفاده کنید
-                                </Label>    
-                            )} 
-                    
-                        </Form.Field>
-                        
-                        <Button primary type='submit'>ثبت</Button>
-                    </Form>
-                    </Segment>
-                
-                </Grid.Column>
+                                    {this.state.description_error && (
+                                        <Label basic pointing color="red">
+                                            فقط از زبان فارسی استفاده کنید
+                                        </Label>    
+                                    )} 
+                            
+                                </Form.Field>
+                                
+                                <Button primary type='submit'>ثبت</Button>
+                            </Form>
+                            </Segment>    
+                        </Grid.Column>         
+                    </Grid.Row>
+                </Grid>
+            </div>
             
-            </Grid.Row>
-        </Grid>
         );
     }
 }

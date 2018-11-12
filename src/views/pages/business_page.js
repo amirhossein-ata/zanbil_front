@@ -28,16 +28,18 @@ class Business_page extends React.Component{
     render(){
         console.log('active panel is : ',this.props.active_panel)
         return(
-            <Segment raised>
+            <div>
                 <Grid textAlign="right" centered>
                     <div style={{marginTop:'2%'}}>
                         <Image 
                             src='https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg' 
-                            fluid 
+                            bordered
+                            size="massive" 
                         />
                     </div>
                     {this.props.business && (
-                            <Segment padded="very" stacked textAlign="right">
+                        <div style={{marginTop:'2%'}}>
+                            <Segment padded="very" color="teal"  raised textAlign="right">
                                 <p>مشخصات : </p>
                                 <p>{this.props.business.name}</p>
                                 <p>{this.props.business.description}</p>
@@ -51,6 +53,8 @@ class Business_page extends React.Component{
                                     </Breadcrumb.Section>
                                 </Breadcrumb>          
                             </Segment>
+                            
+                        </div>  
                         )
                     }
                 </Grid>
@@ -85,8 +89,7 @@ class Business_page extends React.Component{
                         </Grid>
                     </Grid.Column>
                 </Grid>        
-            </Segment>
-            
+            </div>    
         )
     }
 }

@@ -27,10 +27,6 @@ class Navbar extends Component {
     }
     render() {
     const { activeItem } = this.state
-    const style = {
-        backgroundColor:'#84bae8',
-        color:'white'
-    }
 
     
     return (
@@ -41,7 +37,7 @@ class Navbar extends Component {
                     onClick={()=>this.props.change_panel('category')} 
                 />
                 <Dropdown text="دسته بندی ها" pointing className='link item' >
-                    <Dropdown.Menu style={style}>
+                    <Dropdown.Menu >
                         {categories.map((category) => (
                             <Dropdown.Item onClick={()=>this.handle_category_click(category.value)} >{category.text}</Dropdown.Item>
                         ))}
@@ -53,7 +49,7 @@ class Navbar extends Component {
                 >
                         {sessionStorage.getItem('token') ? (
                             <Dropdown  icon="user circle outilne" pointing className='link item' >
-                                <Dropdown.Menu style={style}>
+                                <Dropdown.Menu >
                                     <Dropdown.Item onClick={this.logout_click} >خروج</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

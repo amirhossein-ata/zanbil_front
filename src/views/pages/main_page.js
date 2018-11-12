@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Navbar from '../componets/navbar/navbar'
 import BusinessPage from './business_page'
 import ServicePage from './service_page'
-import { Grid, GridColumn } from 'semantic-ui-react';
+import { Grid, GridColumn, Segment } from 'semantic-ui-react';
 import CategoryPage from './category_page'
 import AddBusinessPage from '../componets/add_business/add_business'
 import AddServicePage from '../componets/add_service/add_service_form'
@@ -35,12 +35,18 @@ class Main_page extends React.Component{
                     </GridColumn>
                 
                 </Grid>
-                <Grid centered>
-                    <Grid.Column computer={14}>
-                        {this.get_active_panel()}
-                    </Grid.Column>
-                </Grid>
+                <div style={{margin:'3%'}}>
+                    <Segment raised>
+                        <Grid centered>
+                            <Grid.Column computer={14}>
+                                {this.get_active_panel()}
+                            </Grid.Column>
+                        </Grid>
 
+                    </Segment>
+                    
+                </div>
+                
             </div>
         )
     }
