@@ -3,15 +3,18 @@ import { error } from 'util';
 
 class search_api {
     static send_search_filters(search_filters){
-        const request = new Request('https://jsonplaceholder.typicode.com/posts', {
+        const request = new Request(`http://127.0.0.1:8000/api/service/search/`, {
             method: 'POST',
             body: JSON.stringify({
-              title: search_filters.service_name,
-              body: search_filters.business_name,
-              userId: search_filters.min_price
+              service_name: search_filters.service_name,
+              business_name: search_filters.business_name,
+              min_price: search_filters.min_price,
+              max_price:search_filters.max_price,
+              category:search_filters.category
             }),
             headers: {
-              "Content-type": "application/json; charset=UTF-8"
+              "Content-type": "application/json; charset=UTF-8",
+              'Authorization':  `Bearer ${sessionStorage.getItem('token')}`
             }
         })
 

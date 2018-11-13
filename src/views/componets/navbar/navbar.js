@@ -29,7 +29,7 @@ class Navbar extends Component {
     }
 
     showSearch = () => {
-        this.setState(()=>({show_search:true}))
+        this.props.change_panel('search')
     }
     render() {
     const { activeItem } = this.state

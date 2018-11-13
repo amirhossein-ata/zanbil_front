@@ -29,9 +29,11 @@ class Search extends React.Component{
         search_filters[inputName] = input;
         console.log(search_filters)
         this.setState(() => ({search_filters:search_filters}))    
-        this.props.send_search_filters(this.state.search_filters)
     }
 
+    on_blur = () => {
+        this.props.send_search_filters(this.state.search_filters)
+    }
     on_category_change = (e, {value}) => {
         let search_filters = this.state.search_filters;
         search_filters.category = value.toString();
@@ -49,6 +51,7 @@ class Search extends React.Component{
                             label='نام سرویس'
                             value={this.state.search_filters.service_name}    
                             onChange={this.handle_change}
+                            onBlur={this.on_blur}
                         />
                         <Form.Input
                             name="business_name" 
@@ -56,6 +59,8 @@ class Search extends React.Component{
                             label='نام کسب و کار' 
                             onChange={this.handle_change}
                             value={this.state.search_filters.business_name}
+                            onBlur={this.on_blur}
+                        
                         />
                         <Form.Select
                             name="category" 
@@ -63,6 +68,7 @@ class Search extends React.Component{
                             label='دسته بندی' 
                             onChange={this.on_category_change}
                             options={categories}
+                            onBlur={this.on_blur}
                         />
                     </Form.Group>
                     <Form.Group >
@@ -74,6 +80,7 @@ class Search extends React.Component{
                                 label='حداقل قیمت' 
                                 onChange={this.handle_change}
                                 value={this.state.search_filters.min_price}    
+                                onBlur={this.on_blur}                            
                             />
 
                             <Form.Input
@@ -82,6 +89,8 @@ class Search extends React.Component{
                                 label='حداکثر قیمت' 
                                 onChange={this.handle_change}    
                                 value={this.state.search_filters.max_price}    
+                                onBlur={this.on_blur}
+                            
                             />
                         </div>        
                     </Form.Group>
