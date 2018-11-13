@@ -21,6 +21,9 @@ class Navbar extends Component {
     logout_click = () => {
         this.props.logout()
     }
+    acount_page_click= () =>{
+        this.props.change_panel("account_page")
+    }
     handle_category_click=(category_id)=>{
         this.props.change_panel('category')
         this.props.get_category_businesses(category_id)
@@ -50,6 +53,7 @@ class Navbar extends Component {
                         {sessionStorage.getItem('token') ? (
                             <Dropdown  icon="user circle outilne" pointing className='link item' >
                                 <Dropdown.Menu >
+                                    <Dropdown.Item onClick={this.acount_page_click}>حساب کاربری</Dropdown.Item>
                                     <Dropdown.Item onClick={this.logout_click} >خروج</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -60,6 +64,7 @@ class Navbar extends Component {
                             }}>
                                 <LoginModal />
                                 <SignUpModal />
+                                
                             </span>
                         )}
                 </Menu.Item>

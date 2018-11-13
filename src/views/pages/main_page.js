@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Navbar from '../componets/navbar/navbar'
 import BusinessPage from './business_page'
 import ServicePage from './service_page'
+import AccountPage from './account_page'
 import { Grid, GridColumn, Segment } from 'semantic-ui-react';
 import CategoryPage from './category_page'
 import AddBusinessPage from '../componets/add_business/add_business'
@@ -20,6 +21,8 @@ class Main_page extends React.Component{
                 return <AddServicePage />
             case 'service_page' :
                 return <ServicePage />
+            case"account_page":
+                return <AccountPage/>
             default:
                 return ''
         }

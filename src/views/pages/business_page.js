@@ -21,7 +21,6 @@ class Business_page extends React.Component{
     async on_service_click(service_id){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')
         await this.props.get_service_page_info(service_id,today_date)
-        console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
         this.props.change_panel('service_page')
     }
     
