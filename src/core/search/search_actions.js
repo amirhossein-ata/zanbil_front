@@ -1,7 +1,21 @@
 import Search_api from '../api/search_api'
 
 export const search_action_types={
-    SEND_SEARCH_FILTERS_SUCCESS :'SEND_SEARCH_FILTERS_SUCCESS'
+    SEND_SEARCH_FILTERS_SUCCESS :'SEND_SEARCH_FILTERS_SUCCESS',
+    OPEN_SEARCH_FORM :'OPEN_SEARCH_FORM',
+    CLOSE_SEARCH_FORM:'CLOSE_SEARCH_FORM'
+}
+
+export const open_search_form = () => {
+    return{
+        type:search_action_types.OPEN_SEARCH_FORM
+    }
+}
+
+export const close_search_form = () => {
+    return{
+        type:search_action_types.CLOSE_SEARCH_FORM
+    }
 }
 
 export const send_search_filters_success = (search_result)=>{

@@ -8,7 +8,8 @@ import {categories} from '../../../core/constants'
 import * as session_actions  from '../../../core/login&signup/session_actions'
 import * as category_page_actions from '../../../core/category_page/category_page_actions'
 import {change_panel} from '../../../core/main_page/active_panel_actions'
-import Search from '../../componets/search/search'
+import {open_search_form} from '../../../core/search/search_actions'
+
 const LoginModal = ModalComponent('ورود')(LoginForm)
 const SignUpModal = ModalComponent('ثبت نام')(SignupForm)
 class Navbar extends Component {
@@ -30,6 +31,7 @@ class Navbar extends Component {
 
     showSearch = () => {
         this.props.change_panel('search')
+        this.props.open_search_form()
     }
     render() {
     const { activeItem } = this.state
@@ -39,8 +41,6 @@ class Navbar extends Component {
             <div>
                 <Menu>
                     <Menu.Item
-                        name='editorials'
-                        active={activeItem === 'editorials'}
                         onClick={this.handleItemClick}
                     >
                         خانه
@@ -88,11 +88,6 @@ class Navbar extends Component {
                     }
                     
                 </Menu>
-                {this.state.show_search && (
-                    <div style={{marginLeft:'3%',marginRight:'3%',marginTop:'1%',marginBottom:'1%'}}>
-                        <Search/>
-                    </div>
-                )}
             </div>
             
         )
@@ -109,7 +104,8 @@ const mapDispatchToProps = (dispatch) => {
     return{
         logout : () => dispatch(session_actions.logout()),
         get_category_businesses: (category_id) => dispatch(category_page_actions.get_category_businesses(category_id)),
-        change_panel:(panel_name) => dispatch(change_panel(panel_name))
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+        open_search_form :() => dispatch(open_search_form())
     }
 }
 

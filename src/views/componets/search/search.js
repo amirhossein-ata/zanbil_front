@@ -42,7 +42,6 @@ class Search extends React.Component{
 
     render(){
         return(
-            <Segment>
                 <Form>
                     <Form.Group widths='equal'>
                         <Form.Input
@@ -98,7 +97,6 @@ class Search extends React.Component{
                     <Form.Button>ثبت</Form.Button>
                 </Form>
         
-            </Segment>
             )
     }
 }
