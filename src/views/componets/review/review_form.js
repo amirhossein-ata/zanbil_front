@@ -1,7 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import * as review_action from "../../../core/review/review_actions"
 import PersianRex from "persian-rex";
 
-import { Button, Segment, Form ,Grid,Label} from 'semantic-ui-react'
+import { Button, Form ,Grid,} from 'semantic-ui-react'
 
 class Review_form extends React.Component {
     state={
@@ -59,4 +61,18 @@ class Review_form extends React.Component {
     }
 
 }
-export default Review_form;
+const mapStateToProps = (state) => {
+    console.log(state)
+    return{
+        review_id:state.review_reducer.review.id
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return{
+        review : (description, point,review_id) => dispatch(review_action.add_review(description,review_id,point)),
+
+    }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Review_form)
