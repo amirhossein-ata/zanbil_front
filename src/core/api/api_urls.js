@@ -3,3 +3,4 @@ export const AUTH = MAIN + 'api/auth/';
 export const BUIS = MAIN + 'api/business/';
 export const SERV = MAIN + 'api/service/'
 export const CATEGORY_PAGE = MAIN + 'api/category/'
+export const ACC = MAIN + 'api/user/'
