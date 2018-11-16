@@ -4,6 +4,11 @@ import { Sidebar , Button,Menu,Icon,Segment,Image,Header, Grid, Card } from 'sem
 import {close_search_form} from '../../core/search/search_actions'
 import SearchForm from '../componets/search/search'
 import CardComponent from '../componets/card/card'
+import moment from 'jalali-moment' 
+import {change_panel} from '../../core/main_page/active_panel_actions'
+import * as service_page_actions from '../../core/service_page/service_page_actions'
+
+
 class Search_page extends React.Component{
     state = { visible: true }
 
@@ -12,6 +17,12 @@ class Search_page extends React.Component{
         this.props.close_search_form()
     }
 
+    async on_service_click(service_id){
+        const today_date = moment().locale('fa').format('YYYY/MM/DD')
+        this.props.get_service_page_info(service_id,today_date)
+        this.props.change_panel('service_page')
+    }
+    
     render(){
         return(
             <div>
@@ -28,11 +39,15 @@ class Search_page extends React.Component{
                     
                 <Grid textAlign="right">
                     {this.props.search_results && this.props.search_results.map((search_result) => (
-                        <Grid.Column computer={4} tablet={8} mobile={8}> 
-                            <CardComponent 
-                                    header={search_result.name}
-                                    meta1={search_result.business.name}
-                            />       
+                        <Grid.Column computer={4} tablet={8} mobile={8}>
+                            <div onClick={()=>this.on_service_click(search_result.id)}>
+                                <CardComponent 
+                                        header={`${search_result.name}/${search_result.fee}`}
+                                        meta1={search_result.business.name}
+                                        description={search_result.rating}
+                                />
+                            </div>
+                                   
                         </Grid.Column>
                     ))}
                 </Grid>
@@ -52,7 +67,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        close_search_form:() => dispatch(close_search_form())
+        close_search_form:() => dispatch(close_search_form()),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+        get_service_page_info : (service_id,date) => dispatch(service_page_actions.get_services_page_info(service_id,date))
+
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Search_page)

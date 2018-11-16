@@ -21,7 +21,6 @@ class Business_page extends React.Component{
     async on_service_click(service_id){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')
         await this.props.get_service_page_info(service_id,today_date)
-        console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
         this.props.change_panel('service_page')
     }
     
@@ -29,6 +28,10 @@ class Business_page extends React.Component{
         console.log('active panel is : ',this.props.active_panel)
         return(
             <div>
+                <br></br>
+                <Header dividing textAlign="center">صفحه ی کسب و کار</Header>
+                <br></br>
+          
                 <Grid textAlign="right" centered>
                     <div style={{marginTop:'2%'}}>
                         <Image 

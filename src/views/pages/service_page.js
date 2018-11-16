@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Card from '../componets/card/card'
 import Timetable from '../componets/timetable/timetable'
-import {Grid, Divider} from 'semantic-ui-react';
+import {Grid, Divider , Header} from 'semantic-ui-react';
 import * as service_page_actions from '../../core/service_page/service_page_actions'
 
 class Service_page extends React.Component{
@@ -13,7 +13,11 @@ class Service_page extends React.Component{
     render(){
         return(
             <div>
+                <br></br>
+                <Header dividing textAlign="center">صفحه ی سرویس</Header>
+                <br></br>
                 <Grid textAlign="right" >
+
                     <Grid.Column computer={6} tablet={6} mobile={4}></Grid.Column>
                     <Grid.Column computer={8} tablet={8} mobile={8}>
                         {this.props.service && (
