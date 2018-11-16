@@ -21,7 +21,7 @@ export const close_search_form = () => {
 export const send_search_filters_success = (search_result)=>{
     return{
         type:search_action_types.SEND_SEARCH_FILTERS_SUCCESS,
-        search_result:search_result
+        search_results:search_result
     }
 }
 

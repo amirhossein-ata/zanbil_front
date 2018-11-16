@@ -70,7 +70,7 @@ class Search extends React.Component{
                             onBlur={this.on_blur}
                         />
                     </Form.Group>
-                    <Form.Group >
+                    <Form.Group>
                         <div style={{display:'flex' ,width:'100%' ,justifyContent:'center'}}>
 
                             <Form.Input
@@ -96,7 +96,6 @@ class Search extends React.Component{
 
                     <Form.Button>ثبت</Form.Button>
                 </Form>
-        
             )
     }
 }
