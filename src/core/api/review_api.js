@@ -33,7 +33,7 @@ class Review_api{
     }
     static get_review(business_id){
         const u = api_urls.REVIEW+ `?business_id=${business_id}`
-        
+        console.log('iiiiiiiiiiiiiiim in api ' , business_id , u)
         const request = new Request(u,{
             mode:"cors",
             method:"GET",

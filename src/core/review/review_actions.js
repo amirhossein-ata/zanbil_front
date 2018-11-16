@@ -7,7 +7,7 @@ export const review_action_types = {
 export const get_review_success =(reviews) => {
     console.log("the return is",reviews)
     return {
-        type:review_action_types.GET_REVIEW_SUCCESS,
+        type:'FU2',
         reviews:reviews
     };
 };
@@ -20,7 +20,7 @@ export const add_review_success=(review_id) => {
 }
 
 export const get_review = (business_id) => {
-    console.log("called it")
+    console.log("calleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed it" , business_id)
     return function(dispatch){
         return (review_api.get_review(business_id))
                                     .then((response) => {

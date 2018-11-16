@@ -16,14 +16,9 @@ class Business_page extends React.Component{
     }
     async componentDidMount(){
         await this.props.get_review(1)
-        
-        
+        console.log('reviews areeeeeeeeeeeeeeeeee: ', this.props.reviews)
         await this.props.get_business_info(1)
-        console.log("in did mount")
-        console.log(this.props.services)
-        console.log(this.props.business)
-        console.log(this.props.reviews[0])
-        console.log("END")
+      
     }
     async on_service_click(service_id){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')
@@ -34,7 +29,6 @@ class Business_page extends React.Component{
     
     render(){
         console.log('active panel is : ',this.props.active_panel)
-        console.log(this.props.reviews)
         return(
             <div>
                 <Grid textAlign="right" centered>
@@ -97,27 +91,20 @@ class Business_page extends React.Component{
                         </Grid>
                     </Grid.Column>
                 </Grid><br/>
-                <Divider horizontal>نظرات</Divider> <br/>
+                <Divider horizontal section>نظرات</Divider> <br/>
                 <Grid centered>
-                {console.log("fuck u all")}
-                {console.log(this.props.reviews)}
-                {!this.props.reviews[0] ? <span>هیچ نظری ثبت نشده است!</span> : 
-                    this.props.reviews[0].map((review) => (
-                    <Grid.Column computer={4}>
-                    <Comment.group size = "Massive">
+                    {!this.props.reviews && <span>هیچ نظری ثبت نشده است!</span>}
+                    {this.props.reviews && this.props.reviews.map((review) => (
                         <Comment>
                             <Comment.Content>
+                                <Comment.Author as='a'>{review.user.username}</Comment.Author>
                                 <Comment.Metadata>
-                                    <span>{review.rating}</span>                                
+                                <div>{review.rating}</div>
                                 </Comment.Metadata>
-                            <Comment.Text>{review.description}</Comment.Text>
-                            </Comment.Content>        
-                        
+                                <Comment.Text>{review.description}</Comment.Text>
+                               </Comment.Content>
                         </Comment>
-                    </Comment.group>
-                </Grid.Column> 
-
-                ))}
+                    ))}
                 
                 </Grid>        
             </div>    
@@ -126,8 +113,7 @@ class Business_page extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("in mtp")
-    console.log(state.review_reducer)
+    console.log(state)
     return {
         business : state.business_page_reducer.business ,
         services : state.business_page_reducer.services,
