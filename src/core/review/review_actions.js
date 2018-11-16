@@ -1,17 +1,14 @@
-
+import review_api from '../api/review_api';
 export const review_action_types = {
   ADD_REVIEW_SUCCESS:"ADD_REVIEW_SUCCESS",
   GET_REVIEW_SUCCESS:"GET_REVIEW_SUCCESS"  
 };
 
-export const get_review_success =({review}) => {
+export const get_review_success =(reviews) => {
+    console.log("the return is",reviews)
     return {
         type:review_action_types.GET_REVIEW_SUCCESS,
-        review:{
-            point:review.point,
-            description:review.description,
-            service_id:review.service_id
-        }
+        reviews:reviews
     };
 };
 
@@ -20,4 +17,30 @@ export const add_review_success=(review_id) => {
         type:review_action_types.ADD_REVIEW_SUCCESS,
         review_id:review_id
     };
+}
+
+export const get_review = (business_id) => {
+    console.log("called it")
+    return function(dispatch){
+        return (review_api.get_review(business_id))
+                                    .then((response) => {
+                                        if(response){
+                                            console.log('response from get_review',response)
+                                            dispatch(get_review_success(response));
+                                        }
+                                        
+                                    })
+    }
+}
+export const add_review = (review) =>{
+    return function(dispatch){
+        return (review_api.add_review(review))
+                                .then((response) => {
+                                    if(response){
+                                        console.log('response from add_review',response)
+                                        dispatch(add_review_success(response));
+                                    }
+                                    
+                                })
+}
 }

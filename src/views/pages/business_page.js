@@ -1,22 +1,29 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from '../componets/card/card'
-import { Segment, Grid, Divider, Header ,Image,Button,Breadcrumb} from 'semantic-ui-react';
+import { Segment, Grid, Divider, Header ,Image,Button,Breadcrumb,Comment} from 'semantic-ui-react';
 import * as business_page_actions from '../../core/business_page/business_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
 import * as service_page_actions from '../../core/service_page/service_page_actions'
+import * as review_actions from '../../core/review/review_actions'
 import moment from 'jalali-moment' 
 
 class Business_page extends React.Component{
     constructor(props){
         super(props)
-
+        
         this.on_service_click = this.on_service_click.bind(this)
     }
     async componentDidMount(){
+        await this.props.get_review(1)
+        
+        
         await this.props.get_business_info(1)
-        console.log(this.props.services , this.props.business)
-
+        console.log("in did mount")
+        console.log(this.props.services)
+        console.log(this.props.business)
+        console.log(this.props.reviews[0])
+        console.log("END")
     }
     async on_service_click(service_id){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')
@@ -27,6 +34,7 @@ class Business_page extends React.Component{
     
     render(){
         console.log('active panel is : ',this.props.active_panel)
+        console.log(this.props.reviews)
         return(
             <div>
                 <Grid textAlign="right" centered>
@@ -88,6 +96,29 @@ class Business_page extends React.Component{
                             ))}
                         </Grid>
                     </Grid.Column>
+                </Grid><br/>
+                <Divider horizontal>نظرات</Divider> <br/>
+                <Grid centered>
+                {console.log("fuck u all")}
+                {console.log(this.props.reviews)}
+                {!this.props.reviews[0] ? <span>هیچ نظری ثبت نشده است!</span> : 
+                    this.props.reviews[0].map((review) => (
+                    <Grid.Column computer={4}>
+                    <Comment.group size = "Massive">
+                        <Comment>
+                            <Comment.Content>
+                                <Comment.Metadata>
+                                    <span>{review.rating}</span>                                
+                                </Comment.Metadata>
+                            <Comment.Text>{review.description}</Comment.Text>
+                            </Comment.Content>        
+                        
+                        </Comment>
+                    </Comment.group>
+                </Grid.Column> 
+
+                ))}
+                
                 </Grid>        
             </div>    
         )
@@ -95,10 +126,12 @@ class Business_page extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log("in mtp")
+    console.log(state.review_reducer)
     return {
         business : state.business_page_reducer.business ,
         services : state.business_page_reducer.services,
+        reviews : state.review_reducer.reviews,
         active_panel:state.active_panel_reducer.active_panel
     }
 }
@@ -107,7 +140,8 @@ const mapDispatchToProps = (dispatch) => {
     return{
         get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
-        get_service_page_info : (service_id,date) => dispatch(service_page_actions.get_services_page_info(service_id,date))
+        get_service_page_info : (service_id,date) => dispatch(service_page_actions.get_services_page_info(service_id,date)),
+        get_review:(business_id) => dispatch(review_actions.get_review(business_id))
 
     }
 }

@@ -3,12 +3,13 @@ import {connect} from 'react-redux'
 import * as review_action from "../../../core/review/review_actions"
 import PersianRex from "persian-rex";
 
-import { Button, Form ,Grid,} from 'semantic-ui-react'
+import { Button, Form ,Grid,Rating} from 'semantic-ui-react'
 
 class Review_form extends React.Component {
     state={
         credentials:{
-            comment:""
+            comment:"",
+            point:""
         },
         comment_error:false
     }
@@ -26,7 +27,16 @@ class Review_form extends React.Component {
         credentials[inputName] = input;
         this.setState(() => ({credentials : credentials}))    
     }
+    on_rate_change = (data) => {
+        console.log(data)
+    }
     onSubmit(){
+
+        const rev = {
+            comment:this.state.credentials.comment,
+            point:this.state.credentials.point
+        }
+        this.props.review(rev)
 
     }
 
@@ -34,6 +44,7 @@ class Review_form extends React.Component {
         return (
             <Grid  centered>
                 <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
+                <Rating icon='star' defaultRating={1} maxRating={5} onRate={this.on_rate_change} />
                     <Form onSubmit={this.onSubmit}>
                         <Form.TextArea
                             
@@ -69,7 +80,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        review : (description, point,review_id) => dispatch(review_action.add_review(description,review_id,point)),
+        review : ({description, point,review_id}) => dispatch(review_action.add_review(description,review_id,point)),
 
     }
 }
