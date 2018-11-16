@@ -11,9 +11,9 @@ export const reserve_success = (response) => {
     }
 }
 
-export const reserve_sans = (sansID,description) => {
+export const reserve_sans = (sansID,description,service_id,date,week_day) => {
     return function(dispatch){
-        return (reserve_sans_api.reserve_sans(sansID,description))
+        return (reserve_sans_api.reserve_sans(sansID,description,service_id,date,week_day))
                                 .then((response) => {
                                     if(response){
                                         console.log('response from reserve sans : ',response)

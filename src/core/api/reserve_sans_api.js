@@ -2,16 +2,20 @@ import * as api_url from './api_urls'
 
 class Reserve_sans_api {
 
-    static reserve_sans(sansID,description){
-        const request = new Request('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
+    static reserve_sans(sansID,description,service_id,date){
+        console.log('daaate passed to api is : ',date)
+        const request = new Request('http://127.0.0.1:8000/api/service/reserve/', {
+            method: 'PUT',
             body: JSON.stringify({
-              title: 'foo',
-              body: description,
-              userId: sansID
+              description: description,
+              sans_id: sansID,
+              service_id: service_id,
+              date:date
             }),
             headers: {
-              "Content-type": "application/json; charset=UTF-8"
+              "Content-type": "application/json; charset=UTF-8",
+              'Authorization':  `Bearer ${sessionStorage.getItem('token')}`
+           
             }
         })
 
