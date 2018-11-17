@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
     category_page_reducer,
     active_panel_reducer,
     service_page_reducer,
-    search_reducer
+    search_reducer,
     review_reducer
 })
 
