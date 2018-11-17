@@ -8,6 +8,7 @@ import { Grid, GridColumn, Segment } from 'semantic-ui-react';
 import CategoryPage from './category_page'
 import AddBusinessPage from '../componets/add_business/add_business'
 import AddServicePage from '../componets/add_service/add_service_form'
+import SearchPage from '../pages/search_page'
 class Main_page extends React.Component{
     get_active_panel=() => {
         switch (this.props.active_panel) {
@@ -21,6 +22,8 @@ class Main_page extends React.Component{
                 return <AddServicePage />
             case 'service_page' :
                 return <ServicePage />
+            case 'search' :
+                return <SearchPage/>
             case"account_page":
                 return <AccountPage/>
             default:
@@ -30,7 +33,7 @@ class Main_page extends React.Component{
     render(){
         console.log('active panel is : ',this.props.active_panel )
         return(
-            <div style={{background:'#d9e5f9'}}>
+            <div style={{background:'#f4f6f9'}}>
                 <Grid className="landingPage__firstPart">
                     <GridColumn>
                         <Navbar />
