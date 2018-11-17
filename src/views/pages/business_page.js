@@ -99,11 +99,14 @@ class Business_page extends React.Component{
                         <div>
                         <Comment>
                             <Comment.Content>
-                                <Comment.Author as='a'><b>{review.user.username}</b></Comment.Author>
+                                <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
                                 <Comment.Metadata>
-                                <div>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10</div>
+                                <Grid textAlign="right">
+                                
+                                <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
+                                </Grid>
                                 </Comment.Metadata>
-                                <Comment.Text>{review.description}</Comment.Text>
+                                <Comment.Text><br/>{review.description}</Comment.Text>
                                </Comment.Content>
                         </Comment>
                         <Divider />
