@@ -1,6 +1,6 @@
 import React from 'react';
 import * as account_page_actions from '../../core/account_page/account_page_actions';
-import { Card,Grid,Divider,Image} from 'semantic-ui-react';
+import { Card,Grid,Divider,Image, Button} from 'semantic-ui-react';
 import {connect} from "react-redux";
 
 const style = {
@@ -14,26 +14,47 @@ class Account_page extends React.Component{
         
 
     }
-    
+    on_review_click = () => {
+        //
+    }
     render(){
         console.log('active panel is : ',this.props.active_panel)
         console.log("props are not in did mount",this.props)
         return(
             
             <div>
-            <p>{this.props.user.user_name}</p>
-                {/*<Grid centered textAlign="right">
+           
+                <Grid centered textAlign="right">
                     <br/>
                         <Card color="grey" raised style={style}>
                         
 
                             <Image src = "https://image.flaticon.com/icons/svg/61/61135.svg" size ="small"  centered  /> 
-                            <Card.Header><b>{this.props.user.user_name}</b></Card.Header>
-                           
+                            {this.props.user &&<Card.Header><b>{this.props.user.user_name}</b></Card.Header>}
                         </Card>
                     
                 </Grid><br/>
-        <Divider horizontal>تاریخچه</Divider><br/> */}
+        <Divider horizontal>تاریخچه</Divider><br/>
+        {console.log("reserve has",this.props.reserves)}
+        {!this.props.reserves[0]  && <Grid textAlign="center"><span><b>هیچ رزروی در تاریخچه ی شما وجود ندارد</b></span> <br/></Grid>}
+        {this.props.reserves[0] && this.props.reserves.map((reserve) => (
+            <Grid.Column computer={4}>
+            
+                <Card raised>
+                <Card.Content>
+                    <Card.Header>{this.reserve.service}</Card.Header>
+                    <Card.Meta><span>{this.reserve.date}</span></Card.Meta>
+                    <Card.Description>{this.reserve.description}</Card.Description>
+                </Card.Content>
+                    <Button basic color="blue" onClick={this.state.on_review_click}>
+                        ارسال نظر
+                    </Button>
+                </Card>
+                   
+                
+            
+        </Grid.Column>
+        ))}
             </div>
     )
         }
