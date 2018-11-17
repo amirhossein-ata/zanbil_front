@@ -7,6 +7,7 @@ import {category_page_reducer} from './category_page/category_page_reducers'
 import {active_panel_reducer} from './main_page/active_panel_reducer'
 import {service_page_reducer} from './service_page/service_page_reducers'
 import {search_reducer} from './search/search_reducer'
+import {review_reducer} from "./review/review_reducer"
 const rootReducer = combineReducers({
     business_page_reducer,
     session_reducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     active_panel_reducer,
     service_page_reducer,
     search_reducer
+    review_reducer
 })
 
 export default rootReducer;
