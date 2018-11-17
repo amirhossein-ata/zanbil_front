@@ -32,9 +32,9 @@ export const get_review = (business_id) => {
                                     })
     }
 }
-export const add_review = (review) =>{
+export const add_review = (description, rating,service_id) =>{
     return function(dispatch){
-        return (review_api.add_review(review))
+        return (review_api.add_review(description, rating,service_id))
                                 .then((response) => {
                                     if(response){
                                         console.log('response from add_review',response)

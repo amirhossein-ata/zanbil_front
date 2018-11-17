@@ -7,9 +7,10 @@ import { Button, Form ,Grid,Rating} from 'semantic-ui-react'
 
 class Review_form extends React.Component {
     state={
+        rating:1,
         credentials:{
             comment:"",
-            point:""
+            
         },
         comment_error:false
     }
@@ -27,25 +28,36 @@ class Review_form extends React.Component {
         credentials[inputName] = input;
         this.setState(() => ({credentials : credentials}))    
     }
-    on_rate_change = (data) => {
-        console.log(data)
+    handle_rate = (e, { rating }) => {
+        console.log(rating)
+        this.setState({ rating:rating})
     }
-    onSubmit(){
+    on_rate_change = (data) => {
+        console.log("fucking data",data)
+    }
+    onSubmit=()=>{
 
         const rev = {
-            comment:this.state.credentials.comment,
-            point:this.state.credentials.point
+            description:this.state.credentials.comment,
+            point:this.state.rating,
+            service_id:this.props.passed_through_props.service_id
         }
-        this.props.review(rev)
+        console.log(rev)
+        this.props.review(rev.description,rev.point,rev.service_id)
 
     }
 
     render(){
+        
         return (
             <Grid  centered>
                 <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
-                <Rating icon='star' defaultRating={1} maxRating={5} onRate={this.on_rate_change} />
-                    <Form onSubmit={this.onSubmit}>
+                
+                <div style={{marginLeft:'auto'}}>
+                    <Rating icon='star' defaultRating={1} maxRating={5} onRate={this.handle_rate} />
+                </div>    
+                
+                <Form onSubmit={this.onSubmit}>
                         <Form.TextArea
                             
                                 error={this.state.comment_error}
@@ -72,18 +84,12 @@ class Review_form extends React.Component {
     }
 
 }
-const mapStateToProps = (state) => {
-    console.log(state)
-    return{
-        review_id:state.review_reducer.review.id
-    }
-}
 const mapDispatchToProps = (dispatch) => {
     return{
-        review : ({description, point,review_id}) => dispatch(review_action.add_review(description,review_id,point)),
+        review : (description,rating,service_id) => dispatch(review_action.add_review(description,rating,service_id)),
 
     }
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Review_form)
+export default connect(undefined,mapDispatchToProps)(Review_form)

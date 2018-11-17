@@ -1,7 +1,7 @@
 import * as api_urls from './api_urls';
 class Review_api{
-    static add_review(review){
-        
+    static add_review(description, rating,service_id){
+        console.log(description, rating,service_id)
         const request = new Request(api_urls.REVIEW,{
             mode:"cors",
             method:"PUT",
@@ -10,8 +10,9 @@ class Review_api{
                 'Authorization':  `Bearer ${sessionStorage.getItem('token')}`
             },
             body:JSON.stringify({
-                description:review.description,
-                point:review.point
+                description:description,
+                point:rating,
+                service_id:service_id
 
 
             })

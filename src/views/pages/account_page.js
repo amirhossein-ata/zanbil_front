@@ -2,6 +2,8 @@ import React from 'react';
 import * as account_page_actions from '../../core/account_page/account_page_actions';
 import { Card,Grid,Divider,Image, Button} from 'semantic-ui-react';
 import {connect} from "react-redux";
+import Review_form from "../componets/review/review_form"
+import Modal from "../componets/modal/Modal"
 
 const style = {
     height : '30vh',
@@ -14,12 +16,14 @@ class Account_page extends React.Component{
         
 
     }
+    
     on_review_click = () => {
         //
     }
     render(){
         console.log('active panel is : ',this.props.active_panel)
         console.log("props are not in did mount",this.props)
+        const Review_modal = Modal("نظر")(Review_form)
         return(
             
             <div>
@@ -36,19 +40,17 @@ class Account_page extends React.Component{
                 </Grid><br/>
         <Divider horizontal>تاریخچه</Divider><br/>
         {console.log("reserve has",this.props.reserves)}
-        {!this.props.reserves[0]  && <Grid textAlign="center"><span><b>هیچ رزروی در تاریخچه ی شما وجود ندارد</b></span> <br/></Grid>}
-        {this.props.reserves[0] && this.props.reserves.map((reserve) => (
+        {!this.props.reserves  && <Grid textAlign="center"><span><b>هیچ رزروی در تاریخچه ی شما وجود ندارد</b></span> <br/></Grid>}
+        {this.props.reserves && this.props.reserves.map((reserve) => (
             <Grid.Column computer={4}>
             
                 <Card raised>
                 <Card.Content>
-                    <Card.Header>{this.reserve.service}</Card.Header>
-                    <Card.Meta><span>{this.reserve.date}</span></Card.Meta>
-                    <Card.Description>{this.reserve.description}</Card.Description>
+                    <Card.Header>{reserve.service.name}</Card.Header>
+                    <Card.Meta><span>{reserve.date}</span></Card.Meta>
+                    <Card.Description>{reserve.description}</Card.Description>
                 </Card.Content>
-                    <Button basic color="blue" onClick={this.state.on_review_click}>
-                        ارسال نظر
-                    </Button>
+                   <Review_modal service_id={reserve.service.id}/>
                 </Card>
                    
                 

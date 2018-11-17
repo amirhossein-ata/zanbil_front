@@ -96,7 +96,7 @@ class Business_page extends React.Component{
                 </Grid><br/>
                 <Divider horizontal section>نظرات</Divider> <br/>
                 <Grid centered>
-                    <Grid.Column centered width= {4}>
+                    <Grid.Column centered >
                     {!this.props.reviews && <span>هیچ نظری ثبت نشده است!</span>}
                     {this.props.reviews && this.props.reviews.map((review) => (
                         <div>
@@ -109,8 +109,10 @@ class Business_page extends React.Component{
                                 <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
                                 </Grid>
                                 </Comment.Metadata>
+                                <Grid textAlign = "right">
                                 <Comment.Text><br/>{review.description}</Comment.Text>
-                               </Comment.Content>
+                                </Grid>
+                                </Comment.Content>
                         </Comment>
                         <Divider />
                         <br/>

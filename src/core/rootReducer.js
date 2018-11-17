@@ -20,8 +20,8 @@ const rootReducer = combineReducers({
     service_page_reducer,
     search_reducer,
     review_reducer,
-    reserve_reducer
-    account_page_reducer
+    reserve_reducer,
+    account_page_reducer,
 })
 
 export default rootReducer;
