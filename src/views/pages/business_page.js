@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from '../componets/card/card'
-import { Segment, Grid, Divider, Header ,Image,Button,Breadcrumb,Comment} from 'semantic-ui-react';
+import { Segment, Grid, Divider, Header ,Image,Button,Breadcrumb,Comment,Rating} from 'semantic-ui-react';
 import * as business_page_actions from '../../core/business_page/business_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
 import * as service_page_actions from '../../core/service_page/service_page_actions'
@@ -93,19 +93,24 @@ class Business_page extends React.Component{
                 </Grid><br/>
                 <Divider horizontal section>نظرات</Divider> <br/>
                 <Grid centered>
+                    <Grid.Column centered width= {4}>
                     {!this.props.reviews && <span>هیچ نظری ثبت نشده است!</span>}
                     {this.props.reviews && this.props.reviews.map((review) => (
+                        <div>
                         <Comment>
                             <Comment.Content>
-                                <Comment.Author as='a'>{review.user.username}</Comment.Author>
+                                <Comment.Author as='a'><b>{review.user.username}</b></Comment.Author>
                                 <Comment.Metadata>
-                                <div>{review.rating}</div>
+                                <div>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10</div>
                                 </Comment.Metadata>
                                 <Comment.Text>{review.description}</Comment.Text>
                                </Comment.Content>
                         </Comment>
+                        <Divider />
+                        <br/>
+                        </div>
                     ))}
-                
+                    </Grid.Column>
                 </Grid>        
             </div>    
         )
