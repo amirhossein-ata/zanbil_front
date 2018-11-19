@@ -23,8 +23,6 @@ class Category_page extends React.Component{
         }
         return(
             <div>
-                <Header textAlign="right">رستوران ها</Header>
-
                 <Grid textAlign="right">
                     {this.props.businesses && this.props.businesses.map((business) => (
                             <Grid.Column computer={4}>

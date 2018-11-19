@@ -24,13 +24,16 @@ class Timetable extends React.Component{
             sans_start:'',
             sans_end:'',
             date:''
-        }
+        },
+        reserve_success:false
     }
 
     handleOpen = () => this.setState({ modalOpen: true })
 
-    handleClose = () => this.setState({ modalOpen: false })
-
+    handleClose = () => {
+        this.setState({ modalOpen: false })
+        this.setState(()=>({reserve_success:false}))
+    }
     on_next_week_click = () => {
         let newState = this.state.date
         newState.add(7,'day')
@@ -85,6 +88,7 @@ class Timetable extends React.Component{
     on_confirm_reserve = () => {
         this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
         this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+        this.setState(()=>({reserve_success:true}))
     }
     render(){
         return(
@@ -104,7 +108,7 @@ class Timetable extends React.Component{
                                             onChange={this.on_description_change}
                                         />
                                     </Form.Field>
-                                    {this.props.reserve_success && (
+                                    {this.state.reserve_success && (
                                         <Message positive>
                                             رزرو شما با موفقیت انجام شد.
                                         </Message>

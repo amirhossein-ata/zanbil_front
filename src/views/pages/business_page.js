@@ -114,7 +114,7 @@ class Business_page extends React.Component{
                                 </Grid>
                                 </Comment.Content>
                         </Comment>
-                        <Divider />
+                        <Divider section/>
                         <br/>
                         </div>
                     ))}
