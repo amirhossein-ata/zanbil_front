@@ -13,14 +13,13 @@ const ModalComponent   = defaltState => BaseComponent =>{
 
         render() {
             const { open, dimmer} = this.state
-
             return (
                 <div>
                     <Button onClick={this.show('blurring')}>{this.state.button}</Button>
 
                     <Modal dimmer={dimmer} open={open} onClose={this.close} closeIcon>
                         <Modal.Content>
-                            <BaseComponent />   
+                            <BaseComponent passed_through_props={this.props}/>   
                         </Modal.Content>
                     </Modal>
                 </div>

@@ -31,7 +31,7 @@ export const signup = (credentials) => {
         return Session_api.signup(credentials)
                             .then((response) => {
                                 if(response){
-                                    console.log('response from signup : ',response)
+                                    console.log('response from signup : ',response.jwt)
                                     sessionStorage.setItem('token',response.jwt)
                                     dispatch(login_success())
                                 }else{
@@ -48,7 +48,7 @@ export const login = (credentials) => {
                             .then((response) => {
                                 if(response){
                                     console.log('response from login : ',response.jwt)
-                                    sessionStorage.setItem('token',response)
+                                    sessionStorage.setItem('token',response.jwt)
                                     dispatch(login_success())
                                 }else{
                                     console.log('there was an error with login')

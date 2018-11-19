@@ -96,15 +96,6 @@ class Login_form extends React.Component{
                             )} 
                     
                         </Form.Field>
-                        {this.props.login_error ? (
-                            <Message 
-                                negative 
-                                content={this.props.login_error}
-                            />
-                        ):(
-                            <div>
-                            </div>
-                        )}
                         <Button primary type='submit'>ورود</Button>
                     </Form>   
                 </Grid.Column>

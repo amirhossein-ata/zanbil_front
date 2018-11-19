@@ -1,15 +1,21 @@
 import * as api_urls from './api_urls'
-class business_page_api {
+class service_page_api {
 
-    static get_business_info(business_id){
-        const request = new Request(`http://127.0.0.1:8000/api/business/?business_id=${business_id}`,{
+    static get_service_page_info(service_id,date){
+        console.log({
+            service_id:service_id,
+            date:date
+        })
+        const request = new Request(api_urls.SERV ,{
             mode:'cors',
-            method:'GET',
+            method:'POST',
             headers:{
-                'Content-Type':'application/json',
-                'Authorization':  `Bearer ${sessionStorage.getItem('token')}`
-
+                'Content-Type':'application/json'
             },
+            body:JSON.stringify({
+                service_id:service_id,
+                date:date
+            })
         });
 
         return fetch(request)
@@ -25,4 +31,4 @@ class business_page_api {
     }
 }
 
-export default business_page_api
+export default service_page_api
