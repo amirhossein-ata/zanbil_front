@@ -17,7 +17,7 @@ const ModalComponent   = defaltState => BaseComponent =>{
                 <div>
                     <Button onClick={this.show('blurring')}>{this.state.button}</Button>
 
-                    <Modal dimmer={dimmer} open={open} onClose={this.close} closeIcon>
+                    <Modal dimmer={dimmer} basic style={{background:'rgba(233, 231, 227,.5)'}} open={open} onClose={this.close} closeIcon>
                         <Modal.Content>
                             <BaseComponent passed_through_props={this.props}/>   
                         </Modal.Content>

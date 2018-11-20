@@ -9,9 +9,11 @@ import CategoryPage from './category_page'
 import AddBusinessPage from '../componets/add_business/add_business'
 import AddServicePage from '../componets/add_service/add_service_form'
 import SearchPage from '../pages/search_page'
+import Landing_page from '../componets/landing_page/landing_page'
 class Main_page extends React.Component{
     get_active_panel=() => {
         switch (this.props.active_panel) {
+            
             case 'category':
                 return <CategoryPage />;
             case 'business_page':
@@ -41,17 +43,22 @@ class Main_page extends React.Component{
                     </GridColumn>
                 
                 </Grid>
-                <div style={{margin:'3%'}}>
-                    <Segment raised>
-                        <Grid centered>
-                            <Grid.Column computer={14}>
-                                {this.get_active_panel()}
-                            </Grid.Column>
-                        </Grid>
+                {this.props.active_panel==='landing_page' ? (
+                    <Landing_page />
+                ) : (
+                    <div style={{margin:'3%'}}>
+                        <Segment raised>
+                            <Grid centered>
+                                <Grid.Column computer={14}>
+                                    {this.get_active_panel()}
+                                </Grid.Column>
+                            </Grid>
 
-                    </Segment>
+                        </Segment>
+                        
+                    </div>
                     
-                </div>
+                )}
                 
             </div>
         )

@@ -1,0 +1,19 @@
+.first_part{
+    background: url("https://static1.squarespace.com/static/586a6250f5e231459ed0a7c5/t/5a493ed5652deacfabddd232/1514750061988/Online+booking?format=1500w");
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 92vh;
+    background-attachment:fixed ;
+    background-position: center center; 
+    
+}
+.first_part__title{
+
+    padding: 7%;
+    background: transparentize($color:#F3F1ED, $amount:.95);
+    width:50%;
+    height: 20%;
+}

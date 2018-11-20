@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Dropdown , Menu} from 'semantic-ui-react'
+import { Dropdown , Menu ,Container,Icon,Image,Sidebar,Responsive} from 'semantic-ui-react'
 import LoginForm from '../login&signup/loginForm'
 import SignupForm from '../login&signup/signup_form'
 import ModalComponent from '../modal/Modal'
@@ -12,6 +12,7 @@ import {open_search_form} from '../../../core/search/search_actions'
 
 const LoginModal = ModalComponent('ورود')(LoginForm)
 const SignUpModal = ModalComponent('ثبت نام')(SignupForm)
+
 class Navbar extends Component {
     state = { 
         activeItem: 'home',
@@ -42,7 +43,7 @@ class Navbar extends Component {
     
     return (
             <div>
-                <Menu>
+                <Menu size="tiny">
                     <Menu.Item
                         onClick={this.handleItemClick}
                     >
@@ -78,8 +79,6 @@ class Navbar extends Component {
                 
                         <Menu.Item
                             position='left'
-                            name='upcomingEvents'
-                            active={activeItem === 'upcomingEvents'}
                             onClick={this.handleItemClick}
                         >   
                             <span style={{
