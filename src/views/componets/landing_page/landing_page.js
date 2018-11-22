@@ -1,5 +1,5 @@
 import React from 'react'
-import {Header} from 'semantic-ui-react'
+import {Header,Transition} from 'semantic-ui-react'
 import CardComponent from '../../componets/card/card'
 import timetable_icon from '../../../assessts/icons/calendar.svg'
 import booked_icon from '../../../assessts/icons/booked.svg'
@@ -42,22 +42,22 @@ class Landing_page extends React.Component{
                             background="rgba(233, 231, 227,.5)"
                         />
                         <br></br>
-                        <CardComponent 
-                            amirhossein={true}
-                            className="second_part_card"
-                            card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
-                            image={timetable_icon}
-                            image_height="150px"
-                            image_width="150px"
-                            border_color="#BCDECF"
-                            background="rgba(233, 231, 227,.5)"
-                            marginRight="31%"
-                            width="32vw"
-                        />
+                       
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
+                                image={timetable_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                                marginRight="31%"
+                                width="32vw"
+                            />
+                                
                         
                         <br></br>
-
-
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"

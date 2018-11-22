@@ -22,6 +22,7 @@ class Service_page extends React.Component{
                     <Grid.Column computer={8} tablet={8} mobile={8}>
                         {this.props.service && (
                             <Card 
+                                semantic={true}
                                 header={this.props.service.name}
                                 description={this.props.service.description}
                             />

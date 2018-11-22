@@ -23,14 +23,12 @@ class Category_page extends React.Component{
         }
         return(
             <div>
-                <Header textAlign="right">رستوران ها</Header>
-
                 <Grid textAlign="right">
                     {this.props.businesses && this.props.businesses.map((business) => (
                             <Grid.Column computer={4}>
                                 <div onClick={()=>this.on_business_click(business.id)}>
                                 <CardComponent
-
+                                        semantic={true}
                                         header={business.name}
                                         meta1={business.fee}
                                         description={business.description}

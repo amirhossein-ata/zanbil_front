@@ -61,7 +61,6 @@ const Card_component = (props) => (
         </div>
 
         )}
-        
     </div>
 )
 

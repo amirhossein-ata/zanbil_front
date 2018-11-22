@@ -82,6 +82,7 @@ class Business_page extends React.Component{
                                 <Grid.Column computer={4}>
                                     <div onClick={()=>this.on_service_click(service.id)}>
                                         <Card
+                                            semantic={true}
                                             header={service.name}
                                             meta2={service.rating}
                                             description={service.fee}
