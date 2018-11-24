@@ -37,14 +37,16 @@ class Search_page extends React.Component{
                     </Segment>
                 )}
                     
-                <Grid textAlign="right">
+                <Grid textAlign="right" centered>
                     {this.props.search_results && this.props.search_results.map((search_result) => (
-                        <Grid.Column computer={4} tablet={8} mobile={8}>
+                        <Grid.Column computer={5} tablet={8} mobile={8}>
                             <div onClick={()=>this.on_service_click(search_result.id)}>
                                 <CardComponent 
-                                        header={`${search_result.name}/${search_result.fee}`}
-                                        meta1={search_result.business.name}
-                                        description={search_result.rating}
+                                        info={true}
+                                        image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
+                                        header={`${search_result.business.name}/${search_result.name}`}
+                                        rating={search_result.rating}
+                                        description={search_result.fee}
                                 />
                             </div>
                                    

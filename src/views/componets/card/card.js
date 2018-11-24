@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image,Button } from 'semantic-ui-react'
+import { Card, Icon, Image,Button,Rating, Divider } from 'semantic-ui-react'
 
 const style = {
     height : '50vh'
@@ -19,9 +19,20 @@ const amirhossein_style = (props) => ({
     marginRight:props.marginRight? `${props.marginRight}`:'',
     border:`${props.border_color}` ?`1px solid ${props.border_color}` : '',
     background:props.background ? props.background : '',
-    boxShadow:`2px 2px ${props.border_color}`
+    boxShadow:`2px 2px ${props.border_color}`,
+    height:'40vh',
+    alignItems:'center'
 })
 
+const info_style = (props) => ({
+    height:'50vh',
+    width:'100%',
+    textAlign:'right',
+    background:'white',
+    border:'1px solid #E5EEEA',
+    boxShadow:`2px 2px #F4FCF8`
+
+})
 const Card_component = (props) => (
     <div>
     
@@ -48,17 +59,43 @@ const Card_component = (props) => (
             </Card>
         
         )}
-            
+        {props.info && (
+            // <div style={info_style(props)}>
+            //     <img src={props.image} width="100%" height="70%"/>
+            //     <div style={{padding:'1% 3% 1% 3%'}}>
+            //         <div style={{display:'flex'}}>
+            //             <div><h4>{props.header}</h4></div>
+            //             <div style={{marginRight:'auto'}}>
+                            // <Rating icon="star" defaultRating={props.rating%5} maxRating={5}/>
+            //             </div>
+            //         </div>
+            //         <Divider></Divider>
+            //         {props.price && (
+            //             <p>قیمت :  {props.price}</p>
+            //         )}
+            //         {props.description && (
+            //             <p>{props.description}</p>
+            //         )}
+
+            //     </div>
+            // </div>
+            <Card raised fluid color="teal">
+                <Image size="massive" src={props.image} />
+                <Card.Content>
+                <Card.Header>{props.header}</Card.Header>
+                <Card.Meta>
+                    <Rating disabled icon="star" defaultRating={props.rating%5} maxRating={5}/>            
+                </Card.Meta>
+                <Card.Description>{props.description}</Card.Description>
+                </Card.Content>
+            </Card>
+        )}    
         {props.amirhossein && (
             <div className={props.className} style={amirhossein_style(props)}>
-            <div style={{height:'100%'}}>
-                <p style={{marginTop:'30%'}}>
-                    {props.card_text}
-                </p>
-            </div>
-            <img src={props.image} height={props.image_height} width={props.image_width}/>
+                <p>{props.card_text}</p>
+                <img src={props.image} height={props.image_height} width={props.image_width}/>
 
-        </div>
+            </div>
 
         )}
     </div>

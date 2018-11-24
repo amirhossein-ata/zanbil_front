@@ -33,6 +33,9 @@ class Navbar extends Component {
         this.props.get_category_businesses(category_id)
     }
 
+    handle_home_click = () => {
+        this.props.change_panel('landing_page')
+    }
     showSearch = () => {
         this.props.change_panel('search')
         this.props.open_search_form()
@@ -45,7 +48,7 @@ class Navbar extends Component {
             <div>
                 <Menu size="tiny">
                     <Menu.Item
-                        onClick={this.handleItemClick}
+                        onClick={this.handle_home_click}
                     >
                         خانه
                     </Menu.Item>
@@ -64,7 +67,7 @@ class Navbar extends Component {
                     >
                         جست و جو
                     </Menu.Item>
-                    {sessionStorage.getItem('token') ? (
+                    {this.props.logged_in ? (
                         <div style={{marginRight:'auto'}}>
                             <Dropdown  icon="user circle outilne" button pointing className='link item' >
                                 <Dropdown.Menu >
@@ -99,6 +102,7 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return{
         logged_in : state.session_reducer.logged_in
     }

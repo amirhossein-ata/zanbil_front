@@ -7,30 +7,33 @@ import * as business_page_actions from '../../core/business_page/business_page_a
 import {change_panel} from '../../core/main_page/active_panel_actions'
 
 class Category_page extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.on_business_click = this.on_business_click.bind(this)
+    }
     componentDidMount(){
 
         console.log(this.props.businesses)
     }
-    on_business_click=(business_id)=>{
-        this.props.get_business_info(business_id)
+    async on_business_click(business_id){
+        await this.props.get_business_info(business_id)
         this.props.change_panel('business_page')
     }
     render(){
         console.log('active_panel is : ',this.props.active_panel)
 
-        if(this.props.businesses){
-            console.log(this.props.businesses[0])
-        }
         return(
             <div>
                 <Grid textAlign="right">
                     {this.props.businesses && this.props.businesses.map((business) => (
-                            <Grid.Column computer={4}>
+                            <Grid.Column computer={5} tablet={8} mobile={16}>
                                 <div onClick={()=>this.on_business_click(business.id)}>
-                                <CardComponent
-                                        semantic={true}
+                                    <CardComponent
+                                        info={true}
+                                        image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
                                         header={business.name}
-                                        meta1={business.fee}
+                                        rating={business.rating}
                                         description={business.description}
                                     />                            
                                 </div>    

@@ -35,7 +35,7 @@ class Main_page extends React.Component{
     render(){
         console.log('active panel is : ',this.props.active_panel )
         return(
-            <div style={{background:'#f4f6f9'}}>
+            <div style={{minHeight:'100vh',background:'#f4f6f9'}}>
                 <Grid className="landingPage__firstPart">
                     <GridColumn>
                         <Navbar />
@@ -47,15 +47,12 @@ class Main_page extends React.Component{
                     <Landing_page />
                 ) : (
                     <div style={{margin:'3%'}}>
-                        <Segment raised>
                             <Grid centered>
                                 <Grid.Column computer={14}>
                                     {this.get_active_panel()}
                                 </Grid.Column>
                             </Grid>
 
-                        </Segment>
-                        
                     </div>
                     
                 )}

@@ -15,10 +15,8 @@ class Business_page extends React.Component{
         this.on_service_click = this.on_service_click.bind(this)
     }
     async componentDidMount(){
-        await this.props.get_review(1)
-        console.log('reviews areeeeeeeeeeeeeeeeee: ', this.props.reviews)
-        await this.props.get_business_info(1)
-      
+        await this.props.get_review(this.props.business.id)
+        await this.props.get_business_info(this.props.business.id)    
     }
     async on_service_click(service_id){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')

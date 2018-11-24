@@ -27,10 +27,10 @@ class Landing_page extends React.Component{
                     </div>
                     
                 </div>
-                <div style={{height:'auto',background:'white',padding:'3%'}}>
+                <div style={{height:'80vh',background:'white',padding:'5% 3% 5% 3%'}}>
                     <h4>اگر صاحب کسب و کار هستید ما میتونیم به شما کمک کنیم :</h4>
                 
-                    <div style={{margin:'5%'}}>
+                    <div style={{ display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -41,23 +41,17 @@ class Landing_page extends React.Component{
                             border_color="#BCDECF"
                             background="rgba(233, 231, 227,.5)"
                         />
-                        <br></br>
-                       
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
-                                image={timetable_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="rgba(233, 231, 227,.5)"
-                                marginRight="31%"
-                                width="32vw"
-                            />
+                        <CardComponent 
+                            amirhossein={true}
+                            className="second_part_card"
+                            card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
+                            image={timetable_icon}
+                            image_height="150px"
+                            image_width="150px"
+                            border_color="#BCDECF"
+                            background="rgba(233, 231, 227,.5)"
+                        />
                                 
-                        
-                        <br></br>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -67,14 +61,13 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="rgba(233, 231, 227,.5)"
-                            marginRight="65%"
                         />
                     </div>
                 </div>
-                <div style={{height:'auto',padding:'3%',background:'#E7E8E7'}}>
+                <div style={{height:'80vh',padding:'5% 3% 5% 3%',background:'#E7E8E7'}}>
                     <h4>اگر مشتری هستید ما میتونیم به شما کمک کنیم :</h4>
                     
-                    <div style={{margin:'5%'}}>
+                    <div style={{display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -85,7 +78,6 @@ class Landing_page extends React.Component{
                             border_color="#BCDECF"
                             background="white"
                         />
-                        <br></br>
                     
                         <CardComponent 
                             amirhossein={true}
@@ -96,11 +88,8 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="white"
-                            marginRight="32%"
                         />
                     
-                        
-                        <br></br>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -110,8 +99,7 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="white"
-                            marginRight="65%"
-                            width="32vw"
+                        
                         />
                 
 
@@ -123,7 +111,7 @@ class Landing_page extends React.Component{
                         <h2>طرح های ما :</h2>                
                     </div>
                     <div style={{display:'flex',justifyContent:'center',paddingTop:'5%'}}>
-                        <div style={{textAlign:'right',width:'25vw', marginLeft:'2%' , height:'60vh',background:'white'}}>
+                        <div style={{textAlign:'right',width:'25vw', marginLeft:'2%' , height:'auto',background:'white'}}>
                             <div  style={{marginLeft:'auto',marginRight:'40%'}} >
                                 <img src={bronze_icon}width="80px" height="80px" />
                                 <h3>طرح برنزی</h3>
@@ -159,7 +147,7 @@ class Landing_page extends React.Component{
                                 </li>
                             </ul>
                         </div>
-                        <div style={{textAlign:'right',width:'25vw' ,marginLeft:'2%', height:'60vh',background:'white'}}>
+                        <div style={{textAlign:'right',width:'25vw' ,marginLeft:'2%', height:'auto',background:'white'}}>
                             <div style={{marginLeft:'auto',marginRight:'40%'}}>         
                                 <img src={silver_icon}  width="80px" height="80px" />
                                 <h3>طرح نقره ای</h3>
@@ -195,9 +183,7 @@ class Landing_page extends React.Component{
                                 </li>
                             </ul>
                         </div>
-                        <div style={{textAlign:'right',width:'25vw' , height:'60vh',background:'white'}}>
-                            
-
+                        <div style={{textAlign:'right',width:'25vw' , height:'auto',background:'white'}}>  
                             <div style={{marginLeft:'auto',marginRight:'40%'}} >
                                 <img src={gold_icon} width="80px" height="80px" />                        
                                 <h3>طرح طلایی</h3>
