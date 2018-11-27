@@ -1,5 +1,5 @@
 import React from 'react'
-import {Header,Transition} from 'semantic-ui-react'
+import {Header,Transition, Responsive} from 'semantic-ui-react'
 import CardComponent from '../../componets/card/card'
 import timetable_icon from '../../../assessts/icons/calendar.svg'
 import booked_icon from '../../../assessts/icons/booked.svg'
@@ -27,10 +27,9 @@ class Landing_page extends React.Component{
                     </div>
                     
                 </div>
-                <div style={{height:'80vh',background:'white',padding:'5% 3% 5% 3%'}}>
+                <div style={{minHeight:'80vh',background:'white',padding:'5% 3% 5% 3%'}}>
                     <h4>اگر صاحب کسب و کار هستید ما میتونیم به شما کمک کنیم :</h4>
-                
-                    <div style={{ display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
+                    <Responsive {...Responsive.onlyMobile}>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -40,7 +39,11 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="rgba(233, 231, 227,.5)"
+                            marginLeft="auto"
+                            marginRight="auto"
+                            width="94%"
                         />
+                        <br></br>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -50,8 +53,11 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="rgba(233, 231, 227,.5)"
+                            marginLeft="auto"
+                            marginRight="auto"
+                            width="94%"                    
                         />
-                                
+                        <br></br>   
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -61,13 +67,50 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="rgba(233, 231, 227,.5)"
+                            marginLeft="auto"
+                            marginRight="auto"
+                            width="94%"                    
                         />
-                    </div>
+                    </Responsive>
+                    <Responsive minWidth={Responsive.onlyTablet.minWidth} >            
+                        <div style={{ display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="کسب و کار خود را معرفی کنید"
+                                image={introduction_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                            />
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
+                                image={timetable_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                            />
+                                    
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
+                                image={booked_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                            />
+                        </div>
+                    </Responsive>
                 </div>
-                <div style={{height:'80vh',padding:'5% 3% 5% 3%',background:'#E7E8E7'}}>
+                <div style={{minHeight:'80vh',padding:'5% 3% 5% 3%',background:'#E7E8E7'}}>
                     <h4>اگر مشتری هستید ما میتونیم به شما کمک کنیم :</h4>
-                    
-                    <div style={{display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
+                    <Responsive {...Responsive.onlyMobile}>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -77,8 +120,11 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="white"
+                            marginLeft="auto"
+                            marginRight="auto"
+                            width="94%"
                         />
-                    
+                        <br></br>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -88,8 +134,11 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="white"
+                            marginLeft="auto"
+                            marginRight="auto"
+                            width="94%"
                         />
-                    
+                        <br></br>
                         <CardComponent 
                             amirhossein={true}
                             className="second_part_card"
@@ -99,11 +148,47 @@ class Landing_page extends React.Component{
                             image_width="150px"
                             border_color="#BCDECF"
                             background="white"
-                        
+                            marginLeft="auto"
+                            marginRight="auto"
+                            width="94%"
                         />
                 
-
-                    </div>
+                    </Responsive>
+                    <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                        <div style={{display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="در میان کسب و کارها جست و جو کنید"
+                                image={list_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="white"
+                            />
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
+                                image={booked_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="white"
+                            />
+                            <CardComponent 
+                                amirhossein={true}
+                                className="second_part_card"
+                                card_text="ایمیل های یادآوری دریافت کنید تا دیگر هیچ قراری را فراموش نکنید"
+                                image={email_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="white"
+                            
+                            />
+                        </div>    
+                    </Responsive>
 
                 </div>
                 <div style={{paddingTop:'2%' ,height:'100vh',background:'#BCDECF'}}>

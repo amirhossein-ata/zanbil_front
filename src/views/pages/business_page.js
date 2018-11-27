@@ -77,12 +77,13 @@ class Business_page extends React.Component{
                     <Grid.Column computer={14} mobile={15} tablet={15}>
                         <Grid textAlign="right">
                             {this.props.services[0] && this.props.services[0].map((service) => (
-                                <Grid.Column computer={4}>
+                                <Grid.Column computer={5} tablet={8} mobile={16}>
                                     <div onClick={()=>this.on_service_click(service.id)}>
                                         <Card
-                                            semantic={true}
+                                            info={true}
+                                            image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
                                             header={service.name}
-                                            meta2={service.rating}
+                                            rating={service.rating}
                                             description={service.fee}
                                         />
                                     

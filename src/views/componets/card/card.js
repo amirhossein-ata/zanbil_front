@@ -79,9 +79,9 @@ const Card_component = (props) => (
 
             //     </div>
             // </div>
-            <Card raised fluid color="teal">
+            <Card raised fluid  color="teal">
                 <Image size="massive" src={props.image} />
-                <Card.Content>
+                <Card.Content textAlign="right">
                 <Card.Header>{props.header}</Card.Header>
                 <Card.Meta>
                     <Rating disabled icon="star" defaultRating={props.rating%5} maxRating={5}/>            
