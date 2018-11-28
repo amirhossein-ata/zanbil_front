@@ -3,7 +3,7 @@ import {account_page_action_types} from "./account_page_actions"
 const initialState = {
     reserves:[],
     user:undefined,
-    businesses:[]
+    businseses:[]
 
 }
 
@@ -16,7 +16,7 @@ export const account_page_reducer = (state=initialState ,action) => {
                 ...state,
                     user:action.user,
                     reserves:action.reserves,
-                    businesses:action.businesses
+                    businseses:action.businseses
                     
             }
         default :
