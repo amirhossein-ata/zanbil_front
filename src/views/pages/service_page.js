@@ -12,7 +12,8 @@ class Service_page extends React.Component{
     }
     render(){
         return(
-            <div>
+            <Grid centered>
+                <Grid.Column computer={15}>
                 <br></br>
                 <Header dividing textAlign="center">صفحه ی سرویس</Header>
                 <br></br>
@@ -79,7 +80,8 @@ class Service_page extends React.Component{
                     </Grid>
                 </Responsive>
                     
-            </div>
+            </Grid.Column>
+            </Grid>
             
         )
     }

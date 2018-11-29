@@ -24,8 +24,7 @@ class Category_page extends React.Component{
         console.log('active_panel is : ',this.props.active_panel)
 
         return(
-            <div>
-                <Grid textAlign="right">
+                <Grid centered textAlign="right">
                     {this.props.businesses && this.props.businesses.map((business) => (
                             <Grid.Column computer={5} tablet={8} mobile={16}>
                                 <div onClick={()=>this.on_business_click(business.id)}>
@@ -38,9 +37,9 @@ class Category_page extends React.Component{
                                     />                            
                                 </div>    
                             </Grid.Column>           
-                    ))}
+                        )
+                    )}
                 </Grid>
-            </div>
         )
     }
 }

@@ -9,6 +9,7 @@ import CategoryPage from './category_page'
 import AddBusinessPage from '../componets/business_forms/add_business'
 import AddServicePage from '../componets/add_service/add_service_form'
 import SearchPage from '../pages/search_page'
+import Landing_page from '../componets/landing_page/landing_page'
 import * as session_actions  from '../../core/login&signup/session_actions'
 import * as category_page_actions from '../../core/category_page/category_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
@@ -71,8 +72,10 @@ class Main_page extends React.Component{
                 return <SearchPage/>
             case"account_page":
                 return <AccountPage/>
-            case 'landing_page':
+            case 'dashboard':
                 return <Dashboard/>
+            case 'landing_page':
+                return <Landing_page/>
             default:
                 return ''
         }
@@ -116,19 +119,8 @@ class Main_page extends React.Component{
                         <br></br><br></br><br></br>
                         <br></br><br></br><br></br>
 
-                        {this.props.active_panel==='landing_page' ? (
-                            <Dashboard />
-                        ) : (
-                            <div style={{margin:'3%'}}>
-                                <Grid centered>
-                                    <Grid.Column computer={14}>
-                                        {this.get_active_panel()}
-                                    </Grid.Column>
-                                </Grid>
-
-                            </div>
-                            
-                        )}
+                        {this.get_active_panel()}
+                          
                     </div>
 
                 </Responsive>    

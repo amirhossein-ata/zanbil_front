@@ -13,7 +13,7 @@ const EditBusinessModal = ModalComponent('ویرایش اطلاعات')(EditBusi
 
 class Dashboard extends React.Component{
     async componentDidMount(){
-        await this.props.get_business_info(1)    
+        await this.props.get_business_info(this.props.business.id)    
     }
     state = { 
         sections:{

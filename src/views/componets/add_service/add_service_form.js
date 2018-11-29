@@ -258,7 +258,7 @@ class Add_service extends React.Component{
         console.log(d)
         await this.props.add_service(this.state.informations,d,this.props.business_id)
         await this.props.get_business_info(this.props.business_id)
-        this.props.change_panel('business_page')
+        this.props.change_panel('dashboard')
     }
 
     render(){

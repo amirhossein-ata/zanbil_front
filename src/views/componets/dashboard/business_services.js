@@ -15,7 +15,7 @@ class Services extends React.Component{
         this.on_service_click = this.on_service_click.bind(this)
     }
     async componentDidMount(){
-        await this.props.get_business_info(1)    
+        await this.props.get_business_info(this.props.business.id)    
     }
     async on_service_click(service_id){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')
