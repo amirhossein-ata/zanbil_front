@@ -1,102 +1,135 @@
 import React from 'react'
-import CardComponent from '../card/card'
+import {connect} from 'react-redux'
+import * as business_page_actions from '../../../core/business_page/business_page_actions'
+import {change_panel} from '../../../core/main_page/active_panel_actions'
+import ModalComponent from '../modal/Modal'
+import Reports from './reports'
+import Services from './business_services'
+import {Grid ,Segment,Image,Breadcrumb, Icon,Divider, GridColumn, Button} from 'semantic-ui-react'
+import EditBusinessForm from '../business_forms/edit_business'
 
-import {Grid , Table,Menu ,Card,Tab} from 'semantic-ui-react'
+
+const EditBusinessModal = ModalComponent('ویرایش اطلاعات')(EditBusinessForm)
 
 class Dashboard extends React.Component{
-    state = { activeItem: 'home' }
+    async componentDidMount(){
+        await this.props.get_business_info(1)    
+    }
+    state = { 
+        sections:{
+            reports_visible:false,
+            services_visible:false
+        }
+    }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   
-      
+    toggle_view = (section_name) => {
+        let sections = this.state.sections
+        sections[section_name] = !this.state.sections[section_name]
+        this.setState(()=>({sections:sections}))
+        console.log(this.state)
+    }
    
       
   
     render(){
-        const panes = [
-            { menuItem: 'Tab 1', render: () => <Tab.Pane>
-            <Table celled selectable attached={false} >
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell>Notes</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-            
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>John</Table.Cell>
-                        <Table.Cell>No Action</Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>Jamie</Table.Cell>
-                        <Table.Cell>Approved</Table.Cell>
-                        <Table.Cell>Requires call</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>Jill</Table.Cell>
-                        <Table.Cell>Denied</Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row>
-                    <Table.Row warning>
-                        <Table.Cell>John</Table.Cell>
-                        <Table.Cell>No Action</Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>Jamie</Table.Cell>
-                        <Table.Cell positive>Approved</Table.Cell>
-                        <Table.Cell warning>Requires call</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>Jill</Table.Cell>
-                        <Table.Cell negative>Denied</Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row>
-                </Table.Body>
-            </Table>
+      return(
+            <div>
+                    
+                <Grid centered>
+                    <Grid.Column computer={12}>
+                        <Image
+                            src='https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg' 
+                            bordered
+                            fluid
+                        />
+                    </Grid.Column>
+                </Grid>
+                <Grid centered>
+                    {this.props.business && (
+                        <Grid.Column computer={6}>
+                            <Segment padded="very" color="teal"  raised textAlign="right">
+                                <p>مشخصات : </p>
+                                <div style={{paddingRight:'10%'}}>
+                                    <p>{this.props.business.name}</p>
+                                    <p>{this.props.business.description}</p>
+                                    <Breadcrumb>
+                                        <Breadcrumb.Section>
+                                            {this.props.business.email}
+                                        </Breadcrumb.Section>
+                                        <Breadcrumb.Divider ></Breadcrumb.Divider>
+                                        <Breadcrumb.Section >
+                                            {this.props.business.phone_number}
+                                        </Breadcrumb.Section>
+                                    </Breadcrumb>
+                                </div>
+                                <Divider section/>
+                                <div style={{display:'flex',justifyContent:'center'}}>                                
+                                    <EditBusinessModal />
+                                </div>
+                            </Segment>
+                            
+                        </Grid.Column>  
+                        )
+                    }
+                </Grid>
+                
+                <div style={{display:'flex',marginTop:'2%'}} onClick={() => this.toggle_view('reports_visible')}>
+                    <div style={{display:'flex',width:'10%',paddingRight:'2%'}}>
+                        {this.state.reports_visible ? (
+                            <Icon color="teal" size="large" name="window minimize" style={{marginLeft:'5%'}} />
+                        ) : (
+                            <Icon color="teal" size="large" name="add circle" style={{marginLeft:'5%'}} />
+                        )}
+                        <p>گزارشات</p>
+                    </div>
+                    <div style={{width:'87%'}}>
+                        <Divider/>
+                    </div>
+                </div>
+                <br></br>
+                {this.state.sections.reports_visible && (
+                    <Reports/>
+                )}
 
-            </Tab.Pane> },
-            { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-            { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-          ]
-        const {activeItem} = this.state
-        return(
-            <Grid>
-                <Grid.Column computer={4}>
-                <Menu pointing vertical fluid> 
-                    <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-                    <Menu.Item
-                    name='messages'
-                    active={activeItem === 'messages'}
-                    onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                    name='friends'
-                    active={activeItem === 'friends'}
-                    onClick={this.handleItemClick}
-                    />
-                </Menu>
-
-                </Grid.Column>
-                <Grid.Column computer={8}>
-                    <Tab menu={{color:'blue' ,inverted:true }} panes={panes} />
-                </Grid.Column>
-                <Grid.Column computer={4}>
-                    <CardComponent 
-                        report={true}
-                        color="#78DDE9"
-                        header="تعداد رزرو در روز"
-                        value="4"
-                        percentage="-2"
-                        extra="1397/02/12"
-                    />
-                </Grid.Column>
-            </Grid>
-        )
+                <div style={{display:'flex',marginTop:'2%'}} onClick={() => this.toggle_view('services_visible')}>
+                    <div style={{display:'flex',width:'10%',paddingRight:'2%'}}>
+                        {this.state.reports_visible ? (
+                            <Icon color="teal" size="large" name="window minimize" style={{marginLeft:'5%'}} />
+                        ) : (
+                            <Icon color="teal" size="large" name="add circle" style={{marginLeft:'5%'}} />
+                        )}
+                        <p>سرویس ها</p>
+                    </div>
+                    <div style={{width:'87%'}}>
+                        <Divider/>
+                    </div>
+                </div>
+                <br></br>
+                {this.state.sections.services_visible && (
+                    <Services/>
+                )}
+            </div>
+            )
     }
 }
 
-export default Dashboard
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        business : state.business_page_reducer.business ,
+        services : state.business_page_reducer.services,
+        reviews : state.review_reducer.reviews,
+        active_panel:state.active_panel_reducer.active_panel
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+
+    }
+}
+export default connect(mapStateToProps , mapDispatchToProps)(Dashboard);

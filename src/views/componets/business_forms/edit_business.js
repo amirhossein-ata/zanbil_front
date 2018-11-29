@@ -6,7 +6,7 @@ import PersianRex from "persian-rex";
 import {connect} from "react-redux";
 import {change_panel} from '../../../core/main_page/active_panel_actions'
 
-class Add_business extends React.Component {
+class Edit_business extends React.Component {
     state = {
         informations:{
             name:"",
@@ -101,22 +101,18 @@ class Add_business extends React.Component {
         return (
             <div>
 
-                <Grid className="add_business_form">
-                    <Grid.Row verticalAlign="middle">
-                        <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
-                        <Grid.Column computer={10} tablet={12} mobile={14}>
-                            <Segment stacked color="blue" padded>  
+                <Grid className="add_business_form" centered textAlign="right">
+                        <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
                             <Form onSubmit={this.onSubmit}>
                                 <Form.Field>
-                                <div dir = "rtl">
                                     <Form.Input
                                         fluid
+                                        label="نام"
                                         error={this.state.name_error}
-                                        label=" نام"
                                         name="name"
-                                    onBlur={this.validate_name}
-                                    value={this.state.informations.name}
-                                    onChange={this.handle_change}
+                                        onBlur={this.validate_name}
+                                        value={this.state.informations.name}
+                                        onChange={this.handle_change}
                                     
                                         
                                     />
@@ -126,7 +122,6 @@ class Add_business extends React.Component {
                                         لطفا فقط از زبان فارسی استفاده کنید
                                         </Label>    
                                     )} 
-                                    </div>
                                 </Form.Field>
                                 <b><span>دسته بندی</span></b>
                                 <Dropdown
@@ -139,19 +134,17 @@ class Add_business extends React.Component {
                                 
                                 <Form.Field>
                                     <b><span>‌شماره‌ی تماس</span></b>
-                                    <div dir="ltr">
-                                            <Form.Input
-                                                fluid
-                                                error={this.state.phone_number_error}
-                                                //   label="شماره‌ی تماس "
-                                                name="phone_number"
+                                        <Form.Input
+                                            fluid
+                                            error={this.state.phone_number_error}
+                                            //   label="شماره‌ی تماس "
+                                            name="phone_number"
                                             onBlur={this.validate_phone_number}
                                             value={this.state.informations.phone_number}
                                             onChange={this.handle_change}
+                                        
                                             
-                                                
-                                            />
-                                    </div>
+                                        />
                                     {this.state.phone_number_error && (
                                         <Label basic pointing color="red">
                                             تنها میتوانید از ارقام ۰تا۹ استفاده کنید
@@ -165,10 +158,10 @@ class Add_business extends React.Component {
                                         error={this.state.email_error}
                                         label="ایمیل"
                                         name="email"
-                                    onBlur={this.validate_email}
-                                    value={this.state.informations.email}
-                                    onChange={this.handle_change}
-                                    
+                                        onBlur={this.validate_email}
+                                        value={this.state.informations.email}
+                                        onChange={this.handle_change}
+                                        
                                         
                                     />
 
@@ -184,9 +177,9 @@ class Add_business extends React.Component {
                                         error={this.state.address_error}
                                         label="آدرس"
                                         name="address"
-                                    onBlur={this.validate_address}
-                                    value={this.state.informations.address}
-                                    onChange={this.handle_change}
+                                        onBlur={this.validate_address}
+                                        value={this.state.informations.address}
+                                        onChange={this.handle_change}
                                     
                                         
                                     />
@@ -204,9 +197,9 @@ class Add_business extends React.Component {
                                         error={this.state.description_error}
                                         label="توضیحات"
                                         name="description"
-                                    onBlur={this.validate_descriptopn}
-                                    value={this.state.informations.description}
-                                    onChange={this.handle_change}
+                                        onBlur={this.validate_descriptopn}
+                                        value={this.state.informations.description}
+                                        onChange={this.handle_change}
                                     
                                         
                                     />
@@ -221,9 +214,7 @@ class Add_business extends React.Component {
                                 
                                 <Button primary type='submit'>ثبت</Button>
                             </Form>
-                            </Segment>    
                         </Grid.Column>         
-                    </Grid.Row>
                 </Grid>
             </div>
             
@@ -243,4 +234,4 @@ const mapDispatchToProps = (dispatch) => {
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),    
     };
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Add_business);
+export default connect(mapStateToProps,mapDispatchToProps)(Edit_business);

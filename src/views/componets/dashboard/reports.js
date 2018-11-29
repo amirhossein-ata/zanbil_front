@@ -1,0 +1,351 @@
+import React from 'react'
+import {Grid , Table,Menu ,Card,Tab, Icon,Divider} from 'semantic-ui-react'
+import CardComponent from '../card/card'
+
+class Reports extends React.Component{
+    render(){
+        const panes = [
+            { menuItem: 'روزرو های پیش رو', render: () => 
+                <Tab.Pane>
+                    <Table celled selectable attached={false} >
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>تاریخ</Table.HeaderCell>
+                                <Table.HeaderCell>زمان</Table.HeaderCell>
+                                <Table.HeaderCell>سرویس</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell>John</Table.Cell>
+                                <Table.Cell>No Action</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jamie</Table.Cell>
+                                <Table.Cell>Approved</Table.Cell>
+                                <Table.Cell>Requires call</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row warning>
+                                <Table.Cell>John</Table.Cell>
+                                <Table.Cell>No Action</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jamie</Table.Cell>
+                                <Table.Cell positive>Approved</Table.Cell>
+                                <Table.Cell warning>Requires call</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell negative>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell negative>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell negative>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell negative>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell negative>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>Jill</Table.Cell>
+                                <Table.Cell negative>Denied</Table.Cell>
+                                <Table.Cell>None</Table.Cell>
+                            </Table.Row>
+                            
+                        </Table.Body>
+                    </Table>
+
+                </Tab.Pane> 
+            },
+            { menuItem: 'تمام رزرو ها', render: () => 
+            <Tab.Pane>
+                <Table celled selectable attached={false} >
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>تاریخ</Table.HeaderCell>
+                            <Table.HeaderCell>زمان</Table.HeaderCell>
+                            <Table.HeaderCell>سرویس</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                
+                    <Table.Body>
+                        <Table.Row>
+                            <Table.Cell>John</Table.Cell>
+                            <Table.Cell>No Action</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jamie</Table.Cell>
+                            <Table.Cell>Approved</Table.Cell>
+                            <Table.Cell>Requires call</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jill</Table.Cell>
+                            <Table.Cell>Denied</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                        <Table.Row warning>
+                            <Table.Cell>John</Table.Cell>
+                            <Table.Cell>No Action</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jamie</Table.Cell>
+                            <Table.Cell positive>Approved</Table.Cell>
+                            <Table.Cell warning>Requires call</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jill</Table.Cell>
+                            <Table.Cell negative>Denied</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                    </Table.Body>
+                </Table>
+
+            </Tab.Pane> },
+            { menuItem: 'مشتریان', render: () => 
+            <Tab.Pane>
+                <Table celled selectable attached={false} >
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>نام</Table.HeaderCell>
+                            <Table.HeaderCell>شماره تلفن</Table.HeaderCell>
+                            <Table.HeaderCell>ایمیل</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                
+                    <Table.Body>
+                        <Table.Row>
+                            <Table.Cell>John</Table.Cell>
+                            <Table.Cell>No Action</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jamie</Table.Cell>
+                            <Table.Cell>Approved</Table.Cell>
+                            <Table.Cell>Requires call</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jill</Table.Cell>
+                            <Table.Cell>Denied</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                        <Table.Row warning>
+                            <Table.Cell>John</Table.Cell>
+                            <Table.Cell>No Action</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jamie</Table.Cell>
+                            <Table.Cell positive>Approved</Table.Cell>
+                            <Table.Cell warning>Requires call</Table.Cell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.Cell>Jill</Table.Cell>
+                            <Table.Cell negative>Denied</Table.Cell>
+                            <Table.Cell>None</Table.Cell>
+                        </Table.Row>
+                    </Table.Body>
+                </Table>
+
+            </Tab.Pane> 
+        },
+  
+        ]
+  
+        return(
+            <div>
+                <Grid centered>
+
+                    <Grid.Column computer={10}>
+                        <Tab menu={{color:'blue' ,inverted:true }} panes={panes} />
+                    </Grid.Column>
+                    <Grid.Column computer={5}>
+                        <CardComponent 
+                            report={true}
+                            color="#78DDE9"
+                            header="تعداد رزرو در روز"
+                            value="4"
+                            percentage="-2"
+                            extra="1397/02/12"
+                        />
+                        <br></br> 
+                        <br></br>
+                        <CardComponent 
+                            report={true}
+                            color="#A4D383"
+                            header="تعداد رزرو در هفته"
+                            value="8"
+                            percentage="5"
+                            extra="1397/02/07-1397/02/14"
+                        />
+                        <br></br><br></br>
+                        <CardComponent 
+                            report={true}
+                            color="#EEE414"
+                            header="تعداد رزرو در ماه"
+                            value="25"
+                            percentage="7"
+                            extra="فروردین"
+                        />
+                    </Grid.Column>
+                </Grid>
+                <Divider hidden/>
+                <Grid centered>
+                    <Grid.Column computer={7}>
+                        <Card fluid>
+                            <Card.Content style={{background:'#14C3EE'}}>
+                                <Card.Header>
+                                    <span style={{display:'flex',justifyContent:'space-between',color:'white'}}>
+                                        <p>محبوب ترین سرویس ها</p>
+                                        <Icon name="exclamation" />
+                                    </span>
+                                </Card.Header>
+                            </Card.Content>
+                            <Card.Content>
+                                <Table celled selectable attached={false} >
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>نام سرویس </Table.HeaderCell>
+                                            <Table.HeaderCell>تعداد رزرو در ماه اخیر</Table.HeaderCell>
+                                            <Table.HeaderCell>تعداد رزرو در هفته ی اخیر</Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+                                    
+                                    <Table.Body>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>Jamie</Table.Cell>
+                                            <Table.Cell>Approved</Table.Cell>
+                                            <Table.Cell>Requires call</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>Jill</Table.Cell>
+                                            <Table.Cell>Denied</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                    
+                                    </Table.Body>
+                                </Table>
+
+                            </Card.Content>
+                        </Card>
+                    </Grid.Column>
+                    <Grid.Column computer={1}></Grid.Column>
+                    <Grid.Column computer={7}>
+                        <Card fluid>
+                            <Card.Content style={{background:'#14C3EE'}}>
+                                <Card.Header>
+                                    <span style={{display:'flex',justifyContent:'space-between',color:'white'}}>
+                                        <p>پرکار ترین ساعت ها</p>
+                                        <Icon name="exclamation" />
+                                    </span>
+                                </Card.Header>
+                            </Card.Content>
+                            <Card.Content>
+                                <Table celled selectable attached={false} >
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>روز هفته</Table.HeaderCell>
+                                            <Table.HeaderCell>زمان</Table.HeaderCell>
+                                            <Table.HeaderCell>متوسط تعداد روزرو در هفته</Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+                                    
+                                    <Table.Body>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>Jamie</Table.Cell>
+                                            <Table.Cell>Approved</Table.Cell>
+                                            <Table.Cell>Requires call</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>Jill</Table.Cell>
+                                            <Table.Cell>Denied</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>John</Table.Cell>
+                                            <Table.Cell>No Action</Table.Cell>
+                                            <Table.Cell>None</Table.Cell>
+                                        </Table.Row>
+                                        
+                                    </Table.Body>
+                                </Table>
+                                        
+                            </Card.Content>
+                        </Card>
+                    </Grid.Column>
+
+                </Grid>
+            </div>
+
+        )
+    }
+}
+
+export default Reports;
