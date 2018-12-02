@@ -6,10 +6,6 @@ import {Grid, Divider , Header, Responsive} from 'semantic-ui-react';
 import * as service_page_actions from '../../core/service_page/service_page_actions'
 
 class Service_page extends React.Component{
-    componentDidMount(){
-        // this.props.get_service_page_info(this.props.service.id,moment().locale('fa').format('YYYY/MM/DD'))
-        console.log('service page mounnteeeeeeeeeeeeeeeeeeeeeeeed')
-    }
     render(){
         return(
             <Grid centered>

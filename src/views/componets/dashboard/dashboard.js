@@ -5,6 +5,7 @@ import {change_panel} from '../../../core/main_page/active_panel_actions'
 import ModalComponent from '../modal/Modal'
 import Reports from './reports'
 import Services from './business_services'
+import Comments from './business_comments'
 import {Grid ,Segment,Image,Breadcrumb, Icon,Divider, GridColumn, Button} from 'semantic-ui-react'
 import EditBusinessForm from '../business_forms/edit_business'
 
@@ -18,7 +19,8 @@ class Dashboard extends React.Component{
     state = { 
         sections:{
             reports_visible:false,
-            services_visible:false
+            services_visible:false,
+            comments_visible:false
         }
     }
 
@@ -38,7 +40,7 @@ class Dashboard extends React.Component{
             <div>
                     
                 <Grid centered>
-                    <Grid.Column computer={12}>
+                    <Grid.Column computer={12} mobile={15} tablet={15}>
                         <Image
                             src='https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg' 
                             bordered
@@ -48,7 +50,7 @@ class Dashboard extends React.Component{
                 </Grid>
                 <Grid centered>
                     {this.props.business && (
-                        <Grid.Column computer={6}>
+                        <Grid.Column computer={6} tablet={10} mobile={15}>
                             <Segment padded="very" color="teal"  raised textAlign="right">
                                 <p>مشخصات : </p>
                                 <div style={{paddingRight:'10%'}}>
@@ -109,6 +111,25 @@ class Dashboard extends React.Component{
                 <br></br>
                 {this.state.sections.services_visible && (
                     <Services/>
+                )}
+
+
+                <div style={{display:'flex',marginTop:'2%'}} onClick={() => this.toggle_view('comments_visible')}>
+                    <div style={{display:'flex',width:'10%',paddingRight:'2%'}}>
+                        {this.state.sections.comments_visible ? (
+                            <Icon color="teal" size="large" name="window minimize" style={{marginLeft:'5%'}} />
+                        ) : (
+                            <Icon color="teal" size="large" name="add circle" style={{marginLeft:'5%'}} />
+                        )}
+                        <p>نظرات</p>
+                    </div>
+                    <div style={{width:'87%'}}>
+                        <Divider/>
+                    </div>
+                </div>
+                <br></br>
+                {this.state.sections.comments_visible && (
+                    <Comments/>
                 )}
             </div>
             )
