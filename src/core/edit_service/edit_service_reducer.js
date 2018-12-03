@@ -15,6 +15,9 @@ const initialState = {
           case edit_service_action_type.GET_SERVICE_SUCCESS:
               return{
                   ...state,
+                  fee:action.fee,
+                  service_name:action.service_name,
+                  description:action.description,
                   sanses:action.sanses,
               }
           default:

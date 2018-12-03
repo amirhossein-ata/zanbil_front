@@ -20,6 +20,18 @@ class Edit_service_page extends React.Component {
         contact_number_error:false,
         description_error:false
     }
+    async componentDidMount(){
+        await this.props.get_service_info();
+        let temp_information = this.state.informations;
+        temp_information.service_name = this.props.sanses 
+        temp_information.fee =this.props.fee
+        temp_information.description =this.props.description
+        temp_information.service_name =this.props.service_name
+         this.setState(() => ({
+            informations : temp_information
+        }))
+
+    }
     handle_change= (e) => {
         const input = e.target.value;
         
@@ -60,7 +72,7 @@ class Edit_service_page extends React.Component {
         }
     }
     onSubmit = () => {
-        
+        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.informations.sanses,this.state.informations.service_name);
     }
     render(){
         return (
@@ -92,7 +104,7 @@ class Edit_service_page extends React.Component {
                                     label="قیمت سرویس"
                                     name="price"
                                     onBlur={this.validate_price}
-                                    value={this.state.informations.price}
+                                    value={this.state.informations.fee}
                                     onChange={this.handle_change}
                                 
                                     
@@ -137,14 +149,15 @@ const mapStateToProps = (state) => {
         sanses : state.edit_service_reducer.sanses,
         fee : state.edit_service_reducer.fee,
         description: state.edit_service_reducer.description,
+        service_name:state.edit_service_reducer.service_name,
         service_id:state.edit_service_reducer.service_id
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        edit_service : (description,fee,sanses) => dispatch(edit_service_actions.edit_service(description,fee,sanses)),
+        edit_service : (description,fee,sanses,service_name) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name)),
         
-        get_service_info : (service_id) => dispatch(edit_service_actions.get_services_info(service_id)),
+        get_service_info : (service_id) => dispatch(edit_service_actions.get_service_info(service_id)),
 
     }
 }
