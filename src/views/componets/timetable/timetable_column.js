@@ -11,13 +11,13 @@ const timetable_column = (props) => (
                                     
                                 {props.sanses[props.index].map((sans) => (
                                     <Button 
-                                        onClick={()=>props.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,2)} 
+                                        onClick={() =>props.onSansClick(sans.sansID,sans.sans_start,sans.sans_end)} 
                                         color="linkedin" 
-                                        disabled={sans.is_reserved} 
+                                        disable= {sans.is_reserved && !props.edit}
                                         fluid 
                                         style={style}
                                     >
-                                        {sans.sans.start_time} - {sans.sans.end_time}
+                                        {sans.start_time} - {sans.end_time}
                                     </Button>
                                 ))}
                                 </Grid.Column>
