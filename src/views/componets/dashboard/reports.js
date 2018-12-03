@@ -1,174 +1,69 @@
 import React from 'react'
 import {Grid , Table,Menu ,Card,Tab, Icon,Divider} from 'semantic-ui-react'
 import CardComponent from '../card/card'
-
+import TableComponet from '../table/Table'
 class Reports extends React.Component{
     render(){
         const panes = [
             { menuItem: 'روزرو های پیش رو', render: () => 
                 <Tab.Pane>
-                    <Table celled selectable attached={false} >
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>تاریخ</Table.HeaderCell>
-                                <Table.HeaderCell>زمان</Table.HeaderCell>
-                                <Table.HeaderCell>سرویس</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                        
-                        <Table.Body>
-                            <Table.Row>
-                                <Table.Cell>John</Table.Cell>
-                                <Table.Cell>No Action</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jamie</Table.Cell>
-                                <Table.Cell>Approved</Table.Cell>
-                                <Table.Cell>Requires call</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row warning>
-                                <Table.Cell>John</Table.Cell>
-                                <Table.Cell>No Action</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jamie</Table.Cell>
-                                <Table.Cell positive>Approved</Table.Cell>
-                                <Table.Cell warning>Requires call</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell negative>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell negative>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell negative>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell negative>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell negative>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Jill</Table.Cell>
-                                <Table.Cell negative>Denied</Table.Cell>
-                                <Table.Cell>None</Table.Cell>
-                            </Table.Row>
-                            
-                        </Table.Body>
-                    </Table>
-
+                    <TableComponet
+                        headers={['تاریخ','زمان','سرویس']}
+                        rows={[
+                            ['1397/02/1','8:30','کوتاهی مو'],
+                            ['1397/02/2','8:30','کوتاهی مو'],
+                            ['1397/02/3','8:30','کوتاهی مو'],
+                            ['1397/02/4','8:30','کوتاهی مو'],
+                            ['1397/02/5','8:30','کوتاهی مو'],
+                            ['1397/02/6','8:30','کوتاهی مو'],
+                            ['1397/02/7','8:30','کوتاهی مو'],
+                            ['1397/02/8','8:30','کوتاهی مو'],
+                            ['1397/02/9','8:30','کوتاهی مو'],
+                            ['1397/02/10','8:30','کوتاهی مو'],  
+                            ['1397/02/11','8:30','کوتاهی مو'],
+                            ['1397/02/12','8:30','کوتاهی مو'],
+                            ['1397/02/13','8:30','کوتاهی مو'],
+                            ['1397/02/14','8:30','کوتاهی مو'],
+                            ['1397/02/15','8:30','کوتاهی مو'],
+                            ['1397/02/16','8:30','کوتاهی مو'],
+                            ['1397/02/17','8:30','کوتاهی مو'],
+                            ['1397/02/18','8:30','کوتاهی مو'],
+                            ['1397/02/19','8:30','کوتاهی مو'],
+                            ['1397/02/20','8:30','کوتاهی مو'],
+                            ['1397/02/21','8:30','کوتاهی مو'],
+                            ['1397/02/22','8:30','کوتاهی مو'],
+                            ['1397/02/23','8:30','کوتاهی مو'],
+                            ['1397/02/24','8:30','کوتاهی مو'],
+                        ]}
+                    />
                 </Tab.Pane> 
             },
             { menuItem: 'تمام رزرو ها', render: () => 
             <Tab.Pane>
-                <Table celled selectable attached={false} >
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>تاریخ</Table.HeaderCell>
-                            <Table.HeaderCell>زمان</Table.HeaderCell>
-                            <Table.HeaderCell>سرویس</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>John</Table.Cell>
-                            <Table.Cell>No Action</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jamie</Table.Cell>
-                            <Table.Cell>Approved</Table.Cell>
-                            <Table.Cell>Requires call</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jill</Table.Cell>
-                            <Table.Cell>Denied</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                        <Table.Row warning>
-                            <Table.Cell>John</Table.Cell>
-                            <Table.Cell>No Action</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jamie</Table.Cell>
-                            <Table.Cell positive>Approved</Table.Cell>
-                            <Table.Cell warning>Requires call</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jill</Table.Cell>
-                            <Table.Cell negative>Denied</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
-                </Table>
+                <TableComponet
+                    headers={['تاریخ','زمان','سرویس']}
+                    rows={[
+                            ['1397/02/1','8:30','کوتاهی مو'],
+                            ['1397/02/2','8:30','کوتاهی مو'],
+                            ['1397/02/3','8:30','کوتاهی مو'],
+                            ['1397/02/4','8:30','کوتاهی مو'],
+                            ['1397/02/5','8:30','کوتاهی مو'],
+                        ]}
+                />
 
             </Tab.Pane> },
             { menuItem: 'مشتریان', render: () => 
             <Tab.Pane>
-                <Table celled selectable attached={false} >
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>نام</Table.HeaderCell>
-                            <Table.HeaderCell>شماره تلفن</Table.HeaderCell>
-                            <Table.HeaderCell>ایمیل</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>John</Table.Cell>
-                            <Table.Cell>No Action</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jamie</Table.Cell>
-                            <Table.Cell>Approved</Table.Cell>
-                            <Table.Cell>Requires call</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jill</Table.Cell>
-                            <Table.Cell>Denied</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                        <Table.Row warning>
-                            <Table.Cell>John</Table.Cell>
-                            <Table.Cell>No Action</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jamie</Table.Cell>
-                            <Table.Cell positive>Approved</Table.Cell>
-                            <Table.Cell warning>Requires call</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jill</Table.Cell>
-                            <Table.Cell negative>Denied</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
-                </Table>
-
+                <TableComponet
+                    headers={['تاریخ','زمان','سرویس']}
+                    rows={[
+                            ['1397/02/12','8:30','کوتاهی مو'],
+                            ['1397/02/12','8:30','کوتاهی مو'],
+                            ['1397/02/12','8:30','کوتاهی مو'],
+                            ['1397/02/12','8:30','کوتاهی مو'],
+                            ['1397/02/12','8:30','کوتاهی مو'],
+                        ]}
+                />
             </Tab.Pane> 
         },
   

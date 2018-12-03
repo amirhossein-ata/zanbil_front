@@ -117,13 +117,13 @@ class Timetable extends React.Component{
                         
                     </Modal.Content>
                     <Modal.Actions>
-                    <Button 
-                        onClick={this.on_confirm_reserve}
-                        positive 
-                        icon='checkmark'  
-                        labelPosition='left' 
-                        content='ثبت' 
-                    />
+                        <Button 
+                            onClick={this.on_confirm_reserve}
+                            positive 
+                            icon='checkmark'  
+                            labelPosition='left' 
+                            content='ثبت' 
+                        />
                     </Modal.Actions>
                 </Modal>
     
