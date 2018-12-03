@@ -8,9 +8,10 @@ import Services from './business_services'
 import Comments from './business_comments'
 import {Grid ,Segment,Image,Breadcrumb, Icon,Divider, GridColumn, Button} from 'semantic-ui-react'
 import EditBusinessForm from '../business_forms/edit_business'
-
+import UploadPhoto from '../business_forms/upload_photo'
 
 const EditBusinessModal = ModalComponent('ویرایش اطلاعات')(EditBusinessForm)
+const UploadPhotoModal = ModalComponent('تغییر عکس')(UploadPhoto)
 
 class Dashboard extends React.Component{
     async componentDidMount(){
@@ -48,6 +49,10 @@ class Dashboard extends React.Component{
                         />
                     </Grid.Column>
                 </Grid>
+                <Grid centered>
+                    <UploadPhotoModal/>
+                </Grid>
+
                 <Grid centered>
                     {this.props.business && (
                         <Grid.Column computer={6} tablet={10} mobile={15}>

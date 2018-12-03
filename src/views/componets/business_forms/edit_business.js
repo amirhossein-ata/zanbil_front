@@ -9,12 +9,12 @@ import {change_panel} from '../../../core/main_page/active_panel_actions'
 class Edit_business extends React.Component {
     state = {
         informations:{
-            name:"",
-            phone_number:"",
-            email:"",
-            description:"",
-            address:"",
-            category:""
+            name:this.props.business.name,
+            phone_number:this.props.business.phone_number,
+            email:this.props.business.email,
+            description:this.props.business.description,
+            address:this.props.business.address,
+            category:this.props.business.category
         },
         name_error: false,
         email_error: false,
@@ -224,7 +224,9 @@ class Edit_business extends React.Component {
 const mapStateToProps = (state) => {
     
     return{
-        state:state
+        state:state,
+        business : state.business_page_reducer.business ,
+
     }
 };
 
