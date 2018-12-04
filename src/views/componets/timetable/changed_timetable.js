@@ -9,6 +9,13 @@ const style={
     marginTop:'2px'
 }
 class Timetable extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.on_next_week_click = this.on_next_week_click.bind(this)
+        this.on_last_week_click = this.on_last_week_click.bind(this)
+        this.on_confirm_reserve = this.on_confirm_reserve.bind(this)
+    }
     componentDidMount(){
         let last_of_week = this.state.date.add(7,'day').locale('fa').format('YYYY/MM/DD')
         this.setState(()=>({last_of_week:last_of_week}))
@@ -31,24 +38,24 @@ class Timetable extends React.Component{
 
     handleClose = () => this.setState({ modalOpen: false })
 
-    on_next_week_click = () => {
+    async on_next_week_click(){
         let newState = this.state.date
         newState.add(7,'day')
         this.setState(()=>({date:newState}))
         let last_of_week = this.state.date.add(7,'day').locale('fa').format('YYYY/MM/DD')
         this.setState(()=>({last_of_week:last_of_week}))
         this.state.date.add(-7,'day')
-        this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+        await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
 
     }
-    on_last_week_click = () => {
+    async on_last_week_click(){
         let newState = this.state.date
         newState.add(-7,'day')
         this.setState(()=>({date:newState}))
         let last_of_week = this.state.date.add(7,'day').locale('fa').format('YYYY/MM/DD')
         this.setState(()=>({last_of_week:last_of_week}))
         this.state.date.add(-7,'day')
-        this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+        await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
 
     }
 
@@ -82,9 +89,10 @@ class Timetable extends React.Component{
         }))
     }
 
-    on_confirm_reserve = () => {
-        this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
-        this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+    async on_confirm_reserve(){
+        await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
+        await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+        console.log('sanse after reserved are',this.props.sanses)
     }
     render(){
         return(
@@ -129,12 +137,12 @@ class Timetable extends React.Component{
     
                 <Segment>
                     <div style={{display:'flex',justifyContent:'space-between'}}>
-                        <Icon name='arrow right'/>
+                        <Icon name='arrow right' onClick={this.on_last_week_click}/>
                         <span>
                             {this.state.date.locale('fa').format('YYYY/MM/DD')} - {this.state.last_of_week&&this.state.last_of_week}
                         </span>
 
-                        <Icon name='arrow left' />
+                        <Icon name='arrow left' onClick={this.on_next_week_click} />
                     </div>
                 </Segment>
                 <Divider hidden />
@@ -264,7 +272,6 @@ class Timetable extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.service_page_reducer.sanses[0])
     return{
         sanses : state.service_page_reducer.sanses[0],
         service : state.service_page_reducer.service,
