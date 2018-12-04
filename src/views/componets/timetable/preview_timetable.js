@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Timetable from './timetTable';
+import Timetable from './timeTable';
 import { Segment,Modal,Form,Grid,GridColumn,Button,Message} from 'semantic-ui-react';
 
 class preview_timetable extends React.Component {
