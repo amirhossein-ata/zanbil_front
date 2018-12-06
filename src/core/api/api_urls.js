@@ -5,4 +5,4 @@ export const SERV = MAIN + 'api/service/';
 export const CATEGORY_PAGE = MAIN + 'api/category/'
 export const REVIEW = MAIN + 'api/service/review/';
 export const ACC = MAIN + 'api/user/';
-export const ESER = MAIN + "api/edit_service";
+export const ESERV = MAIN + "api/edit_service";

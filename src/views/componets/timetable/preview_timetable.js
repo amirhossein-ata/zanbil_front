@@ -10,14 +10,18 @@ class preview_timetable extends React.Component {
             sansID:undefined,
             sans_start:'',
             sans_end:'',
+            weekday:undefined,
+            sans_num:undefined,
         }
     }
 
-    onSansClick = (sans_id,sans_start,sans_end) =>{
+    onSansClick = (sans_id,sans_start,sans_end,weekday,sans_num) =>{
             let temp_sans = this.state.sansinfo;
             temp_sans.sansID=sans_id;
             temp_sans.sans_start=sans_start;
             temp_sans.sans_end=sans_end;
+            temp_sans.sans_=weekday;
+            temp_sans.sans_num = sans_num;
             this.setState({sansinfo:temp_sans});
             this.handleOpen();
     }
@@ -25,12 +29,15 @@ class preview_timetable extends React.Component {
 
     handleClose = () => this.setState({ modal_open: false })
     on_confirm_change = () =>{
-        this.props.onConfirmChange(this.sansinfo.sans_id)
+        this.props.onConfirmChange(this.sansinfo)
     }
     on_delete_sans = () => {
-        this.props.deleteSans(this.sansinfo.sans_id)
+        this.props.deleteSans(this.sansinfo)
     }
     render(){
+        console.log("sanses in preview are",this.props.sanses);
+        if(this.props.sanses[0]){
+        console.log("sanses going a level deeper in previews are:",this.props.sanses[0])}
         return(
             <div>
             {this.props.sanses &&
@@ -44,7 +51,7 @@ class preview_timetable extends React.Component {
                                     
                                     <Form.Field width={8}>
                                         <Form.Input
-                                            value={this.state.sans.start_time} 
+                                            value={this.state.sansinfo.start_time} 
                                             fluid 
                                             label='شروع سانس' 
                                             onChange={this.on_sans_change}
@@ -52,7 +59,7 @@ class preview_timetable extends React.Component {
                                     </Form.Field>
                                     <Form.Field width={16}>
                                         <Form.Input
-                                            value={this.state.sans.end_time} 
+                                            value={this.state.sansinfo.end_time} 
                                             fluid 
                                             label='پایان سانس' 
                                             onChange={this.on_sans_change}
@@ -84,7 +91,7 @@ class preview_timetable extends React.Component {
                 </Modal>
     
                 <Segment>
-                <Timetable onSansClick={this.onSansClick} edit={false} />
+                <Timetable sanses={this.props.sanses} onSansClick={this.onSansClick} edit={false} />
                 
                 </Segment>
 

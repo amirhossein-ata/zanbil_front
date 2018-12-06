@@ -1,34 +1,40 @@
 import React from "react";
 import PersianRex from "persian-rex";
 import {Form,Label,Segment,Button} from "semantic-ui-react";
-import * as edit_service_actions from "../edit_service/edit_service_actions"
+import * as edit_service_actions from "../../core/edit_service/edit_service_actions";
+import PreviewTimeTable from "../componets/timetable/preview_timetable";
 import {connect} from "react-redux"
 
 class Edit_service_page extends React.Component {
     state = {
+        service_id:20,
+        modified_sanses:undefined,
         informations:{
-            service_name:"",
+            service_name:undefined,
             
-            description:"",
-            price:""
+            description:undefined,
+            price:undefined
             
             },
-            duration:"",
-        sanses:"",
+        sanses:[],
         price_error:false,
-        service_name_error:false,
-        contact_number_error:false,
+        name_error:false,
         description_error:false
     }
     async componentDidMount(){
-        await this.props.get_service_info();
+        await this.props.get_service_info(this.state.service_id);
+        console.log("props are:" ,this.props)
         let temp_information = this.state.informations;
-        temp_information.service_name = this.props.sanses 
-        temp_information.fee =this.props.fee
-        temp_information.description =this.props.description
-        temp_information.service_name =this.props.service_name
+        temp_information.service_name = this.props.sanses; 
+        temp_information.fee =this.props.fee;
+        temp_information.description =this.props.description;
+        temp_information.service_name =this.props.service_name;
          this.setState(() => ({
             informations : temp_information
+        }))
+        let temp_sanses=this.props.sanses;
+        this.setState(() => ({
+            sanses:temp_sanses
         }))
 
     }
@@ -70,9 +76,71 @@ class Edit_service_page extends React.Component {
             this.setState(()=>({description_error:false}));       
             
         }
+
+    }
+    onConfirmChange= (sansinfo) => {
+           let temp_sanses= this.state.sanses;
+           const day=temp_sanses[sansinfo.weekday];
+           let prev_sans=undefined;
+           let next_sans=undefined;
+           let temp_sans = day[sansinfo.sans_num];
+           let temp_modified = this.state.modified_sanses;
+           
+           if(sansinfo.sans_num !== 0 ){
+                prev_sans = day[sansinfo.sans_num-1];
+            }
+           if (sansinfo.sans_num !== day.length-1){
+                next_sans = day[sansinfo.sans_num+1];
+           }
+           if(prev_sans){
+                if((parseInt(prev_sans.end_time.substring(0,3),10) > parseInt(sansinfo.start_time.substring(0,3) ,10)) || ((parseInt(prev_sans.end_time.substring(0,3),10) === parseInt(sansinfo.start_time.substring(0,3) ,10)) && ((parseInt(prev_sans.end_time.substring(3),10) > parseInt(sansinfo.start_time.substring(3) ,10))))){
+                        let prev_temp_sans=prev_sans;
+                        prev_temp_sans.end_time = sansinfo.start_time;
+                        prev_temp_sans.is_deleted = 0;
+                        temp_sanses[sansinfo.weekday][sansinfo.weekday-1] = prev_temp_sans; 
+                        temp_modified.push(prev_temp_sans);
+                        
+                        
+
+                }
+           }
+           if(next_sans){
+            if((parseInt(next_sans.start_time.substring(0,3),10) > parseInt(sansinfo.end_time.substring(0,3) ,10)) || ((parseInt(next_sans.start_time.substring(0,3),10) === parseInt(sansinfo.end_time.substring(0,3) ,10)) && ((parseInt(next_sans.start_time.substring(3),10) > parseInt(sansinfo.end_time.substring(3) ,10))))){
+                let next_temp_sans=next_sans;
+                next_temp_sans.start_time = sansinfo.end_time;
+                next_temp_sans.is_deleted = 0;
+                temp_sanses[sansinfo.weekday][sansinfo.weekday+1] = next_temp_sans; 
+                temp_modified.push(next_temp_sans);
+                
+                
+
+        }
+
+           }
+           temp_sanses[sansinfo.weekday][sansinfo.weekday-1] = temp_sans; 
+           temp_modified.push(temp_sans);
+           this.setState(() => ({
+               modified_sanses : temp_modified,
+               sanses:temp_sanses
+           }))
+        
+    }
+    deleteSans = (sansinfo) => {
+        let temp_sanses= this.state.sanses;
+        temp_sanses.splice(sansinfo.sans_num,1);
+        const day=temp_sanses[sansinfo.weekday];
+        let temp_sans = day[sansinfo.sans_num];
+        temp_sans.is_deleted = 1;
+        let temp_modified = this.state.modified_sanses;
+        temp_modified.push(temp_sans);
+        this.setState(() => ({
+            modified_sanses : temp_modified,
+            sanses:temp_sanses
+        }))
+
     }
     onSubmit = () => {
-        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.informations.sanses,this.state.informations.service_name);
+        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name);
     }
     render(){
         return (
@@ -135,6 +203,7 @@ class Edit_service_page extends React.Component {
                                 )} 
                         
                             </Form.Field>
+                            <PreviewTimeTable onConfirmChange={this.onSansChange} deleteSans={this.deleteSans} sanses={this.props.sanses} />
                             <Button primary type='submit'>اعمال تغییرات</Button>
                             </Form>
                             </Segment>
@@ -144,7 +213,7 @@ class Edit_service_page extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log("state is:",state)
     return {
         sanses : state.edit_service_reducer.sanses,
         fee : state.edit_service_reducer.fee,
@@ -155,7 +224,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        edit_service : (description,fee,sanses,service_name) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name)),
+        edit_service : (description,fee,sanses,service_name,service_id) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id)),
         
         get_service_info : (service_id) => dispatch(edit_service_actions.get_service_info(service_id)),
 
