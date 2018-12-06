@@ -12,6 +12,20 @@ class Timetable extends React.Component{
     constructor(props){
         super(props)
 
+        this.state={
+            date:moment(),
+            reserve_success:false,
+            last_of_week:'',
+            modalOpen:false,
+            description:'',
+            sansinfo:{
+                sansID:undefined,
+                sans_start:'',
+                sans_end:'',
+                date:''
+            }
+        }
+    
         this.on_next_week_click = this.on_next_week_click.bind(this)
         this.on_last_week_click = this.on_last_week_click.bind(this)
         this.on_confirm_reserve = this.on_confirm_reserve.bind(this)
@@ -21,22 +35,9 @@ class Timetable extends React.Component{
         this.setState(()=>({last_of_week:last_of_week}))
         this.state.date.add(-7,'day')
     }
-    state={
-        date:moment(),
-        last_of_week:'',
-        modalOpen:false,
-        description:'',
-        sansinfo:{
-            sansID:undefined,
-            sans_start:'',
-            sans_end:'',
-            date:''
-        }
-    }
-
     handleOpen = () => this.setState({ modalOpen: true })
 
-    handleClose = () => this.setState({ modalOpen: false })
+    handleClose = () => this.setState({ modalOpen: false,reserve_success:false })
 
     async on_next_week_click(){
         let newState = this.state.date
@@ -91,6 +92,7 @@ class Timetable extends React.Component{
 
     async on_confirm_reserve(){
         await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
+        this.setState(()=>({reserve_success:true}))
         await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
         console.log('sanse after reserved are',this.props.sanses)
     }
@@ -112,7 +114,7 @@ class Timetable extends React.Component{
                                             onChange={this.on_description_change}
                                         />
                                     </Form.Field>
-                                    {this.props.reserve_success && (
+                                    {this.state.reserve_success && (
                                         <Message positive>
                                             رزرو شما با موفقیت انجام شد.
                                         </Message>
