@@ -6,6 +6,7 @@ const initialState = {
 }
 
 export const service_page_reducer = (state=initialState ,action) => {
+    console.log(action)
     switch(action.type){
         case service_page_action_types.GET_SERVICE_PAGE_INFO_SUCCESS:
             return {

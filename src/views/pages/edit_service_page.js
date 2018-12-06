@@ -23,7 +23,7 @@ class Edit_service_page extends React.Component {
     }
     async componentDidMount(){
         await this.props.get_service_info(this.state.service_id);
-        console.log("props are:" ,this.props)
+        console.log("props are:" ,this.props.sanses)
         let temp_information = this.state.informations;
         temp_information.service_name = this.props.sanses; 
         temp_information.fee =this.props.fee;
@@ -203,7 +203,9 @@ class Edit_service_page extends React.Component {
                                 )} 
                         
                             </Form.Field>
-                            <PreviewTimeTable onConfirmChange={this.onSansChange} deleteSans={this.deleteSans} sanses={this.props.sanses} />
+                            {this.props.sanses && (
+                                <PreviewTimeTable onConfirmChange={this.onSansChange} deleteSans={this.deleteSans} sanses={this.props.sanses} />
+                            )}
                             <Button primary type='submit'>اعمال تغییرات</Button>
                             </Form>
                             </Segment>

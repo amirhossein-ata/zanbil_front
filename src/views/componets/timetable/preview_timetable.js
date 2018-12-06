@@ -34,10 +34,14 @@ class preview_timetable extends React.Component {
     on_delete_sans = () => {
         this.props.deleteSans(this.sansinfo)
     }
+
+    
+
     render(){
-        console.log("sanses in preview are",this.props.sanses);
-        if(this.props.sanses[0]){
-        console.log("sanses going a level deeper in previews are:",this.props.sanses[0])}
+        const arr = [[1,2],2]
+        console.log(arr)
+        console.log(this.props.sanses[0])
+        
         return(
             <div>
             {this.props.sanses &&

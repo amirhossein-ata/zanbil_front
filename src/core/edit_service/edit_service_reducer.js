@@ -6,8 +6,9 @@ const initialState = {
     service_id:undefined
   }
   
-  export const edit_service_reducer = (state = initialState , action) => {
-      switch(action.type){
+export const edit_service_reducer = (state = initialState , action) => {
+    console.log(action)      
+    switch(action.type){
           case edit_service_action_types.EDIT_SERVICE_SUCCESS:
               return{
                   ...state,
