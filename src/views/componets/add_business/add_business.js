@@ -50,8 +50,9 @@ class Add_business extends React.Component {
 
     }
     validate_email = () => {
+        var validator = require("email-validator");
         const email = this.state.informations.email
-        if(/[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) {
+        if(validator.validate(email)) {
             this.setState(()=>({email_error:false})); 
         }else{
             this.setState(()=>({email_error:true}));
@@ -72,20 +73,20 @@ class Add_business extends React.Component {
     }
     validate_address = () => {
         const address = this.state.informations.address;
-        if(!PersianRex.punctuation.test(address)|| /-/.test(address)) {
-            this.setState(()=>({address_error:true}));      
+        if(PersianRex.punctuation.test(address)|| /-[0-9]/.test(address)) {
+            this.setState(()=>({address_error:false}));      
         }else{
-            this.setState(()=>({address_error:false}));       
+            this.setState(()=>({address_error:true}));       
             
         }
     }
 
     validate_descriptopn = () => {
         const description = this.state.informations.description;
-        if(!PersianRex.text.test(description) || /-/.test(description)) {
-            this.setState(()=>({description_error:true}));      
+        if(PersianRex.text.test(description) || /-[0-9]/.test(description)) {
+            this.setState(()=>({description_error:false}));      
         }else{
-            this.setState(()=>({description_error:false}));       
+            this.setState(()=>({description_error:true}));       
             
         }
     

@@ -37,13 +37,14 @@ class Signup_form extends React.Component{
 
     }
     validate_email = () => {
-        const email = this.state.credentials.email
-        if( !(/[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-z0-9]/.test(email)) || !email) {
-            this.setState(()=>({email_error:true}));   
-            return false
+        var validator = require("email-validator");
+        const email = this.state.informations.email
+        if(validator.validate(email)) {
+            this.setState(()=>({email_error:false})); 
         }else{
-            this.setState(()=>({email_error:false}));       
-            return true
+            this.setState(()=>({email_error:true}));
+                 
+            
         }
 
     }
@@ -56,6 +57,16 @@ class Signup_form extends React.Component{
             this.setState(()=>({password_error:false}))
             return true       
         }
+    }
+    validate_phone_number = () => {
+        const phone_number = this.state.informations.phone_number;
+        if(/[0-9+]/.test(phone_number)) {
+            this.setState(()=>({phone_number_error:false}));      
+        }else{
+            this.setState(()=>({phone_number_error:true}));       
+            
+        }
+
     }
     
     verify_password_again = () => {
@@ -116,7 +127,14 @@ class Signup_form extends React.Component{
                                 value={this.state.credentials.phone_number}
                                 onChange={this.handle_change}
                             />
+                            {this.state.phone_number_error && (
+                                <Label basic pointing color="red">
+                                    تنها میتوانید از ارقام ۰تا۹ استفاده کنید
+                                </Label>    
+                            )} 
+    
                         </Form.Field>
+                       
                         <Form.Field>
                             <Form.Input
                                 fluid
