@@ -2,7 +2,7 @@ import * as api_urls from './api_urls'
 
 class edit_service_api {
     static edit_service(service_name,description, fee,sanses,service_id){
-        console.log(description, fee,sanses,service_id)
+        console.log("in api",service_name,description, fee,sanses,service_id)
         const request = new Request(api_urls.SERV,{
             mode:"cors",
             method:"PATCH",
@@ -25,6 +25,7 @@ class edit_service_api {
 
 
         });
+        
         return fetch(request)
                     .then((response) => {
                         if(!response.ok){return false}

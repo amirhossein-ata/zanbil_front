@@ -75,7 +75,7 @@ class preview_timetable extends React.Component {
                                             onChange={this.onSansChange}
                                         />
                                     </Form.Field>
-                                    <Form.Field width={16}>
+                                    <Form.Field width={8}>
                                         <Form.Input
                                             value={this.state.sansinfo.end_time} 
                                             name="end_time"
@@ -101,9 +101,9 @@ class preview_timetable extends React.Component {
                     />
                     <Button 
                         onClick={this.on_delete_sans}
-                        positive 
-                        icon='checkmark'  
-                        labelPosition='right' 
+                        negative 
+                        icon='x'  
+                        labelPosition='left' 
                         content='حذف' 
                     />
                     </Modal.Actions>

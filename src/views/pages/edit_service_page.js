@@ -7,13 +7,13 @@ import {connect} from "react-redux"
 
 class Edit_service_page extends React.Component {
     state = {
-        service_id:1,
+        service_id:17,
         modified_sanses:[],
         informations:{
             service_name:undefined,
             
             description:undefined,
-            price:undefined
+            fee:undefined
             
             },
         sanses:[],
@@ -23,7 +23,7 @@ class Edit_service_page extends React.Component {
     }
     async componentDidMount(){
         await this.props.get_service_info(this.state.service_id);
-        console.log("props are:" ,this.props.sanses)
+        
         let temp_information = this.state.informations;
         temp_information.service_name = this.props.sanses; 
         temp_information.fee =this.props.fee;
@@ -79,11 +79,11 @@ class Edit_service_page extends React.Component {
 
     }
     onConfirmChange= (sansinfo) => {
-        console.log("confirm sans is",sansinfo);
+        // console.log("confirm sans is",sansinfo);
            let temp_sanses= this.state.sanses;
-           console.log("tempSanses:", temp_sanses)
+        //    console.log("tempSanses:", temp_sanses)
            const day=temp_sanses[0][sansinfo.weekday];
-           console.log("day:",day)
+        //    console.log("day:",day)
            let prev_sans=undefined;
            let next_sans=undefined;
            let temp_sans = day[sansinfo.sans_num];
@@ -96,13 +96,15 @@ class Edit_service_page extends React.Component {
                 next_sans = day[sansinfo.sans_num+1];
            }
            if(prev_sans){
-               console.log("prevsans:",prev_sans)
+               //console.log("prevsans:",prev_sans)
                 if((parseInt(prev_sans.sans.end_time.slice(0,3),10) > parseInt(sansinfo.start_time.slice(0,3) ,10)) || ((parseInt(prev_sans.sans.end_time.slice(0,3),10) === parseInt(sansinfo.start_time.slice(0,3) ,10)) && ((parseInt(prev_sans.sans.end_time.slice(3),10) > parseInt(sansinfo.start_time.slice(3) ,10))))){
                         let prev_temp_sans=prev_sans;
                         prev_temp_sans.sans.end_time = sansinfo.start_time;
                         prev_temp_sans.sans.is_deleted = 0;
-                        temp_sanses[0][sansinfo.weekday][sansinfo.sans_num-1] = prev_temp_sans; 
-                        temp_modified.push(prev_temp_sans);
+                        prev_temp_sans.sans.sans_id = prev_temp_sans.sans.id;
+                        temp_sanses[0][sansinfo.weekday][sansinfo.sans_num-1] = prev_temp_sans;
+                         
+                        temp_modified.push(prev_temp_sans.sans);
                         
                         
 
@@ -112,9 +114,10 @@ class Edit_service_page extends React.Component {
             if((parseInt(next_sans.sans.start_time.slice(0,3),10) < parseInt(sansinfo.end_time.slice(0,3) ,10)) || ((parseInt(next_sans.sans.start_time.slice(0,3),10) === parseInt(sansinfo.end_time.slice(0,3) ,10)) && ((parseInt(next_sans.sans.start_time.slice(3),10) < parseInt(sansinfo.end_time.slice(3) ,10))))){
                 let next_temp_sans=next_sans;
                 next_temp_sans.start_time = sansinfo.end_time;
+                next_temp_sans.sans.sans_id = next_temp_sans.sans.id;
                 next_temp_sans.is_deleted = 0;
                 temp_sanses[0][sansinfo.weekday][sansinfo.sans_num+1] = next_temp_sans; 
-                temp_modified.push(next_temp_sans);
+                temp_modified.push(next_temp_sans.sans);
                 
                 
 
@@ -125,24 +128,27 @@ class Edit_service_page extends React.Component {
            temp_sans.sans.start_time = sansinfo.start_time;
            temp_sans.sans.end_time = sansinfo.end_time;
            temp_sans.sans.is_deleted = 0;
-           temp_modified.push(temp_sans);
-           console.log("tempsanses before setState:",temp_sans)
-           console.log("before setState:",this.state)
+           console.log("tempsans is:",temp_sans)
+           temp_sans.sans.sans_id = temp_sans.sans.id;
+           temp_modified.push(temp_sans.sans);
+        //    console.log("tempsanses before setState:",temp_sans)
+        //    console.log("before setState:",this.state)
            this.setState(() => ({
                modified_sanses : temp_modified,
                sanses:temp_sanses
            }))
-           console.log("after setState:",this.state)
+            console.log("after setState:",this.state)
         
     }
     deleteSans = (sansinfo) => {
         let temp_sanses= this.state.sanses;
-        temp_sanses.splice(sansinfo.sans_num,1);
-        const day=temp_sanses[sansinfo.weekday];
-        let temp_sans = day[0][sansinfo.sans_num];
+        
+        const day=temp_sanses[0][sansinfo.weekday];
+        let temp_sans = day[sansinfo.sans_num];
         temp_sans.is_deleted = 1;
         let temp_modified = this.state.modified_sanses;
-        temp_modified.push(temp_sans);
+        temp_modified.push(temp_sans.sans);
+        temp_sanses[0][sansinfo.weekday].splice(sansinfo.sans_num,1);
         this.setState(() => ({
             modified_sanses : temp_modified,
             sanses:temp_sanses
@@ -150,7 +156,11 @@ class Edit_service_page extends React.Component {
 
     }
     onSubmit = () => {
-        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id);
+        // let t = []
+        // this.state.modified_sanses.map((mod_sans)=>(
+        //     t.push(mod_sans.sans)
+        // ))
+        this.props.edit_service(this.state.informations.service_name,this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.service_id);
     }
     render(){
         return (
@@ -180,7 +190,7 @@ class Edit_service_page extends React.Component {
                                 <Form.Input
                                     fluid
                                     label="قیمت سرویس"
-                                    name="price"
+                                    name="fee"
                                     onBlur={this.validate_price}
                                     value={this.state.informations.fee}
                                     onChange={this.handle_change}
