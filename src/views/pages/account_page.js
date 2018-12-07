@@ -47,11 +47,11 @@ class Account_page extends React.Component{
                     
                 </Grid><br/>
         <Divider horizontal>بیزینس ها</Divider><br/>
+        
+        {!this.props.businseses.lenght && <div><Grid centered textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid></div>}
         <Grid textAlign="right">
-        {!this.props.businseses && <div><Grid textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid></div>}
         
-        
-        {this.props.businseses && this.props.businseses.map((business) => (
+        {this.props.businseses.lenght && this.props.businseses.map((business) => (
             
             
             <Grid.Column computer={5} tablet={8} mobile={16}>
@@ -84,8 +84,8 @@ class Account_page extends React.Component{
         {console.log("reserve has",this.props.reserves)}
         <br />
        
-        {!this.props.reserves  && <Grid textAlign="center"><span><b>هیچ رزروی در تاریخچه ی شما وجود ندارد</b></span> <br/></Grid>}
-        {this.props.reserves && this.props.reserves.map((reserve) => (
+        {!this.props.reserves.lenght  && <Grid textAlign="center"><span><b>هیچ رزروی در تاریخچه ی شما وجود ندارد</b></span> <br/></Grid>}
+        {this.props.reserves.lenght && this.props.reserves.map((reserve) => (
             <Grid.Column computer={4}>
             
                 <Card raised>
