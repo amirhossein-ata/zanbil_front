@@ -2,17 +2,14 @@ import React from 'react';
 import * as account_page_actions from '../../core/account_page/account_page_actions';
 import * as business_page_actions from '../../core/business_page/business_page_actions';
 import {change_panel} from '../../core/main_page/active_panel_actions'
-
-import { Card,Grid,Divider,Image, Button, Message} from 'semantic-ui-react';
+import { Card,Grid,Divider,Image,Segment, Message} from 'semantic-ui-react';
 import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
 import Review_form from "../componets/review/review_form"
 import Modal from "../componets/modal/Modal"
+import ManAvatar from '../../assessts/icons/man.svg'
 
-const style = {
-    height : '30vh',
-    width : '15vh'
-}
+
 class Account_page extends React.Component{
      async componentDidMount(){
        await this.props.get_account_page()
@@ -40,41 +37,56 @@ class Account_page extends React.Component{
                 <Grid.Column computer={15}>
                 
            
-                    <Grid centered textAlign="right">
-                        <br/>
-                            <Card color="grey" raised style={style}>
-                            
+                    
+                    {this.props.user && (
+                        <Grid centered>
+                        
+                            <Grid.Column tablet={4} mobile={8} computer={4} style={{marginTop:'2%'}}>
+                                
+                                    <div >
+                                        
+                                        <Segment padded="very" color="teal"  raised textAlign="right">
+                                            <Image 
+                                                src={ManAvatar}
+                                                
+                                                size="massive" 
+                                            />
+                                            <br></br>
+                                            <p>نام : {this.props.user.user_name}</p>              
+                                        </Segment>
+                                        
+                                    </div>  
+                                
+                            </Grid.Column>
+                        </Grid>
+                    )}
+                    
 
-                                <Image src = "https://image.flaticon.com/icons/svg/61/61135.svg" size ="small"  centered  /> 
-                                {this.props.user &&<Card.Header><b>{this.props.user.user_name}</b></Card.Header>}
-                            </Card>
-                        
-                    </Grid><br/>
-                    <Divider horizontal>بیزینس ها</Divider><br/>
-                    <Grid textAlign="right">
-                    {!this.props.businseses && <Grid textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid>}
-                    
-                    
-                    {this.props.businseses && this.props.businseses.map((business) => (
+                    <Divider horizontal section>بیزینس ها</Divider><br/>
+                    <Grid textAlign="right" centered>
+                        {!this.props.businseses && <Grid textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid>}
                         
                         
-                        <Grid.Column computer={5} tablet={8} mobile={16}>
-                        <div onClick={()=>this.on_business_click(business.id)}>
-                            <CardComponent
-                                info={true}
-                                image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
-                                header={business.name}
-                                rating={5}
-                                description={business.description}
-                            />                            
-                        </div>    
-                    </Grid.Column>           
-                
+                        {this.props.businseses && this.props.businseses.map((business) => (
                             
-                    ))}
+                            
+                            <Grid.Column computer={5} tablet={8} mobile={16}>
+                            <div onClick={()=>this.on_business_click(business.id)}>
+                                <CardComponent
+                                    info={true}
+                                    image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
+                                    header={business.name}
+                                    rating={5}
+                                    description={business.description}
+                                />                            
+                            </div>    
+                        </Grid.Column>           
+                    
+                                
+                        ))}
                     </Grid>
                     <br />
-                    <Divider horizontal>تاریخچه</Divider><br/>
+                    <Divider horizontal section>تاریخچه</Divider><br/>
                     {console.log("reserve has",this.props.reserves.length)}
                     <br />
                     {this.props.reserves.length === 0 ? (
@@ -89,11 +101,11 @@ class Account_page extends React.Component{
                         </div>
                     ) : (
                         
-                        <Grid textAlign="right" centered>
+                        <Grid  centered>
                             {this.props.reserves.map((reserve) => (
-                                <Grid.Column computer={5} tablet={8} mobile={16} textAlign="right">
+                                <Grid.Column computer={5} tablet={7} mobile={12} textAlign="right">
 
-                                    <Card color="teal" raised >
+                                    <Card color="teal" fluid raised >
                                         <Card.Content>
                                             <Card.Header>{reserve.service.name}</Card.Header>
                                             <Card.Meta>

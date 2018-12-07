@@ -39,21 +39,27 @@ class Dashboard extends React.Component{
       
   
     render(){
-        const image_path =`../../../assessts/ZanbilBackEnd/uploads/${this.props.business.pictures[0]}`
+        const path = '../../../assessts/ZanbilBackEnd/uploads/'
+        console.log(this.props.business.pictures)
+        console.log(this.props.business.id)
+        const image_path =this.props.business.pictures[this.props.business.pictures.length -1 ] ? `../../../assessts/ZanbilBackEnd/uploads/${this.props.business.pictures[this.props.business.pictures.length - 1].id}` :''
         return(
             <div>
                     
                 <Grid centered>
                     <Grid.Column computer={12} mobile={15} tablet={15}>
                         <Image
-                            src={this.props.business.pictures[0] ?  require(image_path) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
+                            src={this.props.business.pictures[0] ?  require(`../../../assessts/ZanbilBackEnd/uploads/${this.props.business.pictures[this.props.business.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                             bordered
                             fluid
                         />
                     </Grid.Column>
                 </Grid>
                 <Grid centered>
-                    <UploadPhotoModal business={this.props.business}/>
+                    <UploadPhotoModal 
+                        business_id={this.props.business.id}
+                        get_business_info={this.props.get_business_info}    
+                    />
                 </Grid>
 
                 <Grid centered>
