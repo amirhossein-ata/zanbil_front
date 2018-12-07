@@ -3,7 +3,7 @@ import * as account_page_actions from '../../core/account_page/account_page_acti
 import * as business_page_actions from '../../core/business_page/business_page_actions';
 import {change_panel} from '../../core/main_page/active_panel_actions'
 
-import { Card,Grid,Divider,Image, Button} from 'semantic-ui-react';
+import { Card,Grid,Divider,Image, Button, Message} from 'semantic-ui-react';
 import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
 import Review_form from "../componets/review/review_form"
@@ -75,26 +75,48 @@ class Account_page extends React.Component{
                     </Grid>
                     <br />
                     <Divider horizontal>تاریخچه</Divider><br/>
-                    {console.log("reserve has",this.props.reserves)}
+                    {console.log("reserve has",this.props.reserves.length)}
                     <br />
-                
-                    {!this.props.reserves  && <Grid textAlign="center"><span><b>هیچ رزروی در تاریخچه ی شما وجود ندارد</b></span> <br/></Grid>}
-                    {this.props.reserves && this.props.reserves.map((reserve) => (
-                        <Grid.Column computer={4}>
-                        
-                            <Card raised>
-                            <Card.Content>
-                                <Card.Header>{reserve.service.name}</Card.Header>
-                                <Card.Meta><span>{reserve.date}</span></Card.Meta>
-                                <Card.Description>{reserve.description}</Card.Description>
-                            </Card.Content>
-                            <Review_modal service_id={reserve.service.id}/>
-                            </Card>
+                    {this.props.reserves.length === 0 ? (
+                        <div style={{width:'50%',margin:'3% auto 3% auto'}}>
+                            <Message info>
                             
+                            هیچ رزروی در تاریخچه ی شما وجود ندارد
+                        
+                            </Message>
                             
                         
-                        </Grid.Column>
-                    ))}
+                        </div>
+                    ) : (
+                        
+                        <Grid textAlign="right" centered>
+                            {this.props.reserves.map((reserve) => (
+                                <Grid.Column computer={5} tablet={8} mobile={16} textAlign="right">
+
+                                    <Card color="teal" raised >
+                                        <Card.Content>
+                                            <Card.Header>{reserve.service.name}</Card.Header>
+                                            <Card.Meta>
+                                                <span className='date'>{reserve.date}</span>
+                                            </Card.Meta>
+                                        </Card.Content>
+                                        {reserve.description && (
+                                            <Card.Content>
+                                                <Card.Description>{reserve.description}</Card.Description>
+                                            </Card.Content>
+                                        )}
+                                        <Card.Content extra>
+                                            <Review_modal service_id={reserve.service.id}/>                            
+                                        </Card.Content>
+                                        
+                                    </Card>
+                                
+                                        
+                                </Grid.Column>
+
+                            ))}
+                        </Grid>
+                    )}
                 </Grid.Column>
             </Grid>
         )

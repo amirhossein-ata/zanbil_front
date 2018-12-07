@@ -1,29 +1,37 @@
 import React from 'react';
-import * as add_business_actions from '../../../core/add_business/add_business_actions';
-import { Button, Segment, Form ,Grid,Label, Dropdown} from 'semantic-ui-react';
+import {edit_business} from '../../../core/edit_business/edit_business_actions';
+import {get_business_info} from '../../../core/business_page/business_page_actions'
+
+import { Button, Segment, Form ,Grid,Label, Dropdown, Message} from 'semantic-ui-react';
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
-import {change_panel} from '../../../core/main_page/active_panel_actions'
 
 class Edit_business extends React.Component {
-    state = {
-        informations:{
-            name:this.props.business.name,
-            phone_number:this.props.business.phone_number,
-            email:this.props.business.email,
-            description:this.props.business.description,
-            address:this.props.business.address,
-            category:this.props.business.category
-        },
-        name_error: false,
-        email_error: false,
-        phone_number_error: false,
-        description_error: false,
-        address_error:false
+    constructor(props){
 
+        super(props)
+        this.state = {
+            informations:{
+                name:this.props.business.name,
+                phone_number:this.props.business.phone_number,
+                email:this.props.business.email,
+                description:this.props.business.description,
+                address:this.props.business.address,
+                category:this.props.business.category_id
+            },
+            name_error: false,
+            email_error: false,
+            phone_number_error: false,
+            description_error: false,
+            address_error:false,
+            edit_success:false
+    
+        }
+    
+        this.onSubmit= this.onSubmit.bind(this)
     }
-
+    
     handle_change= (e) => {
         const input = e.target.value;
         
@@ -91,10 +99,11 @@ class Edit_business extends React.Component {
     
 
     }
-    onSubmit = () => {
+    async onSubmit(){
         console.log(this.state.informations)
-        this.props.add_business(this.state.informations)
-        this.props.change_panel('category')
+        await this.props.edit_business(this.state.informations,this.props.business.id)
+        await this.props.get_business_info(this.props.business.id)
+        this.setState(()=>({edit_success:true}))
     }
 
     render () {
@@ -211,7 +220,12 @@ class Edit_business extends React.Component {
                                     )} 
                             
                                 </Form.Field>
-                                
+                                {this.state.edit_success && (
+                                    <Message success>
+                                        تغیرات با موفقیت ثبت شد .         
+                                    </Message>
+                                   
+                                )}
                                 <Button primary type='submit'>ثبت</Button>
                             </Form>
                         </Grid.Column>         
@@ -232,8 +246,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        add_business : (informations) => dispatch(add_business_actions.add_business(informations)),
-        change_panel:(panel_name) => dispatch(change_panel(panel_name)),    
+        edit_business : (informations,business_id) => dispatch(edit_business(informations,business_id)),
+        get_business_info : (business_id) => dispatch(get_business_info(business_id)),
+ 
     };
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Edit_business);

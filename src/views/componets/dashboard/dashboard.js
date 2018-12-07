@@ -6,16 +6,17 @@ import ModalComponent from '../modal/Modal'
 import Reports from './reports'
 import Services from './business_services'
 import Comments from './business_comments'
-import {Grid ,Segment,Image,Breadcrumb, Icon,Divider, GridColumn, Button} from 'semantic-ui-react'
+import {Grid ,Segment,Image,Breadcrumb, Icon,Divider} from 'semantic-ui-react'
 import EditBusinessForm from '../business_forms/edit_business'
 import UploadPhoto from '../business_forms/upload_photo'
+import {categories} from '../../../core/constants'
 
 const EditBusinessModal = ModalComponent('ویرایش اطلاعات')(EditBusinessForm)
 const UploadPhotoModal = ModalComponent('تغییر عکس')(UploadPhoto)
 
 class Dashboard extends React.Component{
     async componentDidMount(){
-        await this.props.get_business_info(this.props.business.id)    
+        await this.props.get_business_info(this.props.business.id) 
     }
     state = { 
         sections:{
@@ -24,6 +25,7 @@ class Dashboard extends React.Component{
             comments_visible:false
         }
     }
+
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   
@@ -37,20 +39,21 @@ class Dashboard extends React.Component{
       
   
     render(){
-      return(
+        const image_path =`../../../assessts/ZanbilBackEnd/uploads/${this.props.business.pictures[0]}`
+        return(
             <div>
                     
                 <Grid centered>
                     <Grid.Column computer={12} mobile={15} tablet={15}>
                         <Image
-                            src='https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg' 
+                            src={this.props.business.pictures[0] ?  require(image_path) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                             bordered
                             fluid
                         />
                     </Grid.Column>
                 </Grid>
                 <Grid centered>
-                    <UploadPhotoModal/>
+                    <UploadPhotoModal business={this.props.business}/>
                 </Grid>
 
                 <Grid centered>
@@ -59,8 +62,8 @@ class Dashboard extends React.Component{
                             <Segment padded="very" color="teal"  raised textAlign="right">
                                 <p>مشخصات : </p>
                                 <div style={{paddingRight:'10%'}}>
-                                    <p>{this.props.business.name}</p>
-                                    <p>{this.props.business.description}</p>
+                                    <p>نام: {this.props.business.name}</p>
+                                    <p>توضیحات‌: {this.props.business.description}</p>
                                     <Breadcrumb>
                                         <Breadcrumb.Section>
                                             {this.props.business.email}
