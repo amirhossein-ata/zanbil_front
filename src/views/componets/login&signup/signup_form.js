@@ -8,7 +8,8 @@ class Signup_form extends React.Component{
             username :'',
             password:'',
             password_again:'',
-            email:''
+            email:'',
+            phone_number:''
         },
         email_error:false,
         username_error:false, 
@@ -108,21 +109,30 @@ class Signup_form extends React.Component{
                     
                         </Form.Field>
                         <Form.Field>
-                        <Form.Input
-                            fluid
-                            error={this.state.email_error}
-                            label="ایمیل"
-                            name="email"
-                            onBlur={this.validate_email}
-                            value={this.state.credentials.email}
-                            onChange={this.handle_change}                                
-                        />
+                            <Form.Input 
+                                fluid
+                                label='شماره موبایل'
+                                name="phone_number"
+                                value={this.state.credentials.phone_number}
+                                onChange={this.handle_change}
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <Form.Input
+                                fluid
+                                error={this.state.email_error}
+                                label="ایمیل"
+                                name="email"
+                                onBlur={this.validate_email}
+                                value={this.state.credentials.email}
+                                onChange={this.handle_change}                                
+                            />
 
-                        {this.state.email_error && (
-                            <Label basic pointing color="red">
-                                تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                            </Label>    
-                        )} 
+                            {this.state.email_error && (
+                                <Label basic pointing color="red">
+                                    تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
+                                </Label>    
+                            )} 
                         </Form.Field>
                         <Form.Field>
                             <Form.Input
