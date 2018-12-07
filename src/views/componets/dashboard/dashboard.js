@@ -10,6 +10,7 @@ import {Grid ,Segment,Image,Breadcrumb, Icon,Divider} from 'semantic-ui-react'
 import EditBusinessForm from '../business_forms/edit_business'
 import UploadPhoto from '../business_forms/upload_photo'
 import {categories} from '../../../core/constants'
+import {get_reports} from '../../../core/dashboard/dashboard_actions'
 
 const EditBusinessModal = ModalComponent('ویرایش اطلاعات')(EditBusinessForm)
 const UploadPhotoModal = ModalComponent('تغییر عکس')(UploadPhoto)
@@ -17,6 +18,7 @@ const UploadPhotoModal = ModalComponent('تغییر عکس')(UploadPhoto)
 class Dashboard extends React.Component{
     async componentDidMount(){
         await this.props.get_business_info(this.props.business.id) 
+        await this.props.get_reports(this.props.business.id)
     }
     state = { 
         sections:{
@@ -106,7 +108,7 @@ class Dashboard extends React.Component{
                 </div>
                 <br></br>
                 {this.state.sections.reports_visible && (
-                    <Reports/>
+                    <Reports reports={this.props.reports}/>
                 )}
 
                 <div style={{display:'flex',marginTop:'2%'}} onClick={() => this.toggle_view('services_visible')}>
@@ -156,7 +158,8 @@ const mapStateToProps = (state) => {
         business : state.business_page_reducer.business ,
         services : state.business_page_reducer.services,
         reviews : state.review_reducer.reviews,
-        active_panel:state.active_panel_reducer.active_panel
+        active_panel:state.active_panel_reducer.active_panel,
+        reports:state.dashboard_reducer
     }
 }
 
@@ -164,6 +167,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
+        get_reports:(business_id) => dispatch(get_reports(business_id))
 
     }
 }

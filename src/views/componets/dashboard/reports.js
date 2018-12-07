@@ -3,73 +3,53 @@ import {Grid , Table,Menu ,Card,Tab, Icon,Divider} from 'semantic-ui-react'
 import CardComponent from '../card/card'
 import TableComponet from '../table/Table'
 class Reports extends React.Component{
+    
     render(){
+        const upcomingReservations = this.props.reports.upcomingReservations
+        const allReservations = this.props.reports.allReservations
+        const customers = this.props.reports.customers
+        const popularSanses = this.props.reports.busySanses
+        const popularServices = this.props.reports.popularServices
+        const increaseReservePercentageForDay = this.props.reports.increaseReservePercentageForDay
+        const increaseReservePercentageForMonth = this.props.reports.increaseReservePercentageForMonth
+        const increaseReservePercentageForWeek = this.props.reports.increaseReservePercentageForWeek
+        const numberOfReservesInCurrentMonth = this.props.reports.numberOfReservesInCurrentMonth
+        const numberOfReservesInCurrentWeek = this.props.reports.numberOfReservesInCurrentWeek
+        const numberOfReservesInDay = this.props.reports.numberOfReservesInDay
+
         const panes = [
             { menuItem: 'روزرو های پیش رو', render: () => 
                 <Tab.Pane>
                     <TableComponet
+                        type="upcommingReservations"
                         headers={['تاریخ','زمان','سرویس']}
-                        rows={[
-                            ['1397/02/1','8:30','کوتاهی مو'],
-                            ['1397/02/2','8:30','کوتاهی مو'],
-                            ['1397/02/3','8:30','کوتاهی مو'],
-                            ['1397/02/4','8:30','کوتاهی مو'],
-                            ['1397/02/5','8:30','کوتاهی مو'],
-                            ['1397/02/6','8:30','کوتاهی مو'],
-                            ['1397/02/7','8:30','کوتاهی مو'],
-                            ['1397/02/8','8:30','کوتاهی مو'],
-                            ['1397/02/9','8:30','کوتاهی مو'],
-                            ['1397/02/10','8:30','کوتاهی مو'],  
-                            ['1397/02/11','8:30','کوتاهی مو'],
-                            ['1397/02/12','8:30','کوتاهی مو'],
-                            ['1397/02/13','8:30','کوتاهی مو'],
-                            ['1397/02/14','8:30','کوتاهی مو'],
-                            ['1397/02/15','8:30','کوتاهی مو'],
-                            ['1397/02/16','8:30','کوتاهی مو'],
-                            ['1397/02/17','8:30','کوتاهی مو'],
-                            ['1397/02/18','8:30','کوتاهی مو'],
-                            ['1397/02/19','8:30','کوتاهی مو'],
-                            ['1397/02/20','8:30','کوتاهی مو'],
-                            ['1397/02/21','8:30','کوتاهی مو'],
-                            ['1397/02/22','8:30','کوتاهی مو'],
-                            ['1397/02/23','8:30','کوتاهی مو'],
-                            ['1397/02/24','8:30','کوتاهی مو'],
-                        ]}
+                        rows={upcomingReservations}
                     />
                 </Tab.Pane> 
             },
             { menuItem: 'تمام رزرو ها', render: () => 
             <Tab.Pane>
                 <TableComponet
+                    type="allReservations"
                     headers={['تاریخ','زمان','سرویس']}
-                    rows={[
-                            ['1397/02/1','8:30','کوتاهی مو'],
-                            ['1397/02/2','8:30','کوتاهی مو'],
-                            ['1397/02/3','8:30','کوتاهی مو'],
-                            ['1397/02/4','8:30','کوتاهی مو'],
-                            ['1397/02/5','8:30','کوتاهی مو'],
-                        ]}
+                    rows={allReservations}
                 />
 
             </Tab.Pane> },
             { menuItem: 'مشتریان', render: () => 
             <Tab.Pane>
                 <TableComponet
-                    headers={['تاریخ','زمان','سرویس']}
-                    rows={[
-                            ['1397/02/12','8:30','کوتاهی مو'],
-                            ['1397/02/12','8:30','کوتاهی مو'],
-                            ['1397/02/12','8:30','کوتاهی مو'],
-                            ['1397/02/12','8:30','کوتاهی مو'],
-                            ['1397/02/12','8:30','کوتاهی مو'],
-                        ]}
+                    type="customers"
+                    headers={['نام','ایمیل','شماره تلفن']}
+                    rows={customers}
                 />
             </Tab.Pane> 
         },
   
         ]
-  
+        console.log(numberOfReservesInDay)
         return(
+            
             <div>
                 <Grid centered>
 
@@ -81,9 +61,9 @@ class Reports extends React.Component{
                             report={true}
                             color="#78DDE9"
                             header="تعداد رزرو در روز"
-                            value="4"
-                            percentage="-2"
-                            extra="1397/02/12"
+                            value={numberOfReservesInDay}
+                            percentage={increaseReservePercentageForDay}
+                            extra="1397/02/17"
                         />
                         <br></br> 
                         <br></br>
@@ -91,18 +71,18 @@ class Reports extends React.Component{
                             report={true}
                             color="#A4D383"
                             header="تعداد رزرو در هفته"
-                            value="8"
-                            percentage="5"
-                            extra="1397/02/07-1397/02/14"
+                            value={numberOfReservesInCurrentWeek}
+                            percentage={increaseReservePercentageForWeek}
+                            extra="1397/02/17-1397/02/24"
                         />
                         <br></br><br></br>
                         <CardComponent 
                             report={true}
                             color="#EEE414"
                             header="تعداد رزرو در ماه"
-                            value="25"
-                            percentage="7"
-                            extra="فروردین"
+                            value={numberOfReservesInCurrentMonth}
+                            percentage={increaseReservePercentageForMonth}
+                            extra="آذر"
                         />
                     </Grid.Column>
                 </Grid>
@@ -119,55 +99,13 @@ class Reports extends React.Component{
                                 </Card.Header>
                             </Card.Content>
                             <Card.Content>
-                                <Table celled selectable attached={false} >
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>نام سرویس </Table.HeaderCell>
-                                            <Table.HeaderCell>تعداد رزرو در ماه اخیر</Table.HeaderCell>
-                                            <Table.HeaderCell>تعداد رزرو در هفته ی اخیر</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>Jamie</Table.Cell>
-                                            <Table.Cell>Approved</Table.Cell>
-                                            <Table.Cell>Requires call</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>Jill</Table.Cell>
-                                            <Table.Cell>Denied</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                    
-                                    </Table.Body>
-                                </Table>
-
+                                
+                                <TableComponet
+                                    type="popularServices"
+                                    headers={['نام سرویس','تعداد رزرو در ماه اخیر','تعداد رزرو در هفته ی اخیر']}
+                                    rows={popularServices}
+                                />
+                                
                             </Card.Content>
                         </Card>
                     </Grid.Column>
@@ -183,54 +121,11 @@ class Reports extends React.Component{
                                 </Card.Header>
                             </Card.Content>
                             <Card.Content>
-                                <Table celled selectable attached={false} >
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>روز هفته</Table.HeaderCell>
-                                            <Table.HeaderCell>زمان</Table.HeaderCell>
-                                            <Table.HeaderCell>متوسط تعداد روزرو در هفته</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>Jamie</Table.Cell>
-                                            <Table.Cell>Approved</Table.Cell>
-                                            <Table.Cell>Requires call</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>Jill</Table.Cell>
-                                            <Table.Cell>Denied</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>John</Table.Cell>
-                                            <Table.Cell>No Action</Table.Cell>
-                                            <Table.Cell>None</Table.Cell>
-                                        </Table.Row>
-                                        
-                                    </Table.Body>
-                                </Table>
+                                <TableComponet
+                                    type="popularSanses"
+                                    headers={['روز هفته','زمان','تعداد رزرو']}
+                                    rows={popularSanses}
+                                />
                                         
                             </Card.Content>
                         </Card>
