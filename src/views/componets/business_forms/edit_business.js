@@ -1,29 +1,37 @@
 import React from 'react';
-import * as add_business_actions from '../../../core/add_business/add_business_actions';
-import { Button, Segment, Form ,Grid,Label, Dropdown} from 'semantic-ui-react';
+import {edit_business} from '../../../core/edit_business/edit_business_actions';
+import {get_business_info} from '../../../core/business_page/business_page_actions'
+
+import { Button, Segment, Form ,Grid,Label, Dropdown, Message} from 'semantic-ui-react';
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
-import {change_panel} from '../../../core/main_page/active_panel_actions'
 
-class Add_business extends React.Component {
-    state = {
-        informations:{
-            name:"",
-            phone_number:"",
-            email:"",
-            description:"",
-            address:"",
-            category:""
-        },
-        name_error: false,
-        email_error: false,
-        phone_number_error: false,
-        description_error: false,
-        address_error:false
+class Edit_business extends React.Component {
+    constructor(props){
 
+        super(props)
+        this.state = {
+            informations:{
+                name:this.props.business.name,
+                phone_number:this.props.business.phone_number,
+                email:this.props.business.email,
+                description:this.props.business.description,
+                address:this.props.business.address,
+                category:this.props.business.category_id
+            },
+            name_error: false,
+            email_error: false,
+            phone_number_error: false,
+            description_error: false,
+            address_error:false,
+            edit_success:false
+    
+        }
+    
+        this.onSubmit= this.onSubmit.bind(this)
     }
-
+    
     handle_change= (e) => {
         const input = e.target.value;
         
@@ -50,9 +58,8 @@ class Add_business extends React.Component {
 
     }
     validate_email = () => {
-        var validator = require("email-validator");
         const email = this.state.informations.email
-        if(validator.validate(email)) {
+        if(/[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) {
             this.setState(()=>({email_error:false})); 
         }else{
             this.setState(()=>({email_error:true}));
@@ -73,51 +80,48 @@ class Add_business extends React.Component {
     }
     validate_address = () => {
         const address = this.state.informations.address;
-        if(PersianRex.punctuation.test(address)|| /-[0-9]/.test(address)) {
-            this.setState(()=>({address_error:false}));      
+        if(!PersianRex.punctuation.test(address)|| /-/.test(address)) {
+            this.setState(()=>({address_error:true}));      
         }else{
-            this.setState(()=>({address_error:true}));       
+            this.setState(()=>({address_error:false}));       
             
         }
     }
 
     validate_descriptopn = () => {
         const description = this.state.informations.description;
-        if(PersianRex.text.test(description) || /-[0-9]/.test(description)) {
-            this.setState(()=>({description_error:false}));      
+        if(!PersianRex.text.test(description) || /-/.test(description)) {
+            this.setState(()=>({description_error:true}));      
         }else{
-            this.setState(()=>({description_error:true}));       
+            this.setState(()=>({description_error:false}));       
             
         }
     
 
     }
-    onSubmit = () => {
+    async onSubmit(){
         console.log(this.state.informations)
-        this.props.add_business(this.state.informations)
-        this.props.change_panel('category')
+        await this.props.edit_business(this.state.informations,this.props.business.id)
+        await this.props.get_business_info(this.props.business.id)
+        this.setState(()=>({edit_success:true}))
     }
 
     render () {
         return (
             <div>
 
-                <Grid className="add_business_form">
-                    <Grid.Row verticalAlign="middle">
-                        <Grid.Column computer={3} tablet={2} mobile={1} ></Grid.Column>
-                        <Grid.Column computer={10} tablet={12} mobile={14}>
-                            <Segment stacked color="blue" padded>  
+                <Grid className="add_business_form" centered textAlign="right">
+                        <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
                             <Form onSubmit={this.onSubmit}>
                                 <Form.Field>
-                                <div dir = "rtl">
                                     <Form.Input
                                         fluid
+                                        label="نام"
                                         error={this.state.name_error}
-                                        label=" نام"
                                         name="name"
-                                    onBlur={this.validate_name}
-                                    value={this.state.informations.name}
-                                    onChange={this.handle_change}
+                                        onBlur={this.validate_name}
+                                        value={this.state.informations.name}
+                                        onChange={this.handle_change}
                                     
                                         
                                     />
@@ -127,7 +131,6 @@ class Add_business extends React.Component {
                                         لطفا فقط از زبان فارسی استفاده کنید
                                         </Label>    
                                     )} 
-                                    </div>
                                 </Form.Field>
                                 <b><span>دسته بندی</span></b>
                                 <Dropdown
@@ -140,19 +143,17 @@ class Add_business extends React.Component {
                                 
                                 <Form.Field>
                                     <b><span>‌شماره‌ی تماس</span></b>
-                                    <div dir="ltr">
-                                            <Form.Input
-                                                fluid
-                                                error={this.state.phone_number_error}
-                                                //   label="شماره‌ی تماس "
-                                                name="phone_number"
+                                        <Form.Input
+                                            fluid
+                                            error={this.state.phone_number_error}
+                                            //   label="شماره‌ی تماس "
+                                            name="phone_number"
                                             onBlur={this.validate_phone_number}
                                             value={this.state.informations.phone_number}
                                             onChange={this.handle_change}
+                                        
                                             
-                                                
-                                            />
-                                    </div>
+                                        />
                                     {this.state.phone_number_error && (
                                         <Label basic pointing color="red">
                                             تنها میتوانید از ارقام ۰تا۹ استفاده کنید
@@ -166,10 +167,10 @@ class Add_business extends React.Component {
                                         error={this.state.email_error}
                                         label="ایمیل"
                                         name="email"
-                                    onBlur={this.validate_email}
-                                    value={this.state.informations.email}
-                                    onChange={this.handle_change}
-                                    
+                                        onBlur={this.validate_email}
+                                        value={this.state.informations.email}
+                                        onChange={this.handle_change}
+                                        
                                         
                                     />
 
@@ -185,9 +186,9 @@ class Add_business extends React.Component {
                                         error={this.state.address_error}
                                         label="آدرس"
                                         name="address"
-                                    onBlur={this.validate_address}
-                                    value={this.state.informations.address}
-                                    onChange={this.handle_change}
+                                        onBlur={this.validate_address}
+                                        value={this.state.informations.address}
+                                        onChange={this.handle_change}
                                     
                                         
                                     />
@@ -205,9 +206,9 @@ class Add_business extends React.Component {
                                         error={this.state.description_error}
                                         label="توضیحات"
                                         name="description"
-                                    onBlur={this.validate_descriptopn}
-                                    value={this.state.informations.description}
-                                    onChange={this.handle_change}
+                                        onBlur={this.validate_descriptopn}
+                                        value={this.state.informations.description}
+                                        onChange={this.handle_change}
                                     
                                         
                                     />
@@ -219,12 +220,15 @@ class Add_business extends React.Component {
                                     )} 
                             
                                 </Form.Field>
-                                
+                                {this.state.edit_success && (
+                                    <Message success>
+                                        تغیرات با موفقیت ثبت شد .         
+                                    </Message>
+                                   
+                                )}
                                 <Button primary type='submit'>ثبت</Button>
                             </Form>
-                            </Segment>    
                         </Grid.Column>         
-                    </Grid.Row>
                 </Grid>
             </div>
             
@@ -234,14 +238,17 @@ class Add_business extends React.Component {
 const mapStateToProps = (state) => {
     
     return{
-        state:state
+        state:state,
+        business : state.business_page_reducer.business ,
+
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        add_business : (informations) => dispatch(add_business_actions.add_business(informations)),
-        change_panel:(panel_name) => dispatch(change_panel(panel_name)),    
+        edit_business : (informations,business_id) => dispatch(edit_business(informations,business_id)),
+        get_business_info : (business_id) => dispatch(get_business_info(business_id)),
+ 
     };
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Add_business);
+export default connect(mapStateToProps,mapDispatchToProps)(Edit_business);
