@@ -5,6 +5,7 @@ import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
 import Review_form from "../componets/review/review_form"
 import Modal from "../componets/modal/Modal"
+import {change_panel} from '../../core/main_page/active_panel_actions'
 
 const style = {
     height : '30vh',
@@ -21,10 +22,15 @@ class Account_page extends React.Component{
     on_review_click = () => {
         //
     }
+    on_make_business = () =>{
+        this.props.change_panel('add_business_page')
+    }
+    
     render(){
         console.log('active panel is : ',this.props.active_panel)
         console.log("props are not in did mount",this.props)
         console.log("businseses are:", this.props.businseses)
+        console.log("revese of it is:" , !this.props.businesses)
         const Review_modal = Modal("نظر")(Review_form)
         return(
             
@@ -42,7 +48,7 @@ class Account_page extends React.Component{
                 </Grid><br/>
         <Divider horizontal>بیزینس ها</Divider><br/>
         <Grid textAlign="right">
-        {!this.props.businseses && <Grid textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid>}
+        {!this.props.businseses && <div><Grid textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid></div>}
         
         
         {this.props.businseses && this.props.businseses.map((business) => (
@@ -62,6 +68,16 @@ class Account_page extends React.Component{
     
                 
         ))}
+        </Grid>
+        <Grid centered>
+        <Button  
+            
+            color="vk"
+            onClick = {this.on_make_business}
+        >
+            ایجاد کسب و کار جدید
+        </Button>
+
         </Grid>
         <br />
         <Divider horizontal>تاریخچه</Divider><br/>
@@ -93,6 +109,7 @@ class Account_page extends React.Component{
 const mapStateToProps = (state) => {
     console.log("the fucking state is :" ,state)
     return{
+        active_panel:state.active_panel_reducer.active_panel,
         user:state.account_page_reducer.user,
         businseses:state.account_page_reducer.businseses,
         reserves:state.account_page_reducer.reserves
@@ -100,7 +117,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        get_account_page:() => dispatch(account_page_actions.get_account_page())
+        get_account_page:() => dispatch(account_page_actions.get_account_page()),
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
 
     };
 }

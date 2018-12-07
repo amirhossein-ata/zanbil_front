@@ -19,6 +19,7 @@ import * as category_page_actions from '../../core/category_page/category_page_a
 import {change_panel} from '../../core/main_page/active_panel_actions'
 import {open_search_form} from '../../core/search/search_actions'
 import {NavBarDesktop , NavBarMobile} from '../componets/navbar/navbar'
+import AddBusiness from "../componets/add_business/add_business"
 
 class Main_page extends React.Component{
     state = {
@@ -78,6 +79,8 @@ class Main_page extends React.Component{
                 return <AccountPage/>
             case 'landing_page':
                 return <Landing_page/>
+            case "add_business_page":
+                    return <AddBusiness />
             default:
                 return ''
         }
