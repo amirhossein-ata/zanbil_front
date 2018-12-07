@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from '../componets/card/card'
-import Timetable from '../componets/timetable/timetable'
+import Timetable from '../componets/timetable/changed_timetable'
 import {Grid, Divider , Header, Responsive} from 'semantic-ui-react';
 import * as service_page_actions from '../../core/service_page/service_page_actions'
 
