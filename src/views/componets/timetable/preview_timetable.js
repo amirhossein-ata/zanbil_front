@@ -14,25 +14,38 @@ class preview_timetable extends React.Component {
             sans_num:undefined,
         }
     }
-
+    
+    onSansChange = (e) => {
+    const input = e.target.value;    
+    let temp_sansinfo = this.state.sansinfo;
+    const inputName = e.target.name;
+    
+    temp_sansinfo[inputName] = input;
+    this.setState(() => ({sansinfo : temp_sansinfo}))    
+}
     onSansClick = (sans_id,sans_start,sans_end,weekday,sans_num) =>{
+            console.log("weekday is:", weekday);
             let temp_sans = this.state.sansinfo;
             temp_sans.sansID=sans_id;
             temp_sans.sans_start=sans_start;
             temp_sans.sans_end=sans_end;
-            temp_sans.sans_=weekday;
+            temp_sans.weekday=weekday;
             temp_sans.sans_num = sans_num;
-            this.setState({sansinfo:temp_sans});
+            console.log("temp sans is:",temp_sans)
+            this.setState(() =>( {sansinfo:temp_sans}) );
+            console.log("sansinfo in in state is",this.state.sansinfo)
             this.handleOpen();
     }
     handleOpen = () => this.setState({ modal_open: true })
 
     handleClose = () => this.setState({ modal_open: false })
     on_confirm_change = () =>{
-        this.props.onConfirmChange(this.sansinfo)
+        console.log("sans in confirm is",this.state.sansinfo)
+        this.props.onConfirmChange(this.state.sansinfo)
+        this.handleClose();
     }
     on_delete_sans = () => {
-        this.props.deleteSans(this.sansinfo)
+        this.props.deleteSans(this.state.sansinfo)
     }
 
     
@@ -56,17 +69,19 @@ class preview_timetable extends React.Component {
                                     <Form.Field width={8}>
                                         <Form.Input
                                             value={this.state.sansinfo.start_time} 
+                                            name="start_time"
                                             fluid 
                                             label='شروع سانس' 
-                                            onChange={this.on_sans_change}
+                                            onChange={this.onSansChange}
                                         />
                                     </Form.Field>
                                     <Form.Field width={16}>
                                         <Form.Input
                                             value={this.state.sansinfo.end_time} 
+                                            name="end_time"
                                             fluid 
                                             label='پایان سانس' 
-                                            onChange={this.on_sans_change}
+                                            onChange={this.onSansChange}
                                         />
                                     </Form.Field>
                                 </Form>

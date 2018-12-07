@@ -7,8 +7,8 @@ import {connect} from "react-redux"
 
 class Edit_service_page extends React.Component {
     state = {
-        service_id:20,
-        modified_sanses:undefined,
+        service_id:1,
+        modified_sanses:[],
         informations:{
             service_name:undefined,
             
@@ -79,8 +79,11 @@ class Edit_service_page extends React.Component {
 
     }
     onConfirmChange= (sansinfo) => {
+        console.log("confirm sans is",sansinfo);
            let temp_sanses= this.state.sanses;
-           const day=temp_sanses[sansinfo.weekday];
+           console.log("tempSanses:", temp_sanses)
+           const day=temp_sanses[0][sansinfo.weekday];
+           console.log("day:",day)
            let prev_sans=undefined;
            let next_sans=undefined;
            let temp_sans = day[sansinfo.sans_num];
@@ -93,11 +96,12 @@ class Edit_service_page extends React.Component {
                 next_sans = day[sansinfo.sans_num+1];
            }
            if(prev_sans){
-                if((parseInt(prev_sans.end_time.substring(0,3),10) > parseInt(sansinfo.start_time.substring(0,3) ,10)) || ((parseInt(prev_sans.end_time.substring(0,3),10) === parseInt(sansinfo.start_time.substring(0,3) ,10)) && ((parseInt(prev_sans.end_time.substring(3),10) > parseInt(sansinfo.start_time.substring(3) ,10))))){
+               console.log("prevsans:",prev_sans)
+                if((parseInt(prev_sans.sans.end_time.slice(0,3),10) > parseInt(sansinfo.start_time.slice(0,3) ,10)) || ((parseInt(prev_sans.sans.end_time.slice(0,3),10) === parseInt(sansinfo.start_time.slice(0,3) ,10)) && ((parseInt(prev_sans.sans.end_time.slice(3),10) > parseInt(sansinfo.start_time.slice(3) ,10))))){
                         let prev_temp_sans=prev_sans;
-                        prev_temp_sans.end_time = sansinfo.start_time;
-                        prev_temp_sans.is_deleted = 0;
-                        temp_sanses[sansinfo.weekday][sansinfo.weekday-1] = prev_temp_sans; 
+                        prev_temp_sans.sans.end_time = sansinfo.start_time;
+                        prev_temp_sans.sans.is_deleted = 0;
+                        temp_sanses[0][sansinfo.weekday][sansinfo.sans_num-1] = prev_temp_sans; 
                         temp_modified.push(prev_temp_sans);
                         
                         
@@ -105,11 +109,11 @@ class Edit_service_page extends React.Component {
                 }
            }
            if(next_sans){
-            if((parseInt(next_sans.start_time.substring(0,3),10) > parseInt(sansinfo.end_time.substring(0,3) ,10)) || ((parseInt(next_sans.start_time.substring(0,3),10) === parseInt(sansinfo.end_time.substring(0,3) ,10)) && ((parseInt(next_sans.start_time.substring(3),10) > parseInt(sansinfo.end_time.substring(3) ,10))))){
+            if((parseInt(next_sans.sans.start_time.slice(0,3),10) < parseInt(sansinfo.end_time.slice(0,3) ,10)) || ((parseInt(next_sans.sans.start_time.slice(0,3),10) === parseInt(sansinfo.end_time.slice(0,3) ,10)) && ((parseInt(next_sans.sans.start_time.slice(3),10) < parseInt(sansinfo.end_time.slice(3) ,10))))){
                 let next_temp_sans=next_sans;
                 next_temp_sans.start_time = sansinfo.end_time;
                 next_temp_sans.is_deleted = 0;
-                temp_sanses[sansinfo.weekday][sansinfo.weekday+1] = next_temp_sans; 
+                temp_sanses[0][sansinfo.weekday][sansinfo.sans_num+1] = next_temp_sans; 
                 temp_modified.push(next_temp_sans);
                 
                 
@@ -117,19 +121,25 @@ class Edit_service_page extends React.Component {
         }
 
            }
-           temp_sanses[sansinfo.weekday][sansinfo.weekday-1] = temp_sans; 
+           temp_sanses[0][sansinfo.weekday][sansinfo.sans_num] = temp_sans; 
+           temp_sans.sans.start_time = sansinfo.start_time;
+           temp_sans.sans.end_time = sansinfo.end_time;
+           temp_sans.sans.is_deleted = 0;
            temp_modified.push(temp_sans);
+           console.log("tempsanses before setState:",temp_sans)
+           console.log("before setState:",this.state)
            this.setState(() => ({
                modified_sanses : temp_modified,
                sanses:temp_sanses
            }))
+           console.log("after setState:",this.state)
         
     }
     deleteSans = (sansinfo) => {
         let temp_sanses= this.state.sanses;
         temp_sanses.splice(sansinfo.sans_num,1);
         const day=temp_sanses[sansinfo.weekday];
-        let temp_sans = day[sansinfo.sans_num];
+        let temp_sans = day[0][sansinfo.sans_num];
         temp_sans.is_deleted = 1;
         let temp_modified = this.state.modified_sanses;
         temp_modified.push(temp_sans);
@@ -140,13 +150,13 @@ class Edit_service_page extends React.Component {
 
     }
     onSubmit = () => {
-        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name);
+        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id);
     }
     render(){
         return (
             <div>
             <Segment textAlign="right">  
-                <Form onSubmit={this.onSubmit}>
+                <Form >
                         <Form.Field>
                             <Form.Input
                                 fluid
@@ -204,9 +214,9 @@ class Edit_service_page extends React.Component {
                         
                             </Form.Field>
                             {this.props.sanses && (
-                                <PreviewTimeTable onConfirmChange={this.onSansChange} deleteSans={this.deleteSans} sanses={this.props.sanses} />
+                                <PreviewTimeTable onConfirmChange={this.onConfirmChange} deleteSans={this.deleteSans} sanses={this.props.sanses} />
                             )}
-                            <Button primary type='submit'>اعمال تغییرات</Button>
+                            <Button onClick = {this.onSubmit} primary type='submit'>اعمال تغییرات</Button>
                             </Form>
                             </Segment>
             

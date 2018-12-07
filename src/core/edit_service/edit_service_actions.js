@@ -27,7 +27,7 @@ export const get_service_page_info_success = ({service,sanses}) => {
     }
 }
 
-export const edit_service = (sanses,fee,description,service_name) => {
+export const edit_service = (sanses,fee,description,service_name,service_id) => {
     return function(dispatch){
         return (edit_service_api.edit_service(description,fee,sanses,service_name))
                                     .then((response) => {

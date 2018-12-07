@@ -3,19 +3,20 @@ import * as api_urls from './api_urls'
 class edit_service_api {
     static edit_service(service_name,description, fee,sanses,service_id){
         console.log(description, fee,sanses,service_id)
-        const request = new Request(api_urls.ESERV,{
+        const request = new Request(api_urls.SERV,{
             mode:"cors",
-            method:"PUT",
+            method:"PATCH",
             headers:{
                 'Content-Type':'application/json',
                 'Authorization':  `Bearer ${sessionStorage.getItem('token')}`
             },
             body:JSON.stringify({
-                service_name:service_name,
                 description:description,
                 fee:fee,
+                name:service_name,
+                id:service_id,
                 sanses:sanses,
-                service_id:service_id
+                
 
 
             })
