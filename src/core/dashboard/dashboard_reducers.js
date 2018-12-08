@@ -29,7 +29,10 @@ export const dashboard_reducer = (state=initialState,action) => {
                     increaseReservePercentageForWeek:action.increaseReservePercentageForWeek,
                     numberOfReservesInCurrentMonth:action.numberOfReservesInCurrentMonth,
                     numberOfReservesInCurrentWeek:action.numberOfReservesInCurrentWeek,
-                    numberOfReservesInDay:action.numberOfReservesInDay
+                    numberOfReservesInDay:action.numberOfReservesInDay,
+                    popularServices:action.popularServices,
+                    upcomingReservations:action.upcomingReservations
+                
             }
         default:
             return state

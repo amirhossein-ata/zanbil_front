@@ -26,11 +26,6 @@ const amirhossein_style = (props) => ({
 
 const info_style = (props) => ({
     height:'50vh',
-    width:'100%',
-    textAlign:'right',
-    background:'white',
-    border:'1px solid #E5EEEA',
-    boxShadow:`2px 2px #F4FCF8`
 
 })
 const Card_component = (props) => (
@@ -59,7 +54,7 @@ const Card_component = (props) => (
         
         )}
         {props.info && (
-            <Card raised fluid  color="teal">
+            <Card raised fluid  color="teal" style={info_style(props)}>
                 <Image size="massive" src={props.image} />
                 <Card.Content textAlign="right">
                     <Card.Header>{props.header}</Card.Header>

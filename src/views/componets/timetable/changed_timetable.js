@@ -93,6 +93,7 @@ class Timetable extends React.Component{
     async on_confirm_reserve(){
         await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
         this.setState(()=>({reserve_success:true}))
+        console.log(this.state.date.locale('fa').format('YYYY/MM/DD'))
         await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
         console.log('sanse after reserved are',this.props.sanses)
     }

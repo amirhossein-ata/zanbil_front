@@ -194,7 +194,7 @@ class TableComponent extends React.Component{
                         {rows.length !== 0 && rows.map((cells)=>(
                             <Table.Row>
                                     {console.log('cells ' , cells)}
-                                    <Table.Cell>{cells.serviceName}</Table.Cell>
+                                    <Table.Cell>{cells.name}</Table.Cell>
                                     <Table.Cell>{cells.numberOfReservesInCurrentMonth}</Table.Cell>
                                     <Table.Cell>{cells.TnumberOfReservesInCurrentWeek}</Table.Cell>
         
