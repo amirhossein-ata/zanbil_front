@@ -22,7 +22,8 @@ class Edit_service_page extends React.Component {
         description_error:false
     }
     async componentDidMount(){
-     
+           console.log(this.props.service_id)
+        this.setState(()=>({service_id:this.props.service_id}))
         let temp_information = this.state.informations;
         temp_information.informations=this.props.service_id
         temp_information.service_name = this.props.sanses; 
@@ -246,7 +247,7 @@ const mapStateToProps = (state) => {
     return {
         fee : state.service_page_reducer.service.fee,
         description: state.service_page_reducer.service.description,
-        service_id:state.edit_service_reducer.service_id,
+        service_id:state.service_page_reducer.service.id,
         service_name:state.service_page_reducer.service.name,
         sanses : state.service_page_reducer.sanses
     

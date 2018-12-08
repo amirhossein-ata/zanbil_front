@@ -38,7 +38,7 @@ class Signup_form extends React.Component{
     }
     validate_email = () => {
         var validator = require("email-validator");
-        const email = this.state.informations.email
+        const email = this.state.credentials.email
         if(validator.validate(email)) {
             this.setState(()=>({email_error:false})); 
         }else{
@@ -86,8 +86,8 @@ class Signup_form extends React.Component{
         const password_valid = this.verify_password()
         const password_again_valid = this.verify_password_again()
         const email_valid = this.validate_email()
-        console.log(username_valid , password_valid , password_again_valid , email_valid)
-        if(username_valid && password_valid && password_again_valid && email_valid){
+        console.log(username_valid , password_valid , password_again_valid)
+        if(username_valid && password_valid && password_again_valid){
             console.log('signing up')
             this.props.signup(this.state.credentials)
         }

@@ -4,7 +4,6 @@ import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider,
 import moment from 'jalali-moment' 
 import * as service_page_actions from '../../../core/service_page/service_page_actions'
 import {reserve_sans} from '../../../core/reserve/reserve_actions'
-import { stat } from 'fs';
 const style={
     marginTop:'2px'
 }
@@ -37,7 +36,12 @@ class Timetable extends React.Component{
     }
     handleOpen = () => this.setState({ modalOpen: true })
 
-    handleClose = () => this.setState({ modalOpen: false,reserve_success:false })
+    handleClose = () => {
+        this.setState({ modalOpen: false,reserve_success:false })
+        this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+        console.log('sanse after reserved are',this.props.sanses)
+    }
+
 
     async on_next_week_click(){
         let newState = this.state.date
@@ -94,8 +98,7 @@ class Timetable extends React.Component{
         await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
         this.setState(()=>({reserve_success:true}))
         console.log(this.state.date.locale('fa').format('YYYY/MM/DD'))
-        await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
-        console.log('sanse after reserved are',this.props.sanses)
+        
     }
     render(){
         return(
