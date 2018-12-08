@@ -18,7 +18,7 @@ class Edit_service_page extends React.Component {
             },
         sanses:[],
         price_error:false,
-        name_error:false,
+        service_name_error:false,
         description_error:false
     }
     async componentDidMount(){
@@ -48,9 +48,20 @@ class Edit_service_page extends React.Component {
         this.setState(() => ({informations : informations}))    
     }
     
+    validate_service_name = () => {
+        const name = this.state.informations.service_name
+        if(PersianRex.text.test(name) ) {
+            this.setState(()=>({service_name_error:false}));      
+        }else{
+            this.setState(()=>({service_name_error:true}));       
+            
+        }
+
+    }
+
     validate_price = () => {
-        const price = this.state.informations.price;
-        if(/[0-9.]/.test(price)) {
+        const fee = this.state.informations.fee;
+        if(/[0-9.]/.test(fee)) {
             this.setState(()=>({price_error:false}));      
         }else{
             this.setState(()=>({price_error:true}));       
@@ -58,22 +69,14 @@ class Edit_service_page extends React.Component {
         }
 
     }
-    validate_address = () => {
-        const address = this.state.informations.address;
-        if(!PersianRex.punctuation.test(address)) {
-            this.setState(()=>({address_error:true}));      
-        }else{
-            this.setState(()=>({address_error:false}));       
-            
-        }
-    }
+    
 
     validate_descriptopn = () => {
         const description = this.state.informations.description;
-        if(!PersianRex.text.test(description) || /-/.test(description)) {
-            this.setState(()=>({description_error:true}));      
+        if(PersianRex.text.test(description) ) {
+            this.setState(()=>({description_error:false}));      
         }else{
-            this.setState(()=>({description_error:false}));       
+            this.setState(()=>({description_error:true}));       
             
         }
 
@@ -111,11 +114,15 @@ class Edit_service_page extends React.Component {
                 }
            }
            if(next_sans){
+               console.log("next sans is:",next_sans.sans)
+            
             if((parseInt(next_sans.sans.start_time.slice(0,3),10) < parseInt(sansinfo.end_time.slice(0,3) ,10)) || ((parseInt(next_sans.sans.start_time.slice(0,3),10) === parseInt(sansinfo.end_time.slice(0,3) ,10)) && ((parseInt(next_sans.sans.start_time.slice(3),10) < parseInt(sansinfo.end_time.slice(3) ,10))))){
+                console.log("fuck off")
                 let next_temp_sans=next_sans;
-                next_temp_sans.start_time = sansinfo.end_time;
+                next_temp_sans.sans.start_time = sansinfo.end_time;
                 next_temp_sans.sans.sans_id = next_temp_sans.sans.id;
-                next_temp_sans.is_deleted = 0;
+                next_temp_sans.sans.is_deleted = 0;
+                console.log("next_temp_sans_is:",next_temp_sans)
                 temp_sanses[0][sansinfo.weekday][sansinfo.sans_num+1] = next_temp_sans; 
                 temp_modified.push(next_temp_sans.sans);
                 
