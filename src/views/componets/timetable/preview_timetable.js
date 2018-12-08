@@ -10,27 +10,51 @@ class preview_timetable extends React.Component {
             sansID:undefined,
             sans_start:'',
             sans_end:'',
+            weekday:undefined,
+            sans_num:undefined,
         }
     }
-
-    onSansClick = (sans_id,sans_start,sans_end) =>{
+    
+    onSansChange = (e) => {
+    const input = e.target.value;    
+    let temp_sansinfo = this.state.sansinfo;
+    const inputName = e.target.name;
+    
+    temp_sansinfo[inputName] = input;
+    this.setState(() => ({sansinfo : temp_sansinfo}))    
+}
+    onSansClick = (sans_id,sans_start,sans_end,weekday,sans_num) =>{
+            console.log("weekday is:", weekday);
             let temp_sans = this.state.sansinfo;
             temp_sans.sansID=sans_id;
             temp_sans.sans_start=sans_start;
             temp_sans.sans_end=sans_end;
-            this.setState({sansinfo:temp_sans});
+            temp_sans.weekday=weekday;
+            temp_sans.sans_num = sans_num;
+            console.log("temp sans is:",temp_sans)
+            this.setState(() =>( {sansinfo:temp_sans}) );
+            console.log("sansinfo in in state is",this.state.sansinfo)
             this.handleOpen();
     }
     handleOpen = () => this.setState({ modal_open: true })
 
     handleClose = () => this.setState({ modal_open: false })
     on_confirm_change = () =>{
-        this.props.onConfirmChange(this.sansinfo.sans_id)
+        console.log("sans in confirm is",this.state.sansinfo)
+        this.props.onConfirmChange(this.state.sansinfo)
+        this.handleClose();
     }
     on_delete_sans = () => {
-        this.props.deleteSans(this.sansinfo.sans_id)
+        this.props.deleteSans(this.state.sansinfo)
     }
+
+    
+
     render(){
+        const arr = [[1,2],2]
+        console.log(arr)
+        console.log(this.props.sanses[0])
+        
         return(
             <div>
             {this.props.sanses &&
@@ -44,18 +68,20 @@ class preview_timetable extends React.Component {
                                     
                                     <Form.Field width={8}>
                                         <Form.Input
-                                            value={this.state.sans.start_time} 
+                                            value={this.state.sansinfo.start_time} 
+                                            name="start_time"
                                             fluid 
                                             label='شروع سانس' 
-                                            onChange={this.on_sans_change}
+                                            onChange={this.onSansChange}
                                         />
                                     </Form.Field>
-                                    <Form.Field width={16}>
+                                    <Form.Field width={8}>
                                         <Form.Input
-                                            value={this.state.sans.end_time} 
+                                            value={this.state.sansinfo.end_time} 
+                                            name="end_time"
                                             fluid 
                                             label='پایان سانس' 
-                                            onChange={this.on_sans_change}
+                                            onChange={this.onSansChange}
                                         />
                                     </Form.Field>
                                 </Form>
@@ -75,16 +101,16 @@ class preview_timetable extends React.Component {
                     />
                     <Button 
                         onClick={this.on_delete_sans}
-                        positive 
-                        icon='checkmark'  
-                        labelPosition='right' 
+                        negative 
+                        icon='x'  
+                        labelPosition='left' 
                         content='حذف' 
                     />
                     </Modal.Actions>
                 </Modal>
     
                 <Segment>
-                <Timetable onSansClick={this.onSansClick} edit={false} />
+                <Timetable sanses={this.props.sanses} onSansClick={this.onSansClick} edit={false} />
                 
                 </Segment>
 

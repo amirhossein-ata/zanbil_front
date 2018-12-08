@@ -7,6 +7,7 @@ import Addـbusiness from "../../views/componets/add_business/add_business"
 import history from '../history/history'
 import MainPage from '../../views/pages/main_page'
 import Category_page from '../../views/pages/category_page'
+import Edit_service_page from '../../views/pages/edit_service_page'
 
 const AppRouter = () => (
     <Router history={history}>
@@ -17,6 +18,7 @@ const AppRouter = () => (
             <Route path="/add_service" component={Add_service} />
             <Route path="/add_business" component={Addـbusiness}  />
             <Route path="/category_page" component={Category_page} />
+            <Route path = "/edit_service" component={Edit_service_page} />
         </Switch>
     </Router>
     

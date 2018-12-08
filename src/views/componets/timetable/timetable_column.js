@@ -4,27 +4,29 @@ import { Grid, Button ,GridColumn,  Responsive } from 'semantic-ui-react';
 const style={
     marginTop:'2px'
 }
-const timetable_column = (props) => (
-            <div>
-            <Grid.Column computer={2} mobile={6} tablet={5}>
-                                <div style={{textAlign:'center'}}>{props.day}</div>
-                                    
-                                {props.sanses[props.index].map((sans) => (
-                                    <Button 
-                                        onClick={() =>props.onSansClick(sans.sansID,sans.sans_start,sans.sans_end)} 
-                                        color="linkedin" 
-                                        disable= {sans.is_reserved && !props.edit}
-                                        fluid 
-                                        style={style}
-                                    >
-                                        {sans.start_time} - {sans.end_time}
-                                    </Button>
-                                ))}
-                                </Grid.Column>
 
-            </div>
 
-        )
+const timetable_column = (props) => {
+            
+            return (
+                <div>
+                    <div style={{textAlign:'center'}}>{props.day}</div>
+                        
+                    {props.sanses &&  props.sanses.map((sans,i) => (
+                        <Button 
+                            onClick={()=>props.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,props.index,i)} 
+                            color="linkedin" 
+                            disabled={sans.is_reserved} 
+                            fluid 
+                            style={style}
+                        >
+                            {sans.sans.start_time} - {sans.sans.end_time}
+                        </Button>
+                    ))}
+                </div>
+            )
+
+                            }
     
 
 
