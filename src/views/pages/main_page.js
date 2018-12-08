@@ -17,6 +17,7 @@ import {open_search_form} from '../../core/search/search_actions'
 import {NavBarDesktop , NavBarMobile} from '../componets/navbar/navbar'
 import Dashboard from "../componets/dashboard/dashboard";
 import AddBusiness from "../componets/business_forms/add_business"
+import EditService from "../pages/edit_service_page"
 
 class Main_page extends React.Component{
     state = {
@@ -79,7 +80,9 @@ class Main_page extends React.Component{
             case 'landing_page':
                 return <Landing_page/>
             case "add_business_page":
-                    return <AddBusiness />
+                return <AddBusiness />
+            case "edit_service_page":
+                return <EditService />
             default:
                 return ''
         }

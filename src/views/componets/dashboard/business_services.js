@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Card from '../card/card'
-import { Segment, Grid, Divider, Header ,Image,Button,Breadcrumb,Comment,Rating} from 'semantic-ui-react';
+import CardComponent from '../card/card'
+import { Segment, Card,Grid, Divider, Header ,Image,Button,Breadcrumb,Comment,Rating} from 'semantic-ui-react';
 import * as business_page_actions from '../../../core/business_page/business_page_actions'
 import * as service_page_actions from '../../../core/service_page/service_page_actions'
 import {change_panel} from '../../../core/main_page/active_panel_actions'
@@ -23,7 +23,15 @@ class Services extends React.Component{
         this.props.change_panel('service_page')
     }
 
+    async on_edit_service_click(service_id){
+        const today_date = moment().locale('fa').format('YYYY/MM/DD')        
+        await this.props.get_service_page_info(service_id,today_date)
+        this.props.change_panel('edit_service_page')
+    }
+
     render(){
+        console.log('services : ',this.props.services[0])
+    
         return(
             <Grid centered >
                     
@@ -35,21 +43,38 @@ class Services extends React.Component{
 
                 <Grid.Column computer={14} mobile={15} tablet={15}>
                     <Grid textAlign="right">
-                        {this.props.services[0] && this.props.services[0].map((service) => (
-                            <Grid.Column computer={5} tablet={8} mobile={16}>
-                                <div onClick={()=>this.on_service_click(service.id)}>
-                                    <Card
-                                        info={true}
-                                        image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
-                                        header={service.name}
-                                        rating={service.rating}
-                                        description={service.fee}
-                                    />
+                        {console.log(this.props.services[0])}
+                            {this.props.services[0].map((service) => (
+                                <Grid.Column computer={5} tablet={8} mobile={16}>
+                                    <div>
+                                        <Card color="teal" fluid raised style={{height:'50vh'}}>
+                                            <Image fluid size="massive" src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" />
+                                            <Card.Content>
+                                                 
+                                                <Card.Header>{service.name}</Card.Header>
+                                                <Card.Meta>
+                                                    <Rating disabled icon="star" defaultRating={service.rating%5} maxRating={5}/>            
+                                                </Card.Meta>
+                                                <Card.Description>{service.fee}</Card.Description>
+                                                </Card.Content>
+                                            <Card.Content extra>
                                 
-                                </div>    
-                            </Grid.Column>
-
-                        ))}
+                                                <div style={{display:'flex',justifyContent:'space-around'}}>
+                                                <Button primary onClick={()=>this.on_service_click(service.id)}>
+                                                    نمایش سرویس
+                                                </Button>
+                                                <Button onClick={()=>this.on_edit_service_click(service.id)}>
+                                                    ویرایش سرویس
+                                                </Button>
+                                                </div>
+                                            </Card.Content>
+                                            
+                                        </Card>
+                                
+                                    </div>
+                                    
+                                </Grid.Column> 
+                            ))}
                     </Grid>
                 </Grid.Column>
         </Grid>

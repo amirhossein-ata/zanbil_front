@@ -10,10 +10,10 @@ class Edit_service_page extends React.Component {
         service_id:17,
         modified_sanses:[],
         informations:{
-            service_name:undefined,
+            service_name:this.props.service_name,
             
-            description:undefined,
-            fee:undefined
+            description:this.props.description,
+            fee:this.props.fee
             
             },
         sanses:[],
@@ -22,9 +22,9 @@ class Edit_service_page extends React.Component {
         description_error:false
     }
     async componentDidMount(){
-        await this.props.get_service_info(this.state.service_id);
-        
+     
         let temp_information = this.state.informations;
+        temp_information.informations=this.props.service_id
         temp_information.service_name = this.props.sanses; 
         temp_information.fee =this.props.fee;
         temp_information.description =this.props.description;
@@ -244,11 +244,12 @@ class Edit_service_page extends React.Component {
 const mapStateToProps = (state) => {
     console.log("state is:",state)
     return {
-        sanses : state.edit_service_reducer.sanses,
-        fee : state.edit_service_reducer.fee,
-        description: state.edit_service_reducer.description,
-        service_name:state.edit_service_reducer.service_name,
-        service_id:state.edit_service_reducer.service_id
+        fee : state.service_page_reducer.service.fee,
+        description: state.service_page_reducer.service.description,
+        service_id:state.edit_service_reducer.service_id,
+        service_name:state.service_page_reducer.service.name,
+        sanses : state.service_page_reducer.sanses
+    
     }
 }
 const mapDispatchToProps = (dispatch) => {

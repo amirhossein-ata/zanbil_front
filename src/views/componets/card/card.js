@@ -34,6 +34,7 @@ const Card_component = (props) => (
         {props.semantic && (
             <Card color="teal" raised style={style}>
                 <Card.Content>
+            
                 <Card.Header>{props.header}</Card.Header>
                 <Card.Meta>
                     <span className='date'>{props.meta1}</span>
@@ -109,6 +110,7 @@ const Card_component = (props) => (
             </div>
 
         )}
+        
     </div>
 )
 

@@ -11,12 +11,12 @@ const timetable_column = (props) => {
             return (
                 <div>
                     <div style={{textAlign:'center'}}>{props.day}</div>
-                        
+                        {console.log(props.edit)}
                     {props.sanses &&  props.sanses.map((sans,i) => (
                         <Button 
                             onClick={()=>props.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,props.index,i)} 
                             color="linkedin" 
-                            disabled={sans.is_reserved} 
+                            disabled={sans.is_reserved && !props.edit } 
                             fluid 
                             style={style}
                         >

@@ -66,24 +66,25 @@ class preview_timetable extends React.Component {
 
                                 <Form >
                                     
-                                    <Form.Field width={8}>
+                                    <Form.Group>
                                         <Form.Input
+                                            width={8}
                                             value={this.state.sansinfo.start_time} 
                                             name="start_time"
                                             fluid 
                                             label='شروع سانس' 
                                             onChange={this.onSansChange}
                                         />
-                                    </Form.Field>
-                                    <Form.Field width={8}>
                                         <Form.Input
+                                            width={8}
                                             value={this.state.sansinfo.end_time} 
                                             name="end_time"
                                             fluid 
                                             label='پایان سانس' 
                                             onChange={this.onSansChange}
                                         />
-                                    </Form.Field>
+                                
+                                    </Form.Group>
                                 </Form>
                         
                             </GridColumn>
@@ -110,7 +111,7 @@ class preview_timetable extends React.Component {
                 </Modal>
     
                 <Segment>
-                <Timetable sanses={this.props.sanses} onSansClick={this.onSansClick} edit={false} />
+                <Timetable sanses={this.props.sanses} onSansClick={this.onSansClick} edit={true} />
                 
                 </Segment>
 
