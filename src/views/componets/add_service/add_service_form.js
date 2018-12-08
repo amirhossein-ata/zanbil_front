@@ -182,22 +182,24 @@ class Add_service extends React.Component{
     }
     validate_address = () => {
         const address = this.state.informations.address;
-        if(!PersianRex.punctuation.test(address)) {
-            this.setState(()=>({address_error:true}));      
+        if(PersianRex.punctuation.test(address)|| /-[0-9]/.test(address)) {
+            this.setState(()=>({address_error:false}));      
         }else{
-            this.setState(()=>({address_error:false}));       
+            this.setState(()=>({address_error:true}));       
             
         }
     }
 
     validate_descriptopn = () => {
         const description = this.state.informations.description;
-        if(!PersianRex.text.test(description) || /-/.test(description)) {
-            this.setState(()=>({description_error:true}));      
+        if(PersianRex.text.test(description) || /-[0-9]/.test(description)) {
+            this.setState(()=>({description_error:false}));      
         }else{
-            this.setState(()=>({description_error:false}));       
+            this.setState(()=>({description_error:true}));       
             
         }
+    
+
     }
     async onSubmit(){
         console.log(this.state.informations)
@@ -258,7 +260,7 @@ class Add_service extends React.Component{
         console.log(d)
         await this.props.add_service(this.state.informations,d,this.props.business_id)
         await this.props.get_business_info(this.props.business_id)
-        this.props.change_panel('business_page')
+        this.props.change_panel('dashboard')
     }
 
     render(){

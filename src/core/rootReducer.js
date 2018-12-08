@@ -11,6 +11,7 @@ import {review_reducer} from "./review/review_reducer"
 import {reserve_reducer} from './reserve/reserve_reducer'
 import {account_page_reducer} from "./account_page/account_page_reducer"
 import {edit_service_reducer} from "./edit_service/edit_service_reducer"
+import {dashboard_reducer} from './dashboard/dashboard_reducers'
 const rootReducer = combineReducers({
     business_page_reducer,
     session_reducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     reserve_reducer,
     account_page_reducer,
     edit_service_reducer,
+    dashboard_reducer
 })
 
 export default rootReducer;

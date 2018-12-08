@@ -28,13 +28,18 @@ class Search_page extends React.Component{
             <div>
 
                 {this.props.visible && (
-                    <Segment textAlign="right">
+                    <Grid centered>
+                        <Grid.Column computer={15}>
+                            <Segment textAlign="right">
 
-                        <div style={{marginRight:'auto',marginLeft:'1%',width:'1%'}} onClick={this.handleSidebarHide}>
-                            <Icon name="window close"></Icon>                    
-                        </div>
-                        <SearchForm/>                       
-                    </Segment>
+                                <div style={{marginRight:'auto',marginLeft:'1%',width:'1%'}} onClick={this.handleSidebarHide}>
+                                    <Icon name="window close"></Icon>                    
+                                </div>
+                                <SearchForm/>                       
+                            </Segment>    
+                        </Grid.Column>
+                    </Grid>
+                    
                 )}
                     
                 <Grid textAlign="right" centered>

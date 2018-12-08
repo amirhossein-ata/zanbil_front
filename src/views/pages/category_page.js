@@ -24,23 +24,22 @@ class Category_page extends React.Component{
         console.log('active_panel is : ',this.props.active_panel)
 
         return(
-            <div>
-                <Grid textAlign="right">
+                <Grid centered textAlign="right">
                     {this.props.businesses && this.props.businesses.map((business) => (
                             <Grid.Column computer={5} tablet={8} mobile={16}>
                                 <div onClick={()=>this.on_business_click(business.id)}>
                                     <CardComponent
                                         info={true}
-                                        image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
+                                        image={business.pictures ?  require(`../../assessts/ZanbilBackEnd/uploads/${business.pictures[business.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                                         header={business.name}
                                         rating={business.rating}
                                         description={business.description}
                                     />                            
                                 </div>    
                             </Grid.Column>           
-                    ))}
+                        )
+                    )}
                 </Grid>
-            </div>
         )
     }
 }

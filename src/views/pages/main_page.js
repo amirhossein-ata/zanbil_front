@@ -6,19 +6,17 @@ import ServicePage from './service_page'
 import AccountPage from './account_page'
 import { Dropdown , Menu ,Container,Icon,Image,Sidebar,Responsive,Grid, GridColumn, Segment } from 'semantic-ui-react';
 import CategoryPage from './category_page'
-import AddBusinessPage from '../componets/add_business/add_business'
+import AddBusinessPage from '../componets/business_forms/add_business'
 import AddServicePage from '../componets/add_service/add_service_form'
 import SearchPage from '../pages/search_page'
 import Landing_page from '../componets/landing_page/landing_page'
-import LoginForm from '../componets/login&signup/loginForm'
-import SignupForm from '../componets/login&signup/signup_form'
-import ModalComponent from '../componets/modal/Modal'
-import {categories} from '../../core/constants'
 import * as session_actions  from '../../core/login&signup/session_actions'
 import * as category_page_actions from '../../core/category_page/category_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
 import {open_search_form} from '../../core/search/search_actions'
 import {NavBarDesktop , NavBarMobile} from '../componets/navbar/navbar'
+import Dashboard from "../componets/dashboard/dashboard";
+import AddBusiness from "../componets/business_forms/add_business"
 
 class Main_page extends React.Component{
     state = {
@@ -76,8 +74,12 @@ class Main_page extends React.Component{
                 return <SearchPage/>
             case"account_page":
                 return <AccountPage/>
+            case 'dashboard':
+                return <Dashboard/>
             case 'landing_page':
                 return <Landing_page/>
+            case "add_business_page":
+                    return <AddBusiness />
             default:
                 return ''
         }
@@ -119,20 +121,10 @@ class Main_page extends React.Component{
                             logged_in={this.props.logged_in} 
                         />
                         <br></br><br></br><br></br>
+                        <br></br><br></br><br></br>
 
-                        {this.props.active_panel==='landing_page' ? (
-                            <Landing_page />
-                        ) : (
-                            <div style={{margin:'3%'}}>
-                                <Grid centered>
-                                    <Grid.Column computer={14}>
-                                        {this.get_active_panel()}
-                                    </Grid.Column>
-                                </Grid>
-
-                            </div>
-                            
-                        )}
+                        {this.get_active_panel()}
+                          
                     </div>
 
                 </Responsive>    

@@ -3,7 +3,7 @@ export const business_page_action_types = {
     GET_SERVICES_SUCCESS : 'GET_SERVICES_SUCCESS'
 }
 
-export const get_business_info_success = ({id,owner_id,name,address,category_id,description,email,phone_number},services) => {
+export const get_business_info_success = ({id,owner_id,name,address,category_id,description,email,phone_number,pictures},services) => {
     return{
         type:business_page_action_types.GET_SERVICES_SUCCESS,
         business_info:{
@@ -14,7 +14,8 @@ export const get_business_info_success = ({id,owner_id,name,address,category_id,
             category_id:category_id,
             description:description,
             email:email,
-            phone_number:phone_number
+            phone_number:phone_number,
+            pictures:pictures
         },
         services : services
     }
