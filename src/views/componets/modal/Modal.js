@@ -15,7 +15,7 @@ const ModalComponent   = defaltState => BaseComponent =>{
             const { open, dimmer} = this.state
             return (
                 <div>
-                    <Button onClick={this.show('blurring')}>{this.state.button}</Button>
+                    <Button color="instagram"  onClick={this.show('blurring')}>{this.state.button}</Button>
 
                     <Modal dimmer={dimmer}  open={open} onClose={this.close} closeIcon>
                         <Modal.Content>
