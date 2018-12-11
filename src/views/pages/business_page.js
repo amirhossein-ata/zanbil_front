@@ -9,15 +9,22 @@ import * as review_actions from '../../core/review/review_actions'
 import moment from 'jalali-moment' 
 
 class Business_page extends React.Component{
+    
     constructor(props){
         super(props)
-        
+        this.state={
+            counter:5,
+            index:0
+        }
         this.on_service_click = this.on_service_click.bind(this)
     }
     async componentDidMount(){
         await this.props.get_review(1)
         console.log('reviews areeeeeeeeeeeeeeeeee: ', this.props.reviews)
         await this.props.get_business_info(1)
+        if(this.state.counter > this.props.reviews.length){
+            await this.set_to_length();
+        }
       
     }
     async on_service_click(service_id){
@@ -25,9 +32,27 @@ class Business_page extends React.Component{
         await this.props.get_service_page_info(service_id,today_date)
         this.props.change_panel('service_page')
     }
-    
+    on_show_more_click= () => {
+        if(this.state.counter + 5 < this.props.reviews.length){
+            this.setState(() => ({counter:this.state.counter + 5}))
+        }
+        else{
+            this.setState(() => ({counter:this.props.reviews.length}))    
+        }    
+    }
+    set_to_length = () => (
+        this.setState(() => ({counter:this.props.reviews.length}))
+    )
     render(){
+        console.log("counter is :", this.state.counter);
+        console.log("length is :", this.props.reviews.length);
+        
         console.log('active panel is : ',this.props.active_panel)
+        
+          let tmp = this.props.reviews.slice(0,this.state.counter -1);
+          let c = this.props.reviews[this.state.counter - 1]
+          console.log("c is :",c)
+        
         return(
             <div>
                 <br></br>
@@ -97,8 +122,9 @@ class Business_page extends React.Component{
                 <Divider horizontal section>نظرات</Divider> <br/>
                 <Grid centered>
                     <Grid.Column centered >
+                            
                     {!this.props.reviews && <span>هیچ نظری ثبت نشده است!</span>}
-                    {this.props.reviews && this.props.reviews.map((review) => (
+                    {this.props.reviews  && tmp.map((review) => (
                         <div>
                         <Comment>
                             <Comment.Content>
@@ -117,10 +143,41 @@ class Business_page extends React.Component{
                         <Divider section/>
                         <br/>
                         </div>
-                    ))}
+                    )
+                    
+                    
+                    )
+                }
+                    {c && <div>
+                        <Comment>
+                                <Comment.Content>
+                                    <Comment.Author as='a'> <Grid textAlign="right"><b>{c.user.username}</b> </Grid></Comment.Author>
+                                    <Comment.Metadata>
+                                    <Grid textAlign="right">
+                                    
+                                    <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{c.rating}/10 <br/></div>
+                                    </Grid>
+                                    </Comment.Metadata>
+                                    <Grid textAlign = "right">
+                                    <Comment.Text><br/>{c.description}</Comment.Text>
+                                    </Grid>
+                                    </Comment.Content>
+                            </Comment>
+                        { this.state.counter < this.props.reviews.length && <Grid centered>
+                            <Button basic onClick={this.on_show_more_click} color="teal"> مشاهده‌ی نظرات بیشتر</Button>
+                            </Grid>
+
+                        }
+                            
+
+                        }
+
+
+                    </div>}
                     </Grid.Column>
                 </Grid>        
             </div>    
+            
         )
     }
 }
