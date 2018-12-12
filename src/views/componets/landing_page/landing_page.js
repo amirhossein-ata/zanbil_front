@@ -11,6 +11,40 @@ import silver_icon from '../../../assessts/icons/silver-medal.svg'
 import bronze_icon from '../../../assessts/icons/bronze-medal.svg'
 import tick_icon from '../../../assessts/icons/success.svg'
 import multiply_icon from '../../../assessts/icons/multiply.svg'
+
+import Flip from 'react-reveal/Flip';
+import Slide from 'react-reveal/Slide'
+import LightSpeed from 'react-reveal/LightSpeed'
+import Zoom from 'react-reveal/Zoom'
+
+const amirhossein_style = (props) => ({
+    display:'flex', 
+    justifyContent:'space-between',
+    width:props.width? `${props.width}`: '30vw',
+    paddingRight:'3%',
+    paddingTop:'1%',
+    paddingBottom:'1%',
+    paddingLeft:'3%',
+    marginTop:props.marginTop ? `${props.marginTop}` : '',
+    marginBottom:props.marginBottom ? `${props.marginBottom}` : '',
+    marginLeft:props.marginLeft ? `${props.marginLeft}` : '',
+    marginRight:props.marginRight? `${props.marginRight}`:'',
+    border:`${props.border_color}` ?`1px solid ${props.border_color}` : '',
+    background:props.background ? props.background : '',
+    boxShadow:`2px 2px ${props.border_color}`,
+    height:'40vh',
+    alignItems:'center'
+})
+
+
+const Card = (props) =>(
+            <div className={props.className} style={amirhossein_style(props)}>
+                <p>{props.card_text}</p>
+                <img src={props.image} height={props.image_height} width={props.image_width}/>
+
+            </div>
+)
+
 class Landing_page extends React.Component{
     render(){
         return(
@@ -28,38 +62,39 @@ class Landing_page extends React.Component{
                     
                 </div>
                 <div style={{minHeight:'80vh',background:'white',padding:'5% 3% 5% 3%'}}>
-                    <h4>اگر صاحب کسب و کار هستید ما میتونیم به شما کمک کنیم :</h4>
+                        <h4>اگر صاحب کسب و کار هستید ما میتونیم به شما کمک کنیم :</h4>
+                    
                     <Responsive {...Responsive.onlyMobile}>
-                        <CardComponent 
-                            amirhossein={true}
-                            className="second_part_card"
-                            card_text="کسب و کار خود را معرفی کنید"
-                            image={introduction_icon}
-                            image_height="150px"
-                            image_width="150px"
-                            border_color="#BCDECF"
-                            background="rgba(233, 231, 227,.5)"
-                            marginLeft="auto"
-                            marginRight="auto"
-                            width="94%"
-                        />
-                        <br></br>
-                        <CardComponent 
-                            amirhossein={true}
-                            className="second_part_card"
-                            card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
-                            image={timetable_icon}
-                            image_height="150px"
-                            image_width="150px"
-                            border_color="#BCDECF"
-                            background="rgba(233, 231, 227,.5)"
-                            marginLeft="auto"
-                            marginRight="auto"
-                            width="94%"                    
-                        />
+                        <Slide right>
+                            <Card
+                                className="second_part_card"
+                                card_text="کسب و کار خود را معرفی کنید"
+                                image={introduction_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                                marginLeft="auto"
+                                marginRight="auto"
+                                width="94%"
+                            />
+                                
+                            <br></br>
+                            <Card
+                                className="second_part_card"
+                                card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
+                                image={timetable_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                                marginLeft="auto"
+                                marginRight="auto"
+                                width="94%"                    
+                            />
+                            
                         <br></br>   
-                        <CardComponent 
-                            amirhossein={true}
+                        <Card
                             className="second_part_card"
                             card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
                             image={booked_icon}
@@ -71,41 +106,43 @@ class Landing_page extends React.Component{
                             marginRight="auto"
                             width="94%"                    
                         />
+                        </Slide>
                     </Responsive>
                     <Responsive minWidth={Responsive.onlyTablet.minWidth} >            
-                        <div style={{ display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="کسب و کار خود را معرفی کنید"
-                                image={introduction_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="rgba(233, 231, 227,.5)"
-                            />
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
-                                image={timetable_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="rgba(233, 231, 227,.5)"
-                            />
-                                    
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
-                                image={booked_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="rgba(233, 231, 227,.5)"
-                            />
-                        </div>
+                        <Flip bottom>
+                            
+                            <div style={{ display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
+                                <Card
+                                    className="second_part_card"
+                                    card_text="کسب و کار خود را معرفی کنید"
+                                    image={introduction_icon}
+                                    image_height="150px"
+                                    image_width="150px"
+                                    border_color="#BCDECF"
+                                    background="rgba(233, 231, 227,.5)"
+                                />
+                                
+                                <Card 
+                                    className="second_part_card"
+                                    card_text="سرویس های مختلف ایجاد کنید و برای هر کدام یک جدول زمانی ایجاد کنید"
+                                    image={timetable_icon}
+                                    image_height="150px"
+                                    image_width="150px"
+                                    border_color="#BCDECF"
+                                    background="rgba(233, 231, 227,.5)"
+                                />
+                                <Card
+                                    className="second_part_card"
+                                    card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
+                                    image={booked_icon}
+                                    image_height="150px"
+                                    image_width="150px"
+                                    border_color="#BCDECF"
+                                    background="rgba(233, 231, 227,.5)"
+                                />
+                            
+                            </div>
+                        </Flip>
                     </Responsive>
                 </div>
                 <div style={{minHeight:'80vh',padding:'5% 3% 5% 3%',background:'#E7E8E7'}}>
@@ -155,39 +192,42 @@ class Landing_page extends React.Component{
                 
                     </Responsive>
                     <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-                        <div style={{display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="در میان کسب و کارها جست و جو کنید"
-                                image={list_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="white"
-                            />
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
-                                image={booked_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="white"
-                            />
-                            <CardComponent 
-                                amirhossein={true}
-                                className="second_part_card"
-                                card_text="ایمیل های یادآوری دریافت کنید تا دیگر هیچ قراری را فراموش نکنید"
-                                image={email_icon}
-                                image_height="150px"
-                                image_width="150px"
-                                border_color="#BCDECF"
-                                background="white"
+                        <Zoom>
                             
-                            />
-                        </div>    
+                            <div style={{display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
+                                <CardComponent 
+                                    amirhossein={true}
+                                    className="second_part_card"
+                                    card_text="در میان کسب و کارها جست و جو کنید"
+                                    image={list_icon}
+                                    image_height="150px"
+                                    image_width="150px"
+                                    border_color="#BCDECF"
+                                    background="white"
+                                />
+                                <CardComponent 
+                                    amirhossein={true}
+                                    className="second_part_card"
+                                    card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
+                                    image={booked_icon}
+                                    image_height="150px"
+                                    image_width="150px"
+                                    border_color="#BCDECF"
+                                    background="white"
+                                />
+                                <CardComponent 
+                                    amirhossein={true}
+                                    className="second_part_card"
+                                    card_text="ایمیل های یادآوری دریافت کنید تا دیگر هیچ قراری را فراموش نکنید"
+                                    image={email_icon}
+                                    image_height="150px"
+                                    image_width="150px"
+                                    border_color="#BCDECF"
+                                    background="white"
+                                
+                                />
+                            </div>
+                        </Zoom>    
                     </Responsive>
 
                 </div>
@@ -195,7 +235,9 @@ class Landing_page extends React.Component{
                     <div style={{textAlign:'center',}}>
                         <h2>طرح های ما :</h2>                
                     </div>
-                    <div style={{display:'flex',justifyContent:'center',paddingTop:'5%'}}>
+                    <Zoom bottom>
+                    
+                        <div style={{display:'flex',justifyContent:'center',paddingTop:'5%'}}>
                         <div style={{textAlign:'right',width:'25vw', marginLeft:'2%' , height:'auto',background:'white'}}>
                             <div  style={{marginLeft:'auto',marginRight:'40%'}} >
                                 <img src={bronze_icon}width="80px" height="80px" />
@@ -306,6 +348,8 @@ class Landing_page extends React.Component{
                             </ul>
                         </div>      
                     </div>
+                    </Zoom>
+
                 </div>
 
             </div>

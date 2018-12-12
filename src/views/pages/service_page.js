@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Card from '../componets/card/card'
 import Timetable from '../componets/timetable/changed_timetable'
-import {Grid, Divider , Header, Responsive} from 'semantic-ui-react';
+import {Grid, Divider, Card, Header, Responsive,Image,Rating} from 'semantic-ui-react';
 import * as service_page_actions from '../../core/service_page/service_page_actions'
 
 class Service_page extends React.Component{
@@ -19,12 +18,24 @@ class Service_page extends React.Component{
                         <Grid.Column computer={8} tablet={8} mobile={8}>
                             {this.props.service && (
                                 <Card 
-                                    info={true}
-                                    image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"                                
-                                    rating={this.props.service.rating}
-                                    header={this.props.service.name}
-                                    description={`قیمت : ${this.props.service.fee}`}
-                                />
+                                    raised 
+                                    fluid  
+                                    color="teal" 
+                                    style={{height:'50vh'}} 
+                                >
+                                    <Image 
+                                        size="massive" 
+                                        src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" 
+                                    />
+                                    <Card.Content textAlign="right">
+                                        <Card.Header>{this.props.service.name}</Card.Header>
+                                        <Card.Meta>
+                                            <Rating disabled icon="star" defaultRating={this.props.service.rating%5} maxRating={5}/>            
+                                        </Card.Meta>
+                                        <Card.Description>{`قیمت : ${this.props.service.fee}`}</Card.Description>
+                                    </Card.Content>
+                                </Card>
+                                
                             )}  
                                     
                         </Grid.Column>
@@ -44,12 +55,23 @@ class Service_page extends React.Component{
                         <Grid.Column computer={4}>
                             {this.props.service && (
                                 <Card 
-                                    info={true}
-                                    image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"                                
-                                    rating={this.props.service.rating}
-                                    header={this.props.service.name}
-                                    description={`قیمت : ${this.props.service.fee}`}
-                                />
+                                    raised 
+                                    fluid  
+                                    color="teal" 
+                                    style={{height:'50vh'}} 
+                                >
+                                    <Image 
+                                        size="massive" 
+                                        src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" 
+                                    />
+                                    <Card.Content textAlign="right">
+                                        <Card.Header>{this.props.service.name}</Card.Header>
+                                        <Card.Meta>
+                                            <Rating disabled icon="star" defaultRating={this.props.service.rating%5} maxRating={5}/>            
+                                        </Card.Meta>
+                                        <Card.Description>{`قیمت : ${this.props.service.fee}`}</Card.Description>
+                                    </Card.Content>
+                                </Card>
                             )}  
                         </Grid.Column>
                         <Grid.Column computer={12}>

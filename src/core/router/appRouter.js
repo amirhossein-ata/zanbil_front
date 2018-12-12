@@ -11,6 +11,7 @@ import Edit_service_page from '../../views/pages/edit_service_page'
 
 const AppRouter = () => (
     <Router history={history}>
+
         <Switch>
             <Route path="/" component={MainPage} exact={true}/>
             <Route path="/signUp" component={Signup_Form} />
