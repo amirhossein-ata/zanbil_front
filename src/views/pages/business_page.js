@@ -124,63 +124,79 @@ class Business_page extends React.Component{
 
                     </Grid>
                     <Divider horizontal section>نظرات</Divider> <br/>
-                    <Grid centered>
-                        <Grid.Column centered >
+                    <Grid centered >
+                        
                                 
                         {!this.props.reviews && <span>هیچ نظری ثبت نشده است!</span>}
                         {this.props.reviews  && tmp.map((review) => (
                             <div>
+                            <Segment>
                             <Comment>
                                 <Comment.Content>
                                     <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
                                     <Comment.Metadata>
                                     <Grid textAlign="right">
-                                    
-                                    <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
+                                    <Grid.Column computer={14} mobile={15} tablet={15} centered >
+                                    <div><br/>امتیاز:<Rating disabled={true} defaultRating={review.rating} maxRating={5}/> <br/></div>
+                                    </Grid.Column>
                                     </Grid>
                                     </Comment.Metadata>
                                     <Grid textAlign = "right">
+                                    <Grid.Column computer={14} mobile={15} tablet={15} centered >
                                     <Comment.Text><br/>{review.description}</Comment.Text>
+                                    </Grid.Column>
                                     </Grid>
                                     </Comment.Content>
                             </Comment>
+                            </Segment>
                             <Divider section/>
-                            <br/>
                             </div>
                         )
                         
                         
                         )
                     }
+                    
                         {c && <div>
+                            <Segment>
                             <Comment>
                                     <Comment.Content>
                                         <Comment.Author as='a'> <Grid textAlign="right"><b>{c.user.username}</b> </Grid></Comment.Author>
                                         <Comment.Metadata>
                                         <Grid textAlign="right">
-                                        
-                                        <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{c.rating}/10 <br/></div>
+                                        <Grid.Column computer={14} mobile={15} tablet={15} centered >
+                                        <div><br/>امتیاز:<Rating disabled={true} defaultRating={c.rating} maxRating={5}/> <br/></div>
+                                        </Grid.Column>
                                         </Grid>
                                         </Comment.Metadata>
                                         <Grid textAlign = "right">
+                                        <Grid.Column computer={14} mobile={15} tablet={15} centered >
                                         <Comment.Text><br/>{c.description}</Comment.Text>
+                                        </Grid.Column>
                                         </Grid>
                                         </Comment.Content>
                                 </Comment>
-                            { this.state.counter < this.props.reviews.length && <Grid centered>
-                                <Button basic onClick={this.on_show_more_click} color="teal"> مشاهده‌ی نظرات بیشتر</Button>
-                                </Grid>
-
-                            }
+                                
+                                
+                                </Segment>
+                                <Divider section/>
+                            
                                 
 
-                            }
+                            
 
 
                         </div>}
-                        </Grid.Column>
-                    </Grid>        
+                       
+                       
+                    </Grid>  
+                     
                 </Grid.Column>
+                { this.state.counter < this.props.reviews.length && <Grid centered>
+                    <Button basic onClick={this.on_show_more_click} color="teal"> مشاهده‌ی نظرات بیشتر</Button>
+                    </Grid>
+
+                }
             </Grid>
             )
     }
