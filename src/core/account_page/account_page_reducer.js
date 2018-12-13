@@ -8,7 +8,6 @@ const initialState = {
 }
 
 export const account_page_reducer = (state=initialState ,action) => {
-    console.log(action)
     switch(action.type){
         case account_page_action_types.GET_ACCOUNT_PAGE_SUCCESS:
             console.log("FUCCCCCCCCCCCCCKKKKK")

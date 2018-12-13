@@ -5,9 +5,8 @@ const initialState={
 }
 
 export const review_reducer = (state=initialState ,action) => {
-    console.log(action)
     switch(action.type){
-        case 'FU2':
+        case review_action_types.GET_REVIEW_SUCCESS:
             return {
                 ...state,
                 reviews:action.reviews,

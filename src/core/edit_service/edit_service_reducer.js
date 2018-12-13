@@ -7,7 +7,6 @@ const initialState = {
   }
   
 export const edit_service_reducer = (state = initialState , action) => {
-    console.log(action)      
     switch(action.type){
           case edit_service_action_types.EDIT_SERVICE_SUCCESS:
               return{

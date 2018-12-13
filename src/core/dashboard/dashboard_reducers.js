@@ -16,7 +16,6 @@ const initialState={
 }
 
 export const dashboard_reducer = (state=initialState,action) => {
-    console.log(action)
     switch(action.type){
         case dashboard_action_types.GET_REPORST_SUCCESS:
             return{
