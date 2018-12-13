@@ -12,11 +12,8 @@ import bronze_icon from '../../../assessts/icons/bronze-medal.svg'
 import tick_icon from '../../../assessts/icons/success.svg'
 import multiply_icon from '../../../assessts/icons/multiply.svg'
 
-import Flip from 'react-reveal/Flip';
-import Slide from 'react-reveal/Slide'
-import LightSpeed from 'react-reveal/LightSpeed'
 import Zoom from 'react-reveal/Zoom'
-
+import Slide from 'react-reveal/Slide'
 const amirhossein_style = (props) => ({
     display:'flex', 
     justifyContent:'space-between',
@@ -38,11 +35,11 @@ const amirhossein_style = (props) => ({
 
 
 const Card = (props) =>(
-            <div className={props.className} style={amirhossein_style(props)}>
-                <p>{props.card_text}</p>
-                <img src={props.image} height={props.image_height} width={props.image_width}/>
+    <div className={props.className} style={amirhossein_style(props)}>
+        <p>{props.card_text}</p>
+        <img src={props.image} height={props.image_height} width={props.image_width}/>
 
-            </div>
+    </div>
 )
 
 class Landing_page extends React.Component{
@@ -93,23 +90,23 @@ class Landing_page extends React.Component{
                                 width="94%"                    
                             />
                             
-                        <br></br>   
-                        <Card
-                            className="second_part_card"
-                            card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
-                            image={booked_icon}
-                            image_height="150px"
-                            image_width="150px"
-                            border_color="#BCDECF"
-                            background="rgba(233, 231, 227,.5)"
-                            marginLeft="auto"
-                            marginRight="auto"
-                            width="94%"                    
-                        />
+                            <br></br>   
+                            <Card
+                                className="second_part_card"
+                                card_text="از سرویس رزرواسیون آنلاین استفاده کنید"
+                                image={booked_icon}
+                                image_height="150px"
+                                image_width="150px"
+                                border_color="#BCDECF"
+                                background="rgba(233, 231, 227,.5)"
+                                marginLeft="auto"
+                                marginRight="auto"
+                                width="94%"                    
+                            />
                         </Slide>
                     </Responsive>
                     <Responsive minWidth={Responsive.onlyTablet.minWidth} >            
-                        <Flip bottom>
+                        <Zoom>
                             
                             <div style={{ display:'flex',justifyContent:'space-between',marginTop:'3%'}}>
                                 <Card
@@ -142,7 +139,7 @@ class Landing_page extends React.Component{
                                 />
                             
                             </div>
-                        </Flip>
+                        </Zoom>
                     </Responsive>
                 </div>
                 <div style={{minHeight:'80vh',padding:'5% 3% 5% 3%',background:'#E7E8E7'}}>

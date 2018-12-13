@@ -134,8 +134,8 @@ export const NavBarDesktop = ({
             <Menu.Menu position="left">
                 {logged_in ? (
                     <Menu.Item>
-                        <Icon onClick={acount_page_click} name="user"  size="big"/>
-                        <Icon onClick={logout_click} name="log out" flipped="horizontally" size="big"/>
+                        <Icon link onClick={acount_page_click} name="user"  size="big"/>
+                        <Icon link onClick={logout_click} name="log out" flipped="horizontally" size="big"/>
                     </Menu.Item>
                 ):(
                     <Menu.Item>   
