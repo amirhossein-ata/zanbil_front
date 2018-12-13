@@ -3,12 +3,15 @@ import {connect} from 'react-redux'
 import Timetable from '../componets/timetable/changed_timetable'
 import {Grid, Divider, Card, Header, Responsive,Image,Rating} from 'semantic-ui-react';
 import * as service_page_actions from '../../core/service_page/service_page_actions'
+import RouterPanel from '../componets/router-panel/router-panel'
+
 
 class Service_page extends React.Component{
     render(){
         return(
             <Grid centered>
                 <Grid.Column computer={15}>
+                <RouterPanel />
                 <br></br>
                 <Header dividing textAlign="center">صفحه ی سرویس</Header>
                 <br></br>

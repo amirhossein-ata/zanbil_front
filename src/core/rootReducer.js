@@ -12,6 +12,7 @@ import {reserve_reducer} from './reserve/reserve_reducer'
 import {account_page_reducer} from "./account_page/account_page_reducer"
 import {edit_service_reducer} from "./edit_service/edit_service_reducer"
 import {dashboard_reducer} from './dashboard/dashboard_reducers'
+import {router_panel_reducer} from './router/router_panel_reducer'
 const rootReducer = combineReducers({
     business_page_reducer,
     session_reducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     reserve_reducer,
     account_page_reducer,
     edit_service_reducer,
-    dashboard_reducer
+    dashboard_reducer,
+    router_panel_reducer
 })
 
 export default rootReducer;

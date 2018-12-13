@@ -13,11 +13,13 @@ import Landing_page from '../componets/landing_page/landing_page'
 import * as session_actions  from '../../core/login&signup/session_actions'
 import * as category_page_actions from '../../core/category_page/category_page_actions'
 import {change_panel} from '../../core/main_page/active_panel_actions'
+import {new_route} from '../../core/router/router_panel_actions'
 import {open_search_form} from '../../core/search/search_actions'
 import {NavBarDesktop , NavBarMobile} from '../componets/navbar/navbar'
 import Dashboard from "../componets/dashboard/dashboard";
 import AddBusiness from "../componets/business_forms/add_business"
 import EditService from "../pages/edit_service_page"
+import {categories} from '../../core/constants'
 
 class Main_page extends React.Component{
     state = {
@@ -39,6 +41,8 @@ class Main_page extends React.Component{
         this.props.change_panel("account_page")
     }
     handle_category_click=(category_id)=>{
+        const category = (categories.find((category)=>category.value === category_id))
+        this.props.select_new_route({text:category.text,value:'category'})
         this.props.change_panel('category')
         this.props.get_category_businesses(category_id)
     }
@@ -47,6 +51,7 @@ class Main_page extends React.Component{
         this.props.change_panel('landing_page')
     }
     showSearch = () => {
+        this.props.select_new_route({text:'جست و جو',value:'search'})
         this.props.change_panel('search')
         this.props.open_search_form()
     }
@@ -149,7 +154,8 @@ const mapDispatchToProps = (dispatch) => {
         get_category_businesses: (category_id) => dispatch(category_page_actions.get_category_businesses(category_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
         open_search_form :() => dispatch(open_search_form()),
-        login : () => dispatch(session_actions.login_success())
+        login : () => dispatch(session_actions.login_success()),
+        select_new_route : (page) => dispatch(new_route(page))
     }
 }
 
