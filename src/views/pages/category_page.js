@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Grid, Header} from 'semantic-ui-react'
+import {Grid, Header, Button, Divider} from 'semantic-ui-react'
 import CardComponent from '../componets/card/card'
 import RouterPanel from '../componets/router-panel/router-panel'
 import * as category_page_actions from '../../core/category_page/category_page_actions'
@@ -13,11 +13,19 @@ class Category_page extends React.Component{
     constructor(props){
         super(props)
 
+        this.state = {
+            endIndex:6,
+        }
+
         this.on_business_click = this.on_business_click.bind(this)
     }
     componentDidMount(){
 
         console.log(this.props.businesses)
+    }
+    
+    componentWillReceiveProps(){
+        this.setState(()=>({endIndex:6}))
     }
     async on_business_click({id,name}){
         await this.props.get_business_info(id)
@@ -28,9 +36,16 @@ class Category_page extends React.Component{
         this.props.change_panel('business_page')
         
     }
+
+    onShowMoreClick = () => {
+        let endIndex = this.state.endIndex + 6
+        this.setState(() => ({
+            endIndex:endIndex
+        }))
+    }
     render(){
         console.log('active_panel is : ',this.props.active_panel)
-
+        const businesses = this.props.businesses ? this.props.businesses.slice(0,this.state.endIndex) : []
         return(
                 <div>
                     <Grid centered textAlign="right">
@@ -40,7 +55,7 @@ class Category_page extends React.Component{
                         </Grid.Column>
                     </Grid>
                     <Grid centered textAlign="right">
-                        {this.props.businesses && this.props.businesses.map((business) => (
+                        {businesses.map((business) => (
                                 <Grid.Column computer={5} tablet={8} mobile={16}>
                                     <div onClick={()=>this.on_business_click(business)}>
                                         <CardComponent
@@ -55,6 +70,16 @@ class Category_page extends React.Component{
                             )
                         )}
                     </Grid>
+                    {(this.props.businesses && this.props.businesses.length > 6) && (
+                        <div>
+                            <Divider hidden section/>
+                            <Grid centered >
+                                    <Button disabled={this.state.endIndex >= this.props.businesses.length} color="teal" onClick={this.onShowMoreClick}>بیشتر</Button>
+                            </Grid>
+                            <Divider hidden section/>
+                        </div>
+                    )}
+                   
                 </div>
         )
     }

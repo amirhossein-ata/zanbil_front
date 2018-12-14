@@ -1,51 +1,80 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as review_actions from '../../../core/review/review_actions'
-import {Grid,Comment,Divider,Rating, Message} from 'semantic-ui-react'
+import {Grid,Comment,Divider,Rating, Message,Button} from 'semantic-ui-react'
 
 class Comments extends React.Component{
+
+    state={
+        endIndex : 6
+    }
 
     async componentDidMount(){
         await this.props.get_review(this.props.business.id)
     }
 
+    on_more_reviews_click = () =>{
+        let endIndex = this.state.endIndex + 6
+        this.setState(()=>({endIndex:endIndex}))
+    }
+
     render(){
+        let reviews = this.props.reviews && this.props.reviews.slice(0,this.state.endIndex)
+
         return(
-            <Grid centered>
-                <Grid.Column computer={15} textAlign="right">
-                {this.props.reviews.length === 0  && (
-                    <div style={{width:'50%',margin:'3% auto 3% auto'}}>
-                        <Message info>
+            <div>
+            
+                <Grid centered>
+                    <Grid.Column computer={15} textAlign="right">
+                    {this.props.reviews.length === 0  && (
+                        <div style={{width:'50%',margin:'3% auto 3% auto'}}>
+                            <Message info>
+                            
+                                هیچ نظری ثبت نشده است!
                         
-                            هیچ نظری ثبت نشده است!
-                    
-                        </Message>
-                        
-                        
+                            </Message>
+                            
+                            
+                        </div>
+                    )}
+                    {reviews.map((review) => (
+                        <div>
+                        <Comment>
+                            <Comment.Content>
+                                <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
+                                <Comment.Metadata>
+                                <Grid textAlign="right">
+                                
+                                <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
+                                </Grid>
+                                </Comment.Metadata>
+                                <Grid textAlign = "right">
+                                <Comment.Text><br/>{review.description}</Comment.Text>
+                                </Grid>
+                                </Comment.Content>
+                        </Comment>
+                        <Divider />
+                        <br/>
+                        </div>
+                    ))}
+                    </Grid.Column>
+                </Grid>
+                {(this.props.reviews && this.props.reviews.length > 6) && (
+                    <div>
+                        <Divider hidden section/>
+                        <Grid centered >
+                                <Button 
+                                    disabled={this.state.endIndex >= this.props.reviews.length} 
+                                    color="instagram" 
+                                    onClick={this.on_more_reviews_click}
+                                >
+                                    بیشتر
+                                </Button>
+                        </Grid>
+                        <Divider hidden section/>
                     </div>
                 )}
-                {this.props.reviews && this.props.reviews.map((review) => (
-                    <div>
-                    <Comment>
-                        <Comment.Content>
-                            <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
-                            <Comment.Metadata>
-                            <Grid textAlign="right">
-                            
-                            <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
-                            </Grid>
-                            </Comment.Metadata>
-                            <Grid textAlign = "right">
-                            <Comment.Text><br/>{review.description}</Comment.Text>
-                            </Grid>
-                            </Comment.Content>
-                    </Comment>
-                    <Divider />
-                    <br/>
-                    </div>
-                ))}
-                </Grid.Column>
-            </Grid>
+            </div>
         )
     }
 }

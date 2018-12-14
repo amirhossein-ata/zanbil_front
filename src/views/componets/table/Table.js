@@ -21,7 +21,8 @@ class TableComponent extends React.Component{
 
 
     render(){
-        let rows = this.props.rows.slice(this.state.startIndex,this.state.endIndex)
+        let rows =this.props.rows ? this.props.rows.slice(this.state.startIndex,this.state.endIndex) : []
+        
         let type = this.props.type
         return(
             <div>

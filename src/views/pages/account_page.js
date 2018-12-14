@@ -9,13 +9,16 @@ import Review_form from "../componets/review/review_form"
 import Modal from "../componets/modal/Modal"
 import ManAvatar from '../../assessts/icons/man.svg'
 
+import Fade from 'react-reveal/Fade'
 
 class Account_page extends React.Component{
-     async componentDidMount(){
+     
+    state={
+        history_end_index : 6,
+        businesses_end_index:6
+    }
+    async componentDidMount(){
        await this.props.get_account_page()
-        console.log("props are",this.props)
-        
-
     }
     
     on_review_click = () => {
@@ -25,16 +28,22 @@ class Account_page extends React.Component{
         this.props.change_panel('add_business_page')
     }
     
+    on_more_reserves_click = () => {
+        let history_end_index = this.state.history_end_index + 6
+        this.setState(()=>({history_end_index:history_end_index}))
+    }
 
+    on_more_businesses_click = () => {
+        let businesses_end_index = this.state.businesses_end_index + 6
+        this.setState(()=>({businesses_end_index:businesses_end_index}))
+    }
     async on_business_click(business_id){
         await this.props.get_business_info(business_id)
         this.props.change_panel('dashboard')
     }
     render(){
-        console.log('active panel is : ',this.props.active_panel)
-        console.log("props are not in did mount",this.props)
-        console.log("businseses are:", this.props.businseses)
-        console.log("revese of it is:" , !this.props.businesses)
+        const businesses = this.props.businesses ? this.props.businesses.slice(0,this.state.businesses_end_index) : []
+        const history = this.props.reserves ? this.props.reserves.slice(0,this.state.history_end_index) : []
         const Review_modal = Modal("نظر")(Review_form)
         return(
             
@@ -68,38 +77,56 @@ class Account_page extends React.Component{
                     
 
                         <Divider section horizontal>بیزینس ها</Divider><br/>
-                        
-                        {this.props.businseses.lenght === 0 && <div><Grid centered textAlign="center"><span><b>شما هیچ بیزنسی نساخته اید!</b></span> <br /><br/></Grid></div>}
-                        <Grid textAlign="right">
-                        
-                        {this.props.businseses.lenght !==0 && this.props.businseses.map((business) => (
-                            
-                            
-                            <Grid.Column computer={5} tablet={8} mobile={16}>
-                            <div onClick={()=>this.on_business_click(business.id)}>
-                                <CardComponent
-                                    info={true}
-                                    image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
-                                    header={business.name}
-                                    rating={5}
-                                    description={business.description}
-                                />                            
-                            </div>    
-                        </Grid.Column>           
-                    
-                                
-                        ))}
-                        </Grid>
                         <Grid centered>
-                        <Button  
-                            
-                            color="vk"
-                            onClick = {this.on_make_business}
-                        >
-                            ایجاد کسب و کار جدید
-                        </Button>
-            
-                    </Grid>
+                            <Button  
+                                color="vk"
+                                onClick = {this.on_make_business}
+                            >
+                                ایجاد کسب و کار جدید
+                            </Button>
+                
+                        </Grid>
+                
+                        {this.props.businesses && this.props.businesses.length === 0 ? (
+                            <div style={{width:'50%',margin:'3% auto 3% auto'}}>
+                                <Message info>
+                                    شما هیچ کسب و کاری نساخته اید        
+                                </Message>
+                            </div>
+                        ) : (
+                            <Grid textAlign="right">
+                                {businesses.map((business) => (
+                                    
+                                    <Grid.Column computer={5} tablet={8} mobile={16}>
+                                        <div onClick={()=>this.on_business_click(business.id)}>
+                                            <CardComponent
+                                                info={true}
+                                                image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
+                                                header={business.name}
+                                                rating={5}
+                                                description={business.description}
+                                            />                            
+                                        </div>    
+                                    </Grid.Column>               
+                                ))}
+                            </Grid>
+                        
+                        )}
+                        {(this.props.businesses && this.props.businesses.length > 6) && (
+                            <div>
+                                <Divider hidden section/>
+                                <Grid centered >
+                                        <Button 
+                                            disabled={this.state.businesses_end_index >= this.props.businesses.length} 
+                                            color="instagram" 
+                                            onClick={this.on_more_businesses_click}
+                                        >
+                                            بیشتر
+                                        </Button>
+                                </Grid>
+                                <Divider hidden section/>
+                            </div>
+                        )}
                     <br />
                     <Divider horizontal section>تاریخچه</Divider><br/>
                     {console.log("reserve has",this.props.reserves.length)}
@@ -115,34 +142,51 @@ class Account_page extends React.Component{
                         
                         </div>
                     ) : (
-                        
-                        <Grid  centered>
-                            {this.props.reserves.map((reserve) => (
-                                <Grid.Column computer={5} tablet={7} mobile={12} textAlign="right">
+                        <div>
+                            <Grid  centered>
+                                {history.map((reserve) => (
+                                    <Grid.Column computer={5} tablet={7} mobile={12} textAlign="right">
+                                        <Fade bottom>
+                                            
+                                            <Card color="teal" fluid raised >
+                                                <Card.Content>
+                                                    <Card.Header>{reserve.service.name}</Card.Header>
+                                                    <Card.Meta>
+                                                        <span className='date'>{reserve.date}</span>
+                                                    </Card.Meta>
+                                                </Card.Content>
+                                                {reserve.description && (
+                                                    <Card.Content>
+                                                        <Card.Description>{reserve.description}</Card.Description>
+                                                    </Card.Content>
+                                                )}
+                                                <Card.Content extra>
+                                                    <Review_modal service_id={reserve.service.id}/>                            
+                                                </Card.Content>
+                                                
+                                            </Card>
+                                        </Fade>
+                                            
+                                    </Grid.Column>
 
-                                    <Card color="teal" fluid raised >
-                                        <Card.Content>
-                                            <Card.Header>{reserve.service.name}</Card.Header>
-                                            <Card.Meta>
-                                                <span className='date'>{reserve.date}</span>
-                                            </Card.Meta>
-                                        </Card.Content>
-                                        {reserve.description && (
-                                            <Card.Content>
-                                                <Card.Description>{reserve.description}</Card.Description>
-                                            </Card.Content>
-                                        )}
-                                        <Card.Content extra>
-                                            <Review_modal service_id={reserve.service.id}/>                            
-                                        </Card.Content>
-                                        
-                                    </Card>
-                                
-                                        
-                                </Grid.Column>
-
-                            ))}
-                        </Grid>
+                                ))}
+                            </Grid>
+                            {(this.props.reserves && this.props.reserves.length > 6) && (
+                                <div>
+                                    <Divider hidden section/>
+                                    <Grid centered >
+                                            <Button 
+                                                disabled={this.state.history_end_index >= this.props.reserves.length} 
+                                                color="instagram" 
+                                                onClick={this.on_more_reserves_click}
+                                            >
+                                                بیشتر
+                                            </Button>
+                                    </Grid>
+                                    <Divider hidden section/>
+                                </div>
+                            )}
+                        </div>
                     )}
                 </Grid.Column>
             </Grid>
@@ -155,7 +199,7 @@ const mapStateToProps = (state) => {
     return{
         active_panel:state.active_panel_reducer.active_panel,
         user:state.account_page_reducer.user,
-        businseses:state.account_page_reducer.businseses,
+        businesses:state.account_page_reducer.businseses,
         reserves:state.account_page_reducer.reserves
     };
 }

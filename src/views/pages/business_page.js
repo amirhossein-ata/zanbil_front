@@ -17,7 +17,8 @@ class Business_page extends React.Component{
         super(props)
         this.state={
             counter:5,
-            index:0
+            index:0,
+            endIndex:6
         }
         this.on_service_click = this.on_service_click.bind(this)
     }
@@ -31,6 +32,10 @@ class Business_page extends React.Component{
         }
       
     }
+    componentWillReceiveProps(){
+        this.setState(()=>({endIndex:6 ,index:0,counter:5}))
+    }
+    
     async on_service_click({id,name}){
         const today_date = moment().locale('fa').format('YYYY/MM/DD')
         await this.props.get_service_page_info(id,today_date)
@@ -40,6 +45,7 @@ class Business_page extends React.Component{
         })
         this.props.change_panel('service_page')
     }
+
     on_show_more_click= () => {
         if(this.state.counter + 5 < this.props.reviews.length){
             this.setState(() => ({counter:this.state.counter + 5}))
@@ -48,19 +54,21 @@ class Business_page extends React.Component{
             this.setState(() => ({counter:this.props.reviews.length}))    
         }    
     }
+
     set_to_length = () => (
         this.setState(() => ({counter:this.props.reviews.length}))
     )
+
+    on_more_service_click = () => {
+        let endIndex = this.state.endIndex + 6
+        this.setState(() => ({endIndex:endIndex}))
+    }
     render(){
-        console.log("counter is :", this.state.counter);
-        console.log("length is :", this.props.reviews.length);
         
-        console.log('active panel is : ',this.props.active_panel)
-        
-          let tmp = this.props.reviews.slice(0,this.state.counter -1);
-          let c = this.props.reviews[this.state.counter - 1]
-          console.log("c is :",c)
-        
+        let tmp = this.props.reviews.slice(0,this.state.counter -1);
+        let c = this.props.reviews[this.state.counter - 1]
+            
+        const services = this.props.services ? this.props.services.slice(0,this.state.endIndex) : []
         return(
             <Grid centered>
                 <Grid.Column computer={15}>
@@ -114,7 +122,7 @@ class Business_page extends React.Component{
                     <Grid centered >
                         <Grid.Column computer={14} mobile={15} tablet={15}>
                             <Grid centered textAlign="right">
-                                {this.props.services[0] && this.props.services[0].map((service) => (
+                                {services.map((service) => (
                                     <Grid.Column computer={5} tablet={8} mobile={16}>
                                         <div onClick={()=>this.on_service_click(service)}>
                                             <Card
@@ -131,6 +139,20 @@ class Business_page extends React.Component{
                         </Grid.Column>
 
                     </Grid>
+                    {(this.props.services && this.props.services.length >6) &&(
+                        <div>
+                            <Divider hidden section/>
+                            <Grid centered>
+                                <Button 
+                                    disabled={this.state.endIndex >= this.props.services.length}
+                                    color="teal"
+                                >
+                                بیشتر
+                                </Button>
+                            </Grid>
+                            <Divider hidden section/>
+                        </div>
+                    )}
                     <Divider horizontal section>نظرات</Divider> <br/>
                     <Grid centered>
                         <Grid.Column centered >
@@ -198,7 +220,7 @@ const mapStateToProps = (state) => {
     console.log(state)
     return {
         business : state.business_page_reducer.business ,
-        services : state.business_page_reducer.services,
+        services : state.business_page_reducer.services[0],
         reviews : state.review_reducer.reviews,
         active_panel:state.active_panel_reducer.active_panel
     }

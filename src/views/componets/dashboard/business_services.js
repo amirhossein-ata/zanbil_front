@@ -12,6 +12,9 @@ class Services extends React.Component{
     constructor(props){
         super(props)
         
+        this.state = {
+            endIndex:6   
+        }
         this.on_service_click = this.on_service_click.bind(this)
     }
     async componentDidMount(){
@@ -29,8 +32,14 @@ class Services extends React.Component{
         this.props.change_panel('edit_service_page')
     }
 
+    on_more_service_click = () => {
+        let endIndex = this.state.endIndex + 6
+        this.setState(() => ({endIndex:endIndex}))
+    }
+   
+
     render(){
-        console.log('services : ',this.props.services[0])
+        const services = this.props.services ? this.props.services.slice(0,this.state.endIndex) : []
     
         return(
             <Grid centered >
@@ -44,7 +53,7 @@ class Services extends React.Component{
                 <Grid.Column computer={14} mobile={15} tablet={15}>
                     <Grid textAlign="right">
                         {console.log(this.props.services[0])}
-                            {this.props.services[0].map((service) => (
+                            {services.map((service) => (
                                 <Grid.Column computer={5} tablet={8} mobile={16}>
                                     <div>
                                         <Card color="teal" fluid raised style={{height:'50vh'}}>
@@ -76,6 +85,21 @@ class Services extends React.Component{
                                 </Grid.Column> 
                             ))}
                     </Grid>
+                    {(this.props.services && this.props.services.length >6) &&(
+                        <div>
+                            <Divider hidden section/>
+                            <Grid centered>
+                                <Button 
+                                    disabled={this.state.endIndex >= this.props.services.length}
+                                    color="teal"
+                                >
+                                بیشتر
+                                </Button>
+                            </Grid>
+                            <Divider hidden section/>
+                        </div>
+                    )}
+                   
                 </Grid.Column>
         </Grid>
         )
@@ -86,7 +110,7 @@ const mapStateToProps = (state) => {
     console.log(state)
     return {
         business : state.business_page_reducer.business ,
-        services : state.business_page_reducer.services,
+        services : state.business_page_reducer.services[0],
         active_panel:state.active_panel_reducer.active_panel
     }
 }

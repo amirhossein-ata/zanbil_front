@@ -41,10 +41,6 @@ class Dashboard extends React.Component{
       
   
     render(){
-        const path = '../../../assessts/ZanbilBackEnd/uploads/'
-        console.log(this.props.business.pictures)
-        console.log(this.props.business.id)
-        const image_path =this.props.business.pictures[this.props.business.pictures.length -1 ] ? `../../../assessts/ZanbilBackEnd/uploads/${this.props.business.pictures[this.props.business.pictures.length - 1].id}` :''
         return(
             <div>
                     
