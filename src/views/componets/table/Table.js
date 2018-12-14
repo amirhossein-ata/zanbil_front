@@ -27,7 +27,7 @@ class TableComponent extends React.Component{
         return(
             <div>
                 {type==="customers" && (
-                    <Table textAlign="right" celled selectable attached={false} >
+                    <Table textAlign="right" celled selectable attached={false} unstackable >
                     <Table.Header>
                         <Table.Row>
                             {this.props.headers.map((header)=>(
@@ -79,7 +79,7 @@ class TableComponent extends React.Component{
                 </Table>
                 )}
                 {type==="allReservations" && (
-                    <Table textAlign="right" celled selectable attached={false} >
+                    <Table textAlign="right" celled selectable attached={false} unstackable>
                     <Table.Header>
                         <Table.Row>
                             {this.props.headers.map((header)=>(
@@ -130,7 +130,7 @@ class TableComponent extends React.Component{
                 </Table>
                 )}
                 {type==="upcommingReservations" && (
-                    <Table textAlign="right" celled selectable attached={false} >
+                    <Table textAlign="right" celled selectable attached={false} unstackable>
                     <Table.Header>
                         <Table.Row>
                             {this.props.headers.map((header)=>(
@@ -181,7 +181,7 @@ class TableComponent extends React.Component{
                 </Table>            
                 )}
                 {type==="popularServices" && (
-                    <Table textAlign="right" celled selectable attached={false} >
+                    <Table textAlign="right" celled selectable attached={false} unstackable>
                     <Table.Header>
                         <Table.Row>
                             {this.props.headers.map((header)=>(
@@ -232,7 +232,7 @@ class TableComponent extends React.Component{
                 </Table>            
                 )}
                 {type==="popularSanses" && (
-                    <Table textAlign="right" celled selectable attached={false} >
+                    <Table textAlign="right" celled selectable attached={false} unstackable>
                     <Table.Header>
                         <Table.Row>
                             {this.props.headers.map((header)=>(
