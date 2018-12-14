@@ -103,7 +103,7 @@ class Business_page extends React.Component{
                     />
                     <Header size='medium' textAlign="center">سرویس ها</Header>
                     <br></br>
-                    <Grid centered >
+                    <Grid columns={1} centered >
                         <Grid.Column computer={14} mobile={15} tablet={15}>
                             <Grid centered textAlign="right">
                                 {this.props.services[0] && this.props.services[0].map((service) => (
@@ -124,31 +124,37 @@ class Business_page extends React.Component{
 
                     </Grid>
                     <Divider horizontal section>نظرات</Divider> <br/>
-                    <Grid centered >
-                        
+                    <Grid columns={1} centered >
+                    <Grid.Column computer={10} width={10} textAlign="center">
                                 
                         {!this.props.reviews && <span>هیچ نظری ثبت نشده است!</span>}
                         {this.props.reviews  && tmp.map((review) => (
                             <div>
+                            <Grid centered>
+                            <Grid.Column computer={10} tablet={8} mobile={16}>
                             <Segment>
+                            
                             <Comment>
                                 <Comment.Content>
                                     <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
                                     <Comment.Metadata>
                                     <Grid textAlign="right">
-                                    <Grid.Column computer={14} mobile={15} tablet={15} centered >
+                                    
                                     <div><br/>امتیاز:<Rating disabled={true} defaultRating={review.rating} maxRating={5}/> <br/></div>
-                                    </Grid.Column>
+                                    
                                     </Grid>
                                     </Comment.Metadata>
                                     <Grid textAlign = "right">
-                                    <Grid.Column computer={14} mobile={15} tablet={15} centered >
+                                    
                                     <Comment.Text><br/>{review.description}</Comment.Text>
-                                    </Grid.Column>
+                                    
                                     </Grid>
                                     </Comment.Content>
                             </Comment>
+                            
                             </Segment>
+                            </Grid.Column>
+                            </Grid>
                             <Divider section/>
                             </div>
                         )
@@ -158,27 +164,27 @@ class Business_page extends React.Component{
                     }
                     
                         {c && <div>
+                            <Grid centered>
+                            <Grid.Column computer={10} tablet={8} mobile={16}>
                             <Segment>
                             <Comment>
                                     <Comment.Content>
                                         <Comment.Author as='a'> <Grid textAlign="right"><b>{c.user.username}</b> </Grid></Comment.Author>
                                         <Comment.Metadata>
                                         <Grid textAlign="right">
-                                        <Grid.Column computer={14} mobile={15} tablet={15} centered >
                                         <div><br/>امتیاز:<Rating disabled={true} defaultRating={c.rating} maxRating={5}/> <br/></div>
-                                        </Grid.Column>
                                         </Grid>
                                         </Comment.Metadata>
                                         <Grid textAlign = "right">
-                                        <Grid.Column computer={14} mobile={15} tablet={15} centered >
                                         <Comment.Text><br/>{c.description}</Comment.Text>
-                                        </Grid.Column>
                                         </Grid>
                                         </Comment.Content>
                                 </Comment>
                                 
                                 
                                 </Segment>
+                                </Grid.Column>
+                                </Grid>
                                 <Divider section/>
                             
                                 
@@ -188,15 +194,17 @@ class Business_page extends React.Component{
 
                         </div>}
                        
-                       
+                        </Grid.Column>
                     </Grid>  
                      
                 </Grid.Column>
                 { this.state.counter < this.props.reviews.length && <Grid centered>
                     <Button basic onClick={this.on_show_more_click} color="teal"> مشاهده‌ی نظرات بیشتر</Button>
+                    <br />
                     </Grid>
 
                 }
+            
             </Grid>
             )
     }
