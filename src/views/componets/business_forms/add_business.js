@@ -1,11 +1,12 @@
 import React from 'react';
 import * as add_business_actions from '../../../core/add_business/add_business_actions';
-import { Button, Segment, Form ,Grid,Label, Dropdown} from 'semantic-ui-react';
+import { Button,Form ,Grid,Label, Dropdown, Divider} from 'semantic-ui-react';
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
 import {change_panel} from '../../../core/main_page/active_panel_actions'
 
+import StoreIcon from '../../../assessts/icons/online-shopping.svg'
 class Add_business extends React.Component {
     state = {
         informations:{
@@ -102,80 +103,86 @@ class Add_business extends React.Component {
         return (
             <div>
                 <Grid className="add_business_form" centered>
-                    <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
-                        <Segment stacked color="blue" padded>  
+                    <Grid.Column width={10} textAlign="right">
                         <Form onSubmit={this.onSubmit}>
-                            <Form.Field>
-                            <div dir = "rtl">
-                                <Form.Input
-                                    fluid
-                                    error={this.state.name_error}
-                                    label=" نام"
-                                    name="name"
-                                onBlur={this.validate_name}
-                                value={this.state.informations.name}
-                                onChange={this.handle_change}
-                                
-                                    
-                                />
+                            <Divider hidden />
+                            <p>مشخصات کسب و کار خود را وارد نمایید : </p>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Form.Input
+                                        fluid
+                                        error={this.state.name_error}
+                                        label=" نام"
+                                        name="name"
+                                        onBlur={this.validate_name}
+                                        value={this.state.informations.name}
+                                        onChange={this.handle_change}         
+                                    />
 
-                                {this.state.name_error && (
-                                    <Label basic pointing color="red">
-                                    لطفا فقط از زبان فارسی استفاده کنید
-                                    </Label>    
-                                )} 
-                                </div>
-                            </Form.Field>
-                            <b><span>دسته بندی</span></b>
-                            <Dropdown
-                                fluid
-                                selection  
-                                options={categories}
-                                onChange={this.on_category_change}
-                            />
-                            <br></br>
-                            
-                            <Form.Field>
-                                <b><span>‌شماره‌ی تماس</span></b>
-                                <div dir="ltr">
-                                        <Form.Input
-                                            fluid
-                                            error={this.state.phone_number_error}
-                                            //   label="شماره‌ی تماس "
-                                            name="phone_number"
-                                        onBlur={this.validate_phone_number}
-                                        value={this.state.informations.phone_number}
-                                        onChange={this.handle_change}
-                                        
-                                            
-                                        />
-                                </div>
-                                {this.state.phone_number_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از ارقام ۰تا۹ استفاده کنید
-                                    </Label>    
-                                )} 
-                        
-                            </Form.Field>
-                            <Form.Field>
-                                <Form.Input
-                                    fluid
-                                    error={this.state.email_error}
-                                    label="ایمیل"
-                                    name="email"
-                                onBlur={this.validate_email}
-                                value={this.state.informations.email}
-                                onChange={this.handle_change}
-                                
-                                    
-                                />
-
-                                {this.state.email_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                    </Label>    
-                                )}
+                                    {this.state.name_error && (
+                                        <Label basic pointing color="red">
+                                        لطفا فقط از زبان فارسی استفاده کنید
+                                        </Label>    
+                                    )}
                                 </Form.Field>
+                                     
+                                <Form.Field>
+                                        <label>دسته بندی</label>
+                                        <Dropdown
+                                            fluid
+                                            selection  
+                                            options={categories}
+                                            onChange={this.on_category_change}
+                                        />
+                                        
+                                </Form.Field>
+                                    
+                            </Form.Group>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <b><span>‌شماره‌ی تماس</span></b>
+                                    <div dir="ltr">
+                                            <Form.Input
+                                                fluid
+                                                error={this.state.phone_number_error}
+                                                //   label="شماره‌ی تماس "
+                                                name="phone_number"
+                                            onBlur={this.validate_phone_number}
+                                            value={this.state.informations.phone_number}
+                                            onChange={this.handle_change}
+                                            
+                                                
+                                            />
+                                    </div>
+                                    {this.state.phone_number_error && (
+                                        <Label basic pointing color="red">
+                                            تنها میتوانید از ارقام ۰تا۹ استفاده کنید
+                                        </Label>    
+                                    )} 
+                            
+                                </Form.Field>
+                                <Form.Field>
+                                    <Form.Input
+                                        fluid
+                                        error={this.state.email_error}
+                                        label="ایمیل"
+                                        name="email"
+                                        onBlur={this.validate_email}
+                                        value={this.state.informations.email}
+                                        onChange={this.handle_change}
+                                    
+                                        
+                                    />
+
+                                    {this.state.email_error && (
+                                        <Label basic pointing color="red">
+                                            تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
+                                        </Label>    
+                                    )}
+                                </Form.Field>
+                            
+                            
+                            </Form.Group>
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -197,16 +204,13 @@ class Add_business extends React.Component {
                         
                             </Form.Field>
                             <Form.Field>
-                                <Form.Input
-                                    fluid
-                                    error={this.state.description_error}
+                                <Form.TextArea
                                     label="توضیحات"
                                     name="description"
-                                onBlur={this.validate_descriptopn}
-                                value={this.state.informations.description}
-                                onChange={this.handle_change}
-                                
-                                    
+                                    onBlur={this.validate_descriptopn}
+                                    value={this.state.informations.description}
+                                    onChange={this.handle_change}
+                         
                                 />
 
                                 {this.state.description_error && (
@@ -219,8 +223,12 @@ class Add_business extends React.Component {
                             
                             <Button primary type='submit'>ثبت</Button>
                         </Form>
-                        </Segment>    
                     </Grid.Column>         
+                    <Grid.Column width={5}>
+                        <br></br>
+                        <img src={StoreIcon}/>
+
+                    </Grid.Column>
                 </Grid>
             </div>
             
