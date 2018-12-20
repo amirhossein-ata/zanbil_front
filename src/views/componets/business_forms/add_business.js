@@ -1,6 +1,6 @@
 import React from 'react';
 import * as add_business_actions from '../../../core/add_business/add_business_actions';
-import { Button,Form ,Grid,Label, Dropdown, Divider} from 'semantic-ui-react';
+import { Button,Form ,Grid,Label, Dropdown, Divider, Header} from 'semantic-ui-react';
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
@@ -106,7 +106,13 @@ class Add_business extends React.Component {
                     <Grid.Column width={10} textAlign="right">
                         <Form onSubmit={this.onSubmit}>
                             <Divider hidden />
-                            <p>مشخصات کسب و کار خود را وارد نمایید : </p>
+                            <Header dividing>
+                                فرم اضافه کردن کسب وکار
+                                <Header.Subheader>
+                                    مشخصات کسب و کار خود را وارد نمایید     
+                                </Header.Subheader>
+                            </Header>
+                            
                             <Form.Group widths="equal">
                                 <Form.Field>
                                     <Form.Input
