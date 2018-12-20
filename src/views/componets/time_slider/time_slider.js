@@ -2,7 +2,7 @@ import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
 import Slider from 'rc-slider';
-import { Checkbox, Label, Input } from 'semantic-ui-react';
+import { Checkbox, Label, Input,Grid } from 'semantic-ui-react';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -55,30 +55,24 @@ class Time_range_slider extends React.Component{
     }
     render(){
         return(
-            <div  style={{
-                display:'flex',
-                justifyContent:'space-around'
-                
-            }}>
-               
-                <Checkbox
-                    checked={this.state.day_state.checked}
-                    fitted
-                    toggle 
-                    onChange={ this.onCheckBoxChange}
-                />
+            <div>
+            {this.state.day_state.checked ? (
+            
+                <Grid>
 
-                
-                {this.state.day_state.checked ? (
-                    <div style={
-                        {
-                            width:'60%',
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'40%',display:'flex',flexDirection:'column',justifyContent:'center'}}>
-                            <div style={{width:'60%'}}>
+                    <Grid.Column width="2">
+                        <br></br>
+                        <Checkbox
+                            checked={this.state.day_state.checked}
+                            fitted
+                            toggle 
+                            onChange={ this.onCheckBoxChange}
+                        /> 
+                    </Grid.Column>
+                    <Grid.Column width="1"></Grid.Column>
+                    <Grid.Column width="6">
+                        <div>
+                            <div>
                                 <Label color size="medium">{this.state.day_state.first_range[1]} - {this.state.day_state.first_range[0]}</Label>
                             </div>
                             <Range
@@ -89,9 +83,12 @@ class Time_range_slider extends React.Component{
                                 tipFormatter={value => `${value}`} 
                             />
                         </div>
-                
-                        <div style={{width:'40%',display:'flex',flexDirection:'column',justifyContent:'center'}}>
-                            <div style={{width:'60%'}}>
+        
+                    </Grid.Column>
+                    <Grid.Column width="1"></Grid.Column>
+                    <Grid.Column width="6">
+                        <div >
+                            <div>
                                 <Label color size="medium">{this.state.day_state.second_range[1]} - {this.state.day_state.second_range[0]}</Label>
                             </div>
                             <Range
@@ -102,14 +99,27 @@ class Time_range_slider extends React.Component{
                                 tipFormatter={value => `${value}`} 
                             />
                         </div>
-                    
-                    </div>          
-                        
-                    ) : (
-                        <div style={{width:'60%'}}></div>
-                    )}     
+    
+                    </Grid.Column>
+                </Grid>
+            ):
+        (
+            <Grid>
+                <Grid.Column width="2">
+                    <Checkbox
+                        checked={this.state.day_state.checked}
+                        fitted
+                        toggle 
+                        onChange={ this.onCheckBoxChange}
+                    /> 
+                </Grid.Column>
                 
-            </div>
+                <Grid.Column width="14" textAlign="center">
+                    تعطیل   
+                </Grid.Column>
+            </Grid>
+        )}
+        </div>
         )
     }
 }

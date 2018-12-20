@@ -1,6 +1,6 @@
 import React from "react";
 import * as add_service_actions from '../../../core/add_service/add_service_actions';
-import { Button, Segment, Form ,Grid,Label, Divider, Input} from 'semantic-ui-react'
+import { Button, Segment, Form ,Grid,Label, Divider, Input, Header} from 'semantic-ui-react'
 import PersianRex from "persian-rex";
 import TimeRangeSlider from "../time_slider/time_slider";
 import {connect} from "react-redux";
@@ -265,27 +265,33 @@ class Add_service extends React.Component{
 
     render(){
         return(
-            <Segment textAlign="right">  
-                <Form onSubmit={this.onSubmit}>
-                        <Form.Field>
-                            <Form.Input
-                                fluid
-                                label="نام سرویس"
-                                name="service_name"
-                                onBlur={this.validate_service_name}
-                                value={this.state.informations.service_name}
-                                onChange={this.handle_change}
-                            
+            <Grid centered textAlign="right">
+                <Grid.Column width={13} textAlign="right">  
+                    <Header dividing>
+                        فرم اضافه کردن سرویس
+                        <Header.Subheader>اطلاعات سرویس خود را وارد کنید</Header.Subheader>
+                    </Header>              
+                    <Form onSubmit={this.onSubmit}>
+                        <Form.Group widths="equal">
+                            <Form.Field>
+                                <Form.Input
+                                    fluid
+                                    label="نام سرویس"
+                                    name="service_name"
+                                    onBlur={this.validate_service_name}
+                                    value={this.state.informations.service_name}
+                                    onChange={this.handle_change}
                                 
-                            />
+                                    
+                                />
 
-                            {this.state.service_name_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از حروف فارسی استفاده کنید. 
-                                </Label>    
-                            )} 
-                    
-                        </Form.Field>
+                                {this.state.service_name_error && (
+                                    <Label basic pointing color="red">
+                                        تنها میتوانید از حروف فارسی استفاده کنید. 
+                                    </Label>    
+                                )} 
+                        
+                            </Form.Field>
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -305,192 +311,159 @@ class Add_service extends React.Component{
                                 )} 
                         
                             </Form.Field>
+                        </Form.Group>    
+                                
+                        <Form.Field>
+                            <Form.TextArea
+                              
+                                label="توضیحات"
+                                name="description"
+                                onBlur={this.validate_descriptopn}
+                                value={this.state.informations.description}
+                                onChange={this.handle_change}
+                            />
+                            {this.state.description_error && (
+                                <Label basic pointing color="red">
+                                    تنها میتوانید از حروف فارسی استفاده کنید
+                                </Label>    
+                            )} 
+                    
+                        </Form.Field>
+                        
+                        <Divider section horizontal> زمانبندی سانس ها</Divider>
+                        <Grid >
+                            <Grid.Column width="2" textAlign="center">روز هفته</Grid.Column>
+                            <Grid.Column width="4"></Grid.Column>
+                            <Grid.Column width="3" textAlign="center">
+                                <h4>بازه ی کاری دوم</h4>                                
+                            </Grid.Column>
+                            <Grid.Column width="2"></Grid.Column>
+                            <Grid.Column width="5" textAlign="center">
+                                <h4>بازه ی کاری اول</h4>
+                            </Grid.Column>
+                        </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>شنبه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
                             
-                            
-                            <Form.Field>
-                                <Form.Input
-                                    fluid
-                                    label="توضیحات"
-                                    name="description"
-                                    onBlur={this.validate_descriptopn}
-                                    value={this.state.informations.description}
-                                    onChange={this.handle_change}
+                                <TimeRangeSlider 
+                                    id="day1" 
+                                    day_state={this.state[0]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
                                 />
-                                {this.state.description_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از حروف فارسی استفاده کنید
-                                    </Label>    
-                                )} 
+                            </Grid.Column>
                         
-                            </Form.Field>
-                    
-                    <Divider section horizontal> زمانبندی سانس ها</Divider>
-                    <Grid >
-                        <Grid.Column computer={3} tablet={2} mobile={3} > 
-                                    <span><b>روز هفته</b></span>
-                        </Grid.Column>
-                        <Grid.Column computer={3} tablet={2} mobile={3} > 
-                                    
-                        </Grid.Column>
-                        <Grid.Column computer={3} tablet={2} mobile={3} > 
-                                    <span><b>بازه ی استراحت</b></span>
-                        </Grid.Column>
-                        <Grid.Column computer={3} tablet={2} mobile={3} > 
-                                    <span><b>بازه ی کاری</b></span>
-                        </Grid.Column>
-                    
-                    </Grid>
-
-                    <div  style={
-                        {
+                        </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>۲شنبه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
                             
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>شنبه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day1" 
-                                day_state={this.state[0]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
+                                <TimeRangeSlider 
+                                    id="day3" 
+                                    day_state={this.state[2]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </Grid.Column>
                         
-                    </div>
-                    
-                    <div style={
-                        {
+                        </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>۳شنبه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
                             
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>۱شنبه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day2" 
-                                day_state={this.state[1]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
+                                <TimeRangeSlider 
+                                    id="day4" 
+                                    day_state={this.state[3]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </Grid.Column>
                         
-                    </div>
-                    
-                    <div style={
-                        {
+                        </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>۴شنبه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
                             
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>۲شنبه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day3" 
-                                day_state={this.state[2]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
+                                <TimeRangeSlider 
+                                    id="day5" 
+                                    day_state={this.state[4]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </Grid.Column>
                         
-                    </div>
-                    
-
-                    <div style={
-                        {
+                        </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>۵شنبه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
                             
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>۳شنبه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day4" 
-                                day_state={this.state[3]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
+                                <TimeRangeSlider 
+                                    id="day6" 
+                                    day_state={this.state[5]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </Grid.Column>
                         
-                    </div>
-                    
-
-                    <div style={
-                        {
+                        </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>جمعه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
                             
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>۴شنبه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day5" 
-                                day_state={this.state[4]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
+                                <TimeRangeSlider 
+                                    id="day7" 
+                                    day_state={this.state[6]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                />
+                            </Grid.Column>
                         
-                    </div>
+                        </Grid>
+    
+                        <Grid centered>
+                                <Grid.Column width="4" textAlign="right">
+                                    <Form.Field>
+                                        <Form.Input 
+                                            label="طول هر سانس"
+                                            onChange={this.on_duration_change}
+                                        />
+            
+                                    </Form.Field>
+                                            
+                                </Grid.Column>
+                        </Grid>
+                       
+                        <Button primary type='submit'>ایجاد سرویس</Button>
                     
-
-                    <div style={
-                        {
-                            
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>۵شنبه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day6" 
-                                day_state={this.state[5]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
-                        
-                    </div>
-                    
-
-                    <div style={
-                        {        
-                            display:'flex',
-                            justifyContent:'space-around'
-                        }
-                    }>
-                        <div style={{width:'10%'}}>جمعه</div>
-                        <div style={{width:'90%'}}>
-                            <TimeRangeSlider 
-                                id="day7" 
-                                day_state={this.state[6]} 
-                                handleFirstRange={(key,value) => this.change_first_range(key,value)}
-                                handleSecondRange={(key,value) => this.change_second_range(key,value)}
-                            />
-                        </div>
-                        
-                    </div>
-                    
-                    
-                    <Form.Field>
-                        <Form.Input inline
-                            label="طول هر سانس"
-                            onChange={this.on_duration_change}
-                        />
-
-                    </Form.Field>
-                    <Button primary type='submit'>ایجاد سرویس</Button>
-                
-                            
-                </Form>
-            </Segment>
-                    
+                                
+                    </Form>
+                </Grid.Column>
+            </Grid>
 
         )
     }

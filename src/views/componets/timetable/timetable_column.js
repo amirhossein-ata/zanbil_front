@@ -10,7 +10,7 @@ const timetable_column = (props) => {
             
             return (
                 <div>
-                    <div style={{textAlign:'center'}}>{props.day}</div>
+                    <div style={{textAlign:'justify'}}>{props.day}</div>
                         {console.log(props.edit)}
                     {props.sanses &&  props.sanses.map((sans,i) => (
                         <Button 
@@ -19,8 +19,7 @@ const timetable_column = (props) => {
                             disabled={sans.is_reserved && !props.edit } 
                             fluid 
                             style={style}
-                        >
-                            {sans.sans.start_time} - {sans.sans.end_time}
+                        >{sans.sans.start_time}-{sans.sans.end_time}
                         </Button>
                     ))}
                 </div>
