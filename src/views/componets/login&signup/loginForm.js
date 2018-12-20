@@ -1,7 +1,7 @@
 import React from 'react'
 import * as sessionAction from '../../../core/login&signup/session_actions'
 import {connect} from 'react-redux'
-import { Button, Segment, Form ,Grid,Label, Message} from 'semantic-ui-react'
+import { Button, Segment, Form ,Grid,Label, Message , Header} from 'semantic-ui-react'
 class Login_form extends React.Component{
     state={
         credentials:{
@@ -57,6 +57,10 @@ class Login_form extends React.Component{
             
             <Grid  centered>
                 <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
+                    <Header dividing>
+                        فرم ورود
+                    </Header>
+
                     <Form onSubmit={this.onSubmit}>
                         <Form.Field>
                             <Form.Input
