@@ -19,7 +19,9 @@ class Edit_service_page extends React.Component {
         sanses:[],
         price_error:false,
         service_name_error:false,
-        description_error:false
+        description_error:false,
+        first_range_error:false,
+        second_range_error:false
     }
     async componentDidMount(){
            console.log(this.props.service_id)
@@ -80,6 +82,74 @@ class Edit_service_page extends React.Component {
             this.setState(()=>({description_error:true}));       
             
         }
+
+    }
+    validate_first_range = (sansinfo) => {
+        const time = sansinfo.start_time;
+        
+        let temp_sanses= this.state.sanses;
+        const day=temp_sanses[0][sansinfo.weekday];
+        let prev_sans=undefined;
+        console.log("sansinfo is:",sansinfo);
+        console.log("FUCK OFFFF!!!");
+        if(sansinfo.sans_num !== 0 ){
+            prev_sans = day[sansinfo.sans_num-1];
+        }
+        if(prev_sans){
+             console.log("I've got news for u baby")
+             if(((parseInt(prev_sans.sans.start_time.slice(0,3),10) > parseInt(time.slice(0,3) ,10)) || ((parseInt(prev_sans.sans.start_time.slice(0,3),10) === parseInt(time.slice(0,3) ,10)) && ((parseInt(prev_sans.sans.start_time.slice(3),10) > parseInt(time.slice(3) ,10))))) || !(/[0-9.]/.test(time))){
+                console.log("Guss what?!\n");     
+                this.setState(() => ({first_range_error:true}));
+
+             }
+             else{
+                this.setState(() => ({first_range_error:false}));
+             }
+        }
+        else{
+            if((/[0-9.]/.test(time))){
+                this.setState(() => ({first_range_error:true}));
+            }
+            else{
+                this.setState(() => ({first_range_error:false}));
+             }
+
+        }
+        
+
+    }
+    validate_second_range = (sansinfo) => {
+        const time = sansinfo.end_time;
+        
+        let temp_sanses= this.state.sanses;
+        const day=temp_sanses[0][sansinfo.weekday];
+        let next_sans=undefined;
+        console.log("sansinfo is:",sansinfo);
+        console.log("FUCK OFFFF!!!");
+        if(sansinfo.sans_num !== 0 ){
+            next_sans = day[sansinfo.sans_num+1];
+        }
+        if(next_sans){
+             console.log("I've got news for u baby")
+             if(((parseInt(next_sans.sans.end_time.slice(0,3),10) < parseInt(time.slice(0,3) ,10)) || ((parseInt(next_sans.sans.end_time.slice(0,3),10) === parseInt(time.slice(0,3) ,10)) && ((parseInt(next_sans.sans.end_time.slice(3),10) < parseInt(time.slice(3) ,10))))) || !(/[0-9.]/.test(time))){
+                console.log("Guss who's back?!\n");     
+                this.setState(() => ({second_range_error:true}));
+
+             }
+             else{
+                this.setState(() => ({second_range_error:false}));
+             }
+        }
+        else{
+            if((/[0-9.]/.test(time))){
+                this.setState(() => ({second_range_error:true}));
+            }
+            else{
+                this.setState(() => ({second_range_error:false}));
+             }
+
+        }
+        
 
     }
     onConfirmChange= (sansinfo) => {
@@ -192,7 +262,7 @@ class Edit_service_page extends React.Component {
                                     تنها میتوانید از حروف فارسی استفاده کنید. 
                                 </Label>    
                             )} 
-                    
+                            
                         </Form.Field>
                             <Form.Field>
                                 <Form.Input
@@ -232,7 +302,16 @@ class Edit_service_page extends React.Component {
                         
                             </Form.Field>
                             {this.props.sanses && (
-                                <PreviewTimeTable onConfirmChange={this.onConfirmChange} deleteSans={this.deleteSans} sanses={this.props.sanses} />
+                                <PreviewTimeTable 
+                                    onConfirmChange={this.onConfirmChange} 
+                                    deleteSans={this.deleteSans} 
+                                    sanses={this.props.sanses}
+                                    firstRangeValidation={this.validate_first_range}
+                                    firstRangeError={this.state.first_range_error}
+                                    secondRangeValidation={this.validate_second_range}
+                                    secondRangeError={this.state.second_range_error}
+
+                                />
                             )}
                             <Button onClick = {this.onSubmit} primary type='submit'>اعمال تغییرات</Button>
                             </Form>
