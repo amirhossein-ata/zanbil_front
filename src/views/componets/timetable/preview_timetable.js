@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Timetable from './timeTable';
-import { Segment,Modal,Form,Grid,GridColumn,Button,Message} from 'semantic-ui-react';
+import { Segment,Modal,Form,Grid,GridColumn,Button,Label} from 'semantic-ui-react';
 
 class preview_timetable extends React.Component {
     state = {
@@ -47,7 +47,12 @@ class preview_timetable extends React.Component {
     on_delete_sans = () => {
         this.props.deleteSans(this.state.sansinfo)
     }
-
+    firstRangeValidation = () => {
+        this.props.firstRangeValidation(this.state.sansinfo);
+    }
+    secondRangeValidation = () => {
+        this.props.secondRangeValidation(this.state.sansinfo);
+    }
     
 
     render(){
@@ -66,27 +71,43 @@ class preview_timetable extends React.Component {
 
                                 <Form >
                                     
-                                    <Form.Group>
+                                  <Form.Group>
+                                    <Form.Field width={8}>
                                         <Form.Input
-                                            width={8}
                                             value={this.state.sansinfo.start_time} 
                                             name="start_time"
                                             fluid 
                                             label='شروع سانس' 
+                                            onBlur={this.firstRangeValidation}
                                             onChange={this.onSansChange}
                                         />
+                                        {this.props.firstRangeError &&
+                                            <Label basic pointing color="red">
+                                        تنها میتوانید از حالت "xx:xx" استفاده کنید
+                                            </Label>    
+                                        }
+                                    </Form.Field>
+                                    <Form.Field width={8}>    
                                         <Form.Input
-                                            width={8}
                                             value={this.state.sansinfo.end_time} 
                                             name="end_time"
                                             fluid 
                                             label='پایان سانس' 
+                                            onBlur={this.secondRangeValidation}
                                             onChange={this.onSansChange}
                                         />
-                                
-                                    </Form.Group>
+                                        {this.props.secondRangeError &&
+                                            <Label basic pointing color="red">
+                                        تنها میتوانید از حالت "xx:xx" استفاده کنید
+                                            </Label>    
+                                        }
+                                    </Form.Field>
+
+                                 </Form.Group>
                                 </Form>
-                        
+                                
+                                    
+                                
                             </GridColumn>
                             
                         </Grid>
@@ -98,7 +119,8 @@ class preview_timetable extends React.Component {
                         positive 
                         icon='checkmark'  
                         labelPosition='left' 
-                        content='اعمال تغییرات' 
+                        content='اعمال تغییرات'
+                        disabled = {this.props.firstRangeError} 
                     />
                     <Button 
                         onClick={this.on_delete_sans}
