@@ -56,8 +56,7 @@ class preview_timetable extends React.Component {
     
 
     render(){
-        const arr = [[1,2],2]
-        console.log(arr)
+        
         console.log(this.props.sanses[0])
         
         return(

@@ -17,7 +17,6 @@ class Time_range_slider extends React.Component{
         }
     }
     onFirstRangeChange = (first_range) => {
-        console.log('heeeeeeeeeeeey first range' ,first_range)
         let newDayState = this.state.day_state
         newDayState.first_range = first_range
         this.setState(()=>({day_state:newDayState}))
@@ -27,7 +26,6 @@ class Time_range_slider extends React.Component{
     }
 
     onSecondRangeChange= (second_range) => {
-        console.log('heeeeeeeeeeeey second range :' ,second_range)
         let newDayState = this.state.day_state
         newDayState.second_range = second_range
         this.setState(()=>({day_state:newDayState}))
@@ -38,11 +36,11 @@ class Time_range_slider extends React.Component{
 
     onCheckBoxChange = () => {
         let newDayState = this.state.day_state
-        
         newDayState.checked=!newDayState.checked
         console.log(newDayState)
         this.setState(()=>({day_state:newDayState}))
-        console.log(this.state)
+        const passedState = this.state
+        this.props.handleOpenChecked(this.props.id,passedState)
     }
 
     onSansDurationChange = () => {
