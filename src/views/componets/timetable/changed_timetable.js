@@ -30,37 +30,40 @@ class Timetable extends React.Component{
         this.on_last_week_click = this.on_last_week_click.bind(this)
         this.on_confirm_reserve = this.on_confirm_reserve.bind(this)
     }
-    componentDidMount(){
+    async componentDidMount(){
         const last_of_week = moment(this.props.start_of_week_date,'jYYYY/jMM/jDD').add(6,'day').locale('fa').format('YYYY/MM/DD')
         const start_of_week = moment(this.props.start_of_week_date,'jYYYY/jMM/jDD').locale('fa').format('YYYY/MM/DD') 
         this.setState(()=>({last_of_week:last_of_week , start_of_week:start_of_week}))
+        await this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
+
     }
     handleOpen = () => this.setState({ modalOpen: true })
 
     handleClose = () => {
         this.setState({ modalOpen: false,reserve_success:false })
-        this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week.locale('fa').format('YYYY/MM/DD'))
+        this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
         console.log('sanse after reserved are',this.props.sanses)
     }
 
 
     async on_next_week_click(){
         console.log(this.state.start_of_week)
-        const start_of_week = moment(this.state.last_of_week,'jYYYY/jMM/jDD').add(1,'day').locale('fa').format('YYYY/MM/DD')
-        console.log(start_of_week)
-        this.setState(()=>({start_of_week:start_of_week}))
-        console.log(this.state.start_of_week )
+        let new_start_of_week = this.state.last_of_week
+        new_start_of_week = moment(new_start_of_week,'jYYYY/jMM/jDD').add(1,'day').locale('fa').format('YYYY/MM/DD')
+        let new_last_of_week = moment(new_start_of_week,'jYYYY/jMM/jDD').add(6,'day').locale('fa').format('YYYY/MM/DD')
+        await this.setState(()=>({start_of_week:new_start_of_week,last_of_week:new_last_of_week}))
+        console.log(this.state.start_of_week , this.state.last_of_week)
         await this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
 
     }
     async on_last_week_click(){
-        let newState = this.state.date
-        newState.add(-7,'day')
-        this.setState(()=>({date:newState}))
-        let last_of_week = this.state.date.add(7,'day').locale('fa').format('YYYY/MM/DD')
-        this.setState(()=>({last_of_week:last_of_week}))
-        this.state.date.add(-7,'day')
-        await this.props.get_service_page_info(this.props.service.id  , this.state.date.locale('fa').format('YYYY/MM/DD'))
+        console.log(this.state.start_of_week)
+        let new_start_of_week = this.state.start_of_week
+        new_start_of_week = moment(new_start_of_week,'jYYYY/jMM/jDD').add(-7,'day').locale('fa').format('YYYY/MM/DD')
+        let new_last_of_week = moment(new_start_of_week,'jYYYY/jMM/jDD').add(6,'day').locale('fa').format('YYYY/MM/DD')
+        await this.setState(()=>({start_of_week:new_start_of_week,last_of_week:new_last_of_week}))
+        console.log(this.state.start_of_week , this.state.last_of_week)
+        await this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
 
     }
 
@@ -71,7 +74,7 @@ class Timetable extends React.Component{
             sans_end,
             week_day
         })
-        let weekday_date = this.state.date
+        let weekday_date = moment(this.state.start_of_week,'jYYYY/jMM/jDD')
         weekday_date.add(week_day,'day')
         let sansinfo = this.state.sansinfo
         sansinfo.sansID = sansID
@@ -79,11 +82,9 @@ class Timetable extends React.Component{
         sansinfo.sans_end = sans_end
         console.log('daaaaaaaate passed is : ',weekday_date.locale('fa').format('YYYY/MM/DD'))
         sansinfo.date=weekday_date.locale('fa').format('YYYY/MM/DD')
-        console.log(sansinfo.date , this.state.date)
+        console.log(sansinfo.date , this.state.start_of_week)
         this.setState(()=>({sansinfo:sansinfo}))
-        this.state.date.add(-week_day,'day')
-        console.log(sansinfo.date , this.state.date)
-
+        console.log(this.state.sansinfo)
         this.handleOpen()
     }
 
@@ -97,8 +98,6 @@ class Timetable extends React.Component{
     async on_confirm_reserve(){
         await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
         this.setState(()=>({reserve_success:true}))
-        console.log(this.state.date.locale('fa').format('YYYY/MM/DD'))
-        
     }
     render(){
         return(
