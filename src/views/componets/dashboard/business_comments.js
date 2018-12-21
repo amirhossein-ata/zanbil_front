@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as review_actions from '../../../core/review/review_actions'
-import {Grid,Comment,Divider,Rating, Message,Button} from 'semantic-ui-react'
+import {Grid,Comment,Divider,Rating, Message,Button, Segment} from 'semantic-ui-react'
 
 class Comments extends React.Component{
 
@@ -38,24 +38,29 @@ class Comments extends React.Component{
                         </div>
                     )}
                     {reviews.map((review) => (
-                        <div>
-                        <Comment>
-                            <Comment.Content>
-                                <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
-                                <Comment.Metadata>
-                                <Grid textAlign="right">
-                                
-                                <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
-                                </Grid>
-                                </Comment.Metadata>
-                                <Grid textAlign = "right">
-                                <Comment.Text><br/>{review.description}</Comment.Text>
-                                </Grid>
-                                </Comment.Content>
-                        </Comment>
-                        <Divider />
+                        <Grid centered>
+                            <Grid.Column computer={10} tablet={8} mobile={8}>
+                                <Segment>
+                                <Comment>
+                                <Comment.Content>
+                                    <Comment.Author as='a'> <Grid textAlign="right"><b>{review.user.username}</b> </Grid></Comment.Author>
+                                    <Comment.Metadata>
+                                    <Grid textAlign="right">
+                                    
+                                    <div><br/>امتیاز:<Rating defaultRating={1} maxRating={1}/>{review.rating}/10 <br/></div>
+                                    </Grid>
+                                    </Comment.Metadata>
+                                    <Grid textAlign = "right">
+                                    <Comment.Text><br/>{review.description}</Comment.Text>
+                                    </Grid>
+                                    </Comment.Content>
+                            </Comment>
+                                    
+                                </Segment>
+                            </Grid.Column>
+                        
                         <br/>
-                        </div>
+                        </Grid>
                     ))}
                     </Grid.Column>
                 </Grid>
@@ -71,7 +76,6 @@ class Comments extends React.Component{
                                     بیشتر
                                 </Button>
                         </Grid>
-                        <Divider hidden section/>
                     </div>
                 )}
             </div>

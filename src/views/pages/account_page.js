@@ -15,10 +15,12 @@ class Account_page extends React.Component{
      
     state={
         history_end_index : 6,
-        businesses_end_index:6
+        businesses_end_index:6,
+        fethed : false
     }
     async componentDidMount(){
-       await this.props.get_account_page()
+        await this.props.get_account_page()
+        this.setState(()=>({fethed:true}))
     }
     
     on_review_click = () => {
@@ -159,7 +161,7 @@ class Account_page extends React.Component{
                         </div>
                     ) : (
                         <Grid textAlign="right" centered>
-                            {businesses.map((business) => (
+                            {this.state.fethed && businesses.map((business) => (
                                 
                                 <Grid.Column computer={5} tablet={8} mobile={16}>
                                     <div onClick={()=>this.on_business_click(business.id)}>
@@ -167,7 +169,7 @@ class Account_page extends React.Component{
                                             info={true}
                                             image={business.pictures.length !== 0 ?  require(`../../assessts/ZanbilBackEnd/uploads/${business.pictures[business.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}                                      
                                             header={business.name}
-                                            rating={5}
+                                            rating={3}
                                             description={business.description}
                                         />                              
                                     </div>    
