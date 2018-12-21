@@ -8,7 +8,6 @@ class Reports extends React.Component{
         const upcomingReservations = this.props.reports.upcomingReservations
         const allReservations = this.props.reports.allReservations
         const customers = this.props.reports.customers
-        const popularSanses = this.props.reports.busySanses
         const popularServices = this.props.reports.popularServices
         const increaseReservePercentageForDay = this.props.reports.increaseReservePercentageForDay
         const increaseReservePercentageForMonth = this.props.reports.increaseReservePercentageForMonth
@@ -17,12 +16,40 @@ class Reports extends React.Component{
         const numberOfReservesInCurrentWeek = this.props.reports.numberOfReservesInCurrentWeek
         const numberOfReservesInDay = this.props.reports.numberOfReservesInDay
 
+        let popularSanses = this.props.reports.busySanses
+        popularSanses.forEach(sans => {
+            switch (sans.weekday) {
+                case 0:
+                    sans.weekday = 'شنبه'
+                    break;
+                case 1:
+                    sans.weekday ='۱شنبه'
+                    break
+                case 2:
+                    sans.weekday ='۲شنبه'
+                    break
+                case 3:
+                    sans.weekday = '۳شنبه'
+                    break
+                case 4:
+                    sans.weekday = '۴شنبه'
+                    break
+                case 5:
+                    sans.weekday = '۵شنبه'
+                    break
+                case 6:
+                    sans.weekday = 'جمعه'
+                    break
+                default:
+                    break;
+            }
+        });
         const panes = [
             { menuItem: 'روزرو های پیش رو', render: () => 
                 <Tab.Pane>
                     <TableComponet
                         type="upcommingReservations"
-                        headers={['تاریخ','زمان','سرویس']}
+                        headers={['سرویس','زمان','تاریخ']}
                         rows={upcomingReservations}
                     />
                 </Tab.Pane> 
@@ -31,7 +58,7 @@ class Reports extends React.Component{
             <Tab.Pane>
                 <TableComponet
                     type="allReservations"
-                    headers={['تاریخ','زمان','سرویس']}
+                    headers={['سرویس','زمان','تاریخ']}
                     rows={allReservations}
                 />
 

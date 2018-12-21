@@ -20,7 +20,32 @@ class TableComponent extends React.Component{
     }
 
 
+    getWeekDay = (weekDay) =>{
+        console.log('dddddddddddddddddddddddddddddddddddddddddddddddddddddddd',weekDay)
+        switch (weekDay) {
+            case 0 :
+                return <p>شنبه</p>
+                
+            case 1:
+                return <p>۱ شنبه</p>
+            
+            case 2:
+                return <p>۲شنبه</p>
+
+            case 3:
+                return <p>۳شنبه</p>
+            case 4:
+                return <p>۴شنبه</p>
+            case 5:
+                return <p>۵شنبه</p>
+            case 6:
+                return <p>جمعه</p>
+            default:
+                break;
+        }
+    }
     render(){
+
         let rows =this.props.rows ? this.props.rows.slice(this.state.startIndex,this.state.endIndex) : []
         
         let type = this.props.type
@@ -144,9 +169,9 @@ class TableComponent extends React.Component{
                         {rows.length !== 0 && rows.map((cells)=>(
                             <Table.Row>
                                 {console.log('cells ' , cells)}
-                                <Table.Cell>{cells.serviceName}</Table.Cell>
+                                <Table.Cell>{cells.service.name}</Table.Cell>
                                 <Table.Cell>{cells.date}/</Table.Cell>
-                                <Table.Cell>{cells.start_time}-{cells.end_time}</Table.Cell>
+                                <Table.Cell>{cells.sans.start_time}-{cells.sans.end_time}</Table.Cell>
                                 
                             </Table.Row> 
                         ))}
@@ -246,9 +271,9 @@ class TableComponent extends React.Component{
                         {rows.length !== 0 && rows.map((cells)=>(
                             <Table.Row>
                                     {console.log('cells ' , cells)}
-                                    <Table.Cell>{cells.count}</Table.Cell>
-                                    <Table.Cell>{cells.start_time}-{cells.end_time}</Table.Cell>
                                     <Table.Cell>{cells.weekday}</Table.Cell>
+                                    <Table.Cell>{cells.start_time}-{cells.end_time}</Table.Cell>
+                                    <Table.Cell>{cells.count}</Table.Cell>
 
                             </Table.Row> 
                         ))}

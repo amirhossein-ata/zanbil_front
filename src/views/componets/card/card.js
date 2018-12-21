@@ -97,7 +97,10 @@ class Card_component extends React.Component{
                                     style={info_style(this.props)} 
                                     link
                                 >
-                                    <Image size="massive" src={this.props.image} />
+                                    <Image 
+                                        size="massive" 
+                                        style={{height:'70%'}} 
+                                        src={this.props.image} />
                                     <Card.Content textAlign="right">
                                         <Card.Header>{this.props.header}</Card.Header>
                                         <Card.Meta>
