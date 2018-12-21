@@ -2,7 +2,8 @@ import { service_page_action_types } from './service_page_actions'
 
 const initialState = {
     service:undefined,
-    sanses:[]
+    sanses:[],
+    start_of_week_date:''
 }
 
 export const service_page_reducer = (state=initialState ,action) => {
@@ -11,7 +12,8 @@ export const service_page_reducer = (state=initialState ,action) => {
             return {
                 ...state,
                 service:action.service,
-                sanses:[action.sanses]
+                sanses:[action.sanses],
+                start_of_week_date:action.start_of_week_date
             }
         default :
             return state

@@ -3,8 +3,8 @@ export const service_page_action_types = {
     GET_SERVICE_PAGE_INFO_SUCCESS:'GET_SERVICE_PAGE_INFO_SUCCESS'
 }
 
-export const get_service_page_info_success = ({service,sanses}) => {
-    console.log(service,sanses)
+export const get_service_page_info_success = ({service,sanses,start_of_week_date}) => {
+    console.log(service,sanses,start_of_week_date)
     return{
         type:service_page_action_types.GET_SERVICE_PAGE_INFO_SUCCESS,
         service:{
@@ -13,8 +13,9 @@ export const get_service_page_info_success = ({service,sanses}) => {
             name:service.name,
             fee:service.fee,
             rating:service.rating,
-            timetable_id:service.timetable
+            timetable_id:service.timetable,
         },
+        start_of_week_date:start_of_week_date,
         sanses:sanses
 
     }
