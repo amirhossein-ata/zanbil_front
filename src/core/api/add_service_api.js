@@ -1,8 +1,6 @@
 import * as api_urls from './api_urls'
 class Add_service_api{
     static add_service(informations, days,business_id){
-        console.log(sessionStorage.getItem("token"))
-        console.log(informations)
         console.log(days)
         const request = new Request(api_urls.SERV,{
             mode:'cors',

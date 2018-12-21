@@ -77,7 +77,6 @@ class Add_service extends React.Component{
         console.log('key is : ' , key ,'checked is : ', value.day_state.checked ,'first range is : ',value.day_state.first_range)
         let newState = this.state[key]
         console.log(newState)
-        newState.checked = value.day_state.checked
         newState.first_range = value.day_state.first_range
         
         console.log(newState)
@@ -116,7 +115,6 @@ class Add_service extends React.Component{
         console.log('key is : ' , key ,'checked is : ', value.day_state.checked ,'second range is : ',value.day_state.second_range)
         let newState = this.state[key]
         console.log(newState)
-        newState.checked = value.day_state.checked
         newState.second_range = value.day_state.second_range
         
         console.log(newState)
@@ -151,6 +149,37 @@ class Add_service extends React.Component{
     
     }
 
+    change_day_open = (key , value) => {
+        const day = key
+        let newState =this.state[key]
+        newState.checked = value.day_state.checked
+        switch(day){
+            case "day1":
+                this.setState(() =>({ day1: newState}))
+                break
+            case "day2":
+                this.setState(() =>({ day2: newState}))
+                break
+            case "day3" :
+                this.setState(() =>({ day3: newState}))
+                break
+            case "day4" :
+                this.setState(() =>({ day4: newState}))
+                break
+            case "day5":
+                this.setState(() =>({ day5: newState}))
+                break
+            case "day6" :
+                this.setState(() =>({ day6: newState}))
+                break
+            case "day7" :
+                this.setState(() =>({ day7: newState}))
+                break
+            default:
+                break   
+        }
+        console.log('caaaaaaaaaaaaaaled')
+    }
     on_duration_change = (e) => {
         const value = e.target.value
         
@@ -202,62 +231,67 @@ class Add_service extends React.Component{
 
     }
     async onSubmit(){
-        console.log(this.state.informations)
-        const d = [{open:this.state.day1.checked ? "1" : "0",
-                    start_time:this.state.day1.first_range[0].toString() + ":00",
-                    end_time:this.state.day1.first_range[1].toString()+ ":00",
-                    duration:this.state.duration,
-                    rest_start_time:this.state.day1.second_range[0].toString()+ ":00",
-                    rest_end_time:this.state.day1.second_range[1].toString()+ ":00"  
+        console.log(this.state.day1)
+        const d = [
+                    {
+                        open:this.state.day1.checked ? "1" : "0",
+                        start_time:this.state.day1.first_range[0].toString() + ":00",
+                        end_time:this.state.day1.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day1.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day1.second_range[0].toString()+ ":00"  
                     },
-                {open:this.state.day2.checked ? "1" : "0",
-                start_time:this.state.day2.first_range[0].toString()+ ":00",
-                end_time:this.state.day2.first_range[1].toString()+ ":00",
-                duration:this.state.duration,
-                rest_start_time:this.state.day2.second_range[0].toString()+ ":00",
-                rest_end_time:this.state.day2.second_range[1].toString()+ ":00"  
+                    {
+                        open:this.state.day2.checked ? "1" : "0",
+                        start_time:this.state.day2.first_range[0].toString()+ ":00",
+                        end_time:this.state.day2.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day2.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day2.second_range[0].toString()+ ":00"  
                     },
-                {open:this.state.day3.checked ? "1" : "0",
-                start_time:this.state.day3.first_range[0].toString()+ ":00",
-                end_time:this.state.day3.first_range[1].toString()+ ":00",
-                duration:this.state.duration,
-                rest_start_time:this.state.day3.second_range[0].toString()+ ":00",
-                rest_end_time:this.state.day3.second_range[1].toString()+ ":00"  
+                    {
+                        open:this.state.day3.checked ? "1" : "0",
+                        start_time:this.state.day3.first_range[0].toString()+ ":00",
+                        end_time:this.state.day3.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day3.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day3.second_range[0].toString()+ ":00"  
                     },
-                {open:this.state.day4.checked ? "1" : "0",
-                start_time:this.state.day4.first_range[0].toString()+ ":00",
-                end_time:this.state.day4.first_range[1].toString()+ ":00",
-                duration:this.state.duration,
-                rest_start_time:this.state.day4.second_range[0].toString()+ ":00",
-                rest_end_time:this.state.day4.second_range[1].toString()+ ":00"  
+                    {
+                        open:this.state.day4.checked ? "1" : "0",
+                        start_time:this.state.day4.first_range[0].toString()+ ":00",
+                        end_time:this.state.day4.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day4.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day4.second_range[0].toString()+ ":00"  
                     },
-                {open:this.state.day5.checked ? "1" : "0",
-                start_time:this.state.day5.first_range[0].toString()+ ":00",
-                end_time:this.state.day5.first_range[1].toString()+ ":00",
-                duration:this.state.duration,
-                rest_start_time:this.state.day5.second_range[0].toString()+ ":00",
-                rest_end_time:this.state.day5.second_range[1].toString()+ ":00"  
+                    {
+                        open:this.state.day5.checked ? "1" : "0",
+                        start_time:this.state.day5.first_range[0].toString()+ ":00",
+                        end_time:this.state.day5.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day5.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day5.second_range[0].toString()+ ":00"  
                     },
-                {open: this.state.day6.checked ? "1" : "0",
-                start_time:this.state.day6.first_range[0].toString()+ ":00",
-                end_time:this.state.day6.first_range[1].toString()+ ":00",
-                duration:this.state.duration,
-                rest_start_time:this.state.day6.second_range[0].toString()+ ":00",
-                rest_end_time:this.state.day6.second_range[1].toString()+ ":00"  
+                    {
+                        open: this.state.day6.checked ? "1" : "0",
+                        start_time:this.state.day6.first_range[0].toString()+ ":00",
+                        end_time:this.state.day6.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day6.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day6.second_range[0].toString()+ ":00"  
                     },
-                {open:this.state.day7.checked ? "1" : "0",
-                start_time:this.state.day7.first_range[0].toString()+ ":00",
-                end_time:this.state.day7.first_range[1].toString()+ ":00",
-                duration:this.state.duration,
-                rest_start_time:this.state.day7.second_range[0].toString()+ ":00",
-                rest_end_time:this.state.day7.second_range[1].toString()+ ":00"  
+                    {
+                        open:this.state.day7.checked ? "1" : "0",
+                        start_time:this.state.day7.first_range[0].toString()+ ":00",
+                        end_time:this.state.day7.second_range[1].toString()+ ":00",
+                        duration:this.state.duration,
+                        rest_start_time:this.state.day7.first_range[1].toString()+ ":00",
+                        rest_end_time:this.state.day7.second_range[0].toString()+ ":00"  
                     }
-                
+                    
                 ]
     
-            
-            
-        console.log(d)
         await this.props.add_service(this.state.informations,d,this.props.business_id)
         await this.props.get_business_info(this.props.business_id)
         this.props.change_panel('dashboard')
@@ -335,11 +369,11 @@ class Add_service extends React.Component{
                             <Grid.Column width="2" textAlign="center">روز هفته</Grid.Column>
                             <Grid.Column width="4"></Grid.Column>
                             <Grid.Column width="3" textAlign="center">
-                                <h4>بازه ی کاری دوم</h4>                                
+                                <h4>بازه ی کاری اول</h4>                                
                             </Grid.Column>
                             <Grid.Column width="2"></Grid.Column>
                             <Grid.Column width="5" textAlign="center">
-                                <h4>بازه ی کاری اول</h4>
+                                <h4>بازه ی کاری دوم</h4>
                             </Grid.Column>
                         </Grid>
                         <Grid>
@@ -355,10 +389,30 @@ class Add_service extends React.Component{
                                     day_state={this.state[0]} 
                                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
                                 />
                             </Grid.Column>
                         
                         </Grid>
+                        <Grid>
+                            <Grid.Column width="2" textAlign="center"> 
+                                <div style={{paddingTop:'13%'}}>
+                                    <h5>۱شنبه</h5>  
+                                </div>    
+                            </Grid.Column>
+                            <Grid.Column width="14" textAlign="center">
+                            
+                                <TimeRangeSlider 
+                                    id="day2" 
+                                    day_state={this.state[1]} 
+                                    handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
+                                />
+                            </Grid.Column>
+                        
+                        </Grid>
+                        
                         <Grid>
                             <Grid.Column width="2" textAlign="center"> 
                                 <div style={{paddingTop:'13%'}}>
@@ -372,6 +426,7 @@ class Add_service extends React.Component{
                                     day_state={this.state[2]} 
                                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
                                 />
                             </Grid.Column>
                         
@@ -389,6 +444,7 @@ class Add_service extends React.Component{
                                     day_state={this.state[3]} 
                                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
                                 />
                             </Grid.Column>
                         
@@ -406,6 +462,7 @@ class Add_service extends React.Component{
                                     day_state={this.state[4]} 
                                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
                                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
                                 />
                             </Grid.Column>
                         
@@ -422,6 +479,7 @@ class Add_service extends React.Component{
                                     id="day6" 
                                     day_state={this.state[5]} 
                                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
                                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                                 />
                             </Grid.Column>
@@ -439,6 +497,7 @@ class Add_service extends React.Component{
                                     id="day7" 
                                     day_state={this.state[6]} 
                                     handleFirstRange={(key,value) => this.change_first_range(key,value)}
+                                    handleOpenChecked={(key,value) => this.change_day_open(key,value)}
                                     handleSecondRange={(key,value) => this.change_second_range(key,value)}
                                 />
                             </Grid.Column>
