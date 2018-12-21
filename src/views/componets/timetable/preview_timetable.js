@@ -2,6 +2,7 @@ import React from 'react';
 
 import Timetable from './timeTable';
 import { Segment,Modal,Form,Grid,GridColumn,Button,Label} from 'semantic-ui-react';
+import Fade from 'react-reveal/Fade';
 
 class preview_timetable extends React.Component {
     state = {
@@ -80,11 +81,14 @@ class preview_timetable extends React.Component {
                                             onBlur={this.firstRangeValidation}
                                             onChange={this.onSansChange}
                                         />
-                                        {this.props.firstRangeError &&
-                                            <Label basic pointing color="red">
-                                        تنها میتوانید از حالت "xx:xx" استفاده کنید
-                                            </Label>    
-                                        }
+                                        <Fade bottom collapse when={this.props.firstRangeError}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
+                                            تنها میتوانید از حالت "xx:xx" استفاده کنید
+                                            </div>
+                                        </Fade>
+                                       
                                     </Form.Field>
                                     <Form.Field width={8}>    
                                         <Form.Input
@@ -95,11 +99,14 @@ class preview_timetable extends React.Component {
                                             onBlur={this.secondRangeValidation}
                                             onChange={this.onSansChange}
                                         />
-                                        {this.props.secondRangeError &&
-                                            <Label basic pointing color="red">
-                                        تنها میتوانید از حالت "xx:xx" استفاده کنید
-                                            </Label>    
-                                        }
+                                        <Fade bottom collapse when={this.props.secondRangeError}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
+                                            تنها میتوانید از حالت "xx:xx" استفاده کنید
+                                            </div>
+                                        </Fade>
+                                        
                                     </Form.Field>
 
                                  </Form.Group>

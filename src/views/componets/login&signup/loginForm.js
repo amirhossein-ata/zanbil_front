@@ -2,6 +2,7 @@ import React from 'react'
 import * as sessionAction from '../../../core/login&signup/session_actions'
 import {connect} from 'react-redux'
 import { Button, Segment, Form ,Grid,Label, Message , Header} from 'semantic-ui-react'
+import Fade from 'react-reveal/Fade';
 class Login_form extends React.Component{
     state={
         credentials:{
@@ -74,12 +75,14 @@ class Login_form extends React.Component{
                             
                                 
                             />
+                            <Fade bottom collapse when={this.state.username_error}>
+                                <div className="invalid-feedback" 
+                                  style={{ display: 'block',color:"#820b0b" }}
+                                >
+                                تنها میتوانید از (a-z A-Z . 0-9  )استفاده کنید
 
-                            {this.state.username_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                </Label>    
-                            )} 
+                                </div>
+                            </Fade>
                     
                         </Form.Field>
                         <Form.Field>
@@ -93,11 +96,14 @@ class Login_form extends React.Component{
                                 value={this.state.credentials.password}
                                 onChange={this.handle_change}
                             />
-                            {this.state.password_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                </Label>    
-                            )} 
+                            <Fade bottom collapse when={this.state.password_error}>
+                                <div className="invalid-feedback" 
+                                  style={{ display: 'block',color:"#820b0b" }}
+                                >
+                                تنها میتوانید از (a-z A-Z . 0-9  )استفاده کنید
+
+                                </div>
+                            </Fade>
                     
                         </Form.Field>
                         <Button primary type='submit'>ورود</Button>

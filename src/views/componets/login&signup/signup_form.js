@@ -2,6 +2,7 @@ import React from 'react'
 import * as sessionAction from '../../../core/login&signup/session_actions'
 import {connect} from 'react-redux'
 import { Button, Segment, Form ,Grid,Label, Header} from 'semantic-ui-react'
+import Fade from 'react-reveal/Fade';
 class Signup_form extends React.Component{
     state={
         credentials:{
@@ -14,7 +15,8 @@ class Signup_form extends React.Component{
         email_error:false,
         username_error:false, 
         password_error:false,
-        password_again_error:false
+        password_again_error:false,
+        phone_number_error:false
     }
 
     handle_change= (e) => {
@@ -59,7 +61,7 @@ class Signup_form extends React.Component{
         }
     }
     validate_phone_number = () => {
-        const phone_number = this.state.informations.phone_number;
+        const phone_number = this.state.credentials.phone_number;
         if(/[0-9+]/.test(phone_number)) {
             this.setState(()=>({phone_number_error:false}));      
         }else{
@@ -127,16 +129,21 @@ class Signup_form extends React.Component{
                                 <Form.Field>
                                     <Form.Input 
                                         fluid
+                                        error={this.state.phone_number_error}
                                         label='شماره موبایل'
                                         name="phone_number"
+                                        onBlur={this.validate_phone_number}
                                         value={this.state.credentials.phone_number}
                                         onChange={this.handle_change}
                                     />
-                                    {this.state.phone_number_error && (
-                                        <Label basic pointing color="red">
+                                    <Fade bottom collapse when={this.state.phone_number_error}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
                                             تنها میتوانید از ارقام ۰تا۹ استفاده کنید
-                                        </Label>    
-                                    )} 
+                                            </div>
+                                    </Fade>
+                                   
             
                                 </Form.Field>
                             
@@ -150,12 +157,14 @@ class Signup_form extends React.Component{
                                         value={this.state.credentials.email}
                                         onChange={this.handle_change}                                
                                     />
-
-                                    {this.state.email_error && (
-                                        <Label basic pointing color="red">
+                                    <Fade bottom collapse when={this.state.phone_number_error}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
                                             تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                        </Label>    
-                                    )} 
+                                            </div>
+                                    </Fade>
+                                    
                                 </Form.Field>
                                 
                             </Form.Group>
@@ -171,11 +180,13 @@ class Signup_form extends React.Component{
                                         value={this.state.credentials.password}
                                         onChange={this.handle_change}
                                     />
-                                    {this.state.password_error && (
-                                        <Label basic pointing color="red">
+                                    <Fade bottom collapse when={this.state.password_error}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
                                             تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                        </Label>    
-                                    )} 
+                                            </div>
+                                    </Fade>
                             
                                 </Form.Field>
                                 <Form.Field>
@@ -189,11 +200,15 @@ class Signup_form extends React.Component{
                                         value={this.state.credentials.password_again}
                                         onChange={this.handle_change}
                                     />
-                                    {this.state.password_again_error && (
-                                        <Label basic pointing color="red">
-                                                تکرار رمزعبور باید با رمزعبور مطابقت داشته باشد. 
-                                        </Label>    
-                                    )} 
+                                    <Fade bottom collapse when={this.state.phone_number_error}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
+                                            تکرار رمزعبور باید با رمزعبور مطابقت داشته باشد.
+                                            
+                                            </div>
+                                    </Fade>
+                                    
                             
                                 </Form.Field>
                         

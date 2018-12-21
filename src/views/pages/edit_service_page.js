@@ -4,6 +4,7 @@ import {Form,Label,Segment,Button} from "semantic-ui-react";
 import * as edit_service_actions from "../../core/edit_service/edit_service_actions";
 import PreviewTimeTable from "../componets/timetable/preview_timetable";
 import {connect} from "react-redux"
+import Fade from 'react-reveal/Fade';
 
 class Edit_service_page extends React.Component {
     state = {
@@ -256,12 +257,14 @@ class Edit_service_page extends React.Component {
                             
                                 
                             />
-
-                            {this.state.service_name_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از حروف فارسی استفاده کنید. 
-                                </Label>    
-                            )} 
+                            <Fade bottom collapse when={this.state.service_name_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
+                            
                             
                         </Form.Field>
                             <Form.Field>
@@ -275,12 +278,14 @@ class Edit_service_page extends React.Component {
                                 
                                     
                                 />
-
-                                {this.state.price_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از اعداد استفاده کنید. 
-                                    </Label>    
-                                )} 
+                                <Fade bottom collapse when={this.state.price_error}>
+                                    <div className="invalid-feedback" 
+                                    style={{ display: 'block',color:"#820b0b" }}
+                                    >
+                                    تنها میتوانید از اعداد و . استفاده کنید
+                                    </div>
+                                </Fade>
+                                
                         
                             </Form.Field>
                             
@@ -294,12 +299,14 @@ class Edit_service_page extends React.Component {
                                     value={this.state.informations.description}
                                     onChange={this.handle_change}
                                 />
-                                {this.state.description_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از حروف فارسی استفاده کنید
-                                    </Label>    
-                                )} 
-                        
+                                <Fade bottom collapse when={this.state.description_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                </Fade>
+                                
                             </Form.Field>
                             {this.props.sanses && (
                                 <PreviewTimeTable 

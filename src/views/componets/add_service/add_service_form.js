@@ -6,6 +6,7 @@ import TimeRangeSlider from "../time_slider/time_slider";
 import {connect} from "react-redux";
 import * as business_page_actions from '../../../core/business_page/business_page_actions'
 import {change_panel} from '../../../core/main_page/active_panel_actions'
+import Fade from 'react-reveal/Fade';
 
 class Add_service extends React.Component{
     constructor(props){
@@ -189,15 +190,14 @@ class Add_service extends React.Component{
         this.setState(() => ({duration:newState}))
     }
 
-    validate_contact_number = () => {
-        const contact_number = this.state.informations.contact_number;
-        if(/[0-9+]/.test(contact_number)) {
-            this.setState(()=>({contact_number_error:false}));      
+    validate_service_name = () => {
+        const name = this.state.informations.service_name
+        if(!PersianRex.text.test(name)) {
+            this.setState(()=>({service_name_error:true}));      
         }else{
-            this.setState(()=>({contact_number_error:true}));       
+            this.setState(()=>({service_name_error:false}));       
             
         }
-
     }
     validate_price = () => {
         const price = this.state.informations.price;
@@ -312,19 +312,22 @@ class Add_service extends React.Component{
                                     fluid
                                     label="نام سرویس"
                                     name="service_name"
+                                    error={this.service_name_error}
                                     onBlur={this.validate_service_name}
                                     value={this.state.informations.service_name}
                                     onChange={this.handle_change}
                                 
                                     
                                 />
+                                <Fade bottom collapse when={this.state.service_name_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
 
-                                {this.state.service_name_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از حروف فارسی استفاده کنید. 
-                                    </Label>    
-                                )} 
-                        
+                                
                             </Form.Field>
                             <Form.Field>
                                 <Form.Input
@@ -337,12 +340,14 @@ class Add_service extends React.Component{
                                 
                                     
                                 />
+                                <Fade bottom collapse when={this.state.price_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        تنها میتوانید از اعداد و . استفاده کنید
+                                        </div>
+                                    </Fade>
 
-                                {this.state.price_error && (
-                                    <Label basic pointing color="red">
-                                        تنها میتوانید از اعداد استفاده کنید. 
-                                    </Label>    
-                                )} 
                         
                             </Form.Field>
                         </Form.Group>    
@@ -356,11 +361,15 @@ class Add_service extends React.Component{
                                 value={this.state.informations.description}
                                 onChange={this.handle_change}
                             />
-                            {this.state.description_error && (
-                                <Label basic pointing color="red">
-                                    تنها میتوانید از حروف فارسی استفاده کنید
-                                </Label>    
-                            )} 
+                            <Fade bottom collapse when={this.state.description_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
+
+                            
                     
                         </Form.Field>
                         
@@ -517,7 +526,10 @@ class Add_service extends React.Component{
                                 </Grid.Column>
                         </Grid>
                        
-                        <Button primary type='submit'>ایجاد سرویس</Button>
+                        <Button 
+                            primary 
+                            disbled={this.state.description_error || this.state.price_error || this.state.price_error ||this.state.service_name_error}
+                            type='submit'>ایجاد سرویس</Button>
                     
                                 
                     </Form>

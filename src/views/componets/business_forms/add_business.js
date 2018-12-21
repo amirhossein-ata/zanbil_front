@@ -5,6 +5,8 @@ import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
 import {change_panel} from '../../../core/main_page/active_panel_actions'
+import Fade from 'react-reveal/Fade';
+
 
 import StoreIcon from '../../../assessts/icons/online-shopping.svg'
 class Add_business extends React.Component {
@@ -124,12 +126,14 @@ class Add_business extends React.Component {
                                         value={this.state.informations.name}
                                         onChange={this.handle_change}         
                                     />
-
-                                    {this.state.name_error && (
-                                        <Label basic pointing color="red">
-                                        لطفا فقط از زبان فارسی استفاده کنید
-                                        </Label>    
-                                    )}
+                                    <Fade bottom collapse when={this.state.name_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
+                                    
                                 </Form.Field>
                                      
                                 <Form.Field>
@@ -160,11 +164,15 @@ class Add_business extends React.Component {
                                                 
                                             />
                                     </div>
-                                    {this.state.phone_number_error && (
-                                        <Label basic pointing color="red">
-                                            تنها میتوانید از ارقام ۰تا۹ استفاده کنید
-                                        </Label>    
-                                    )} 
+                                    <Fade bottom collapse when={this.state.phone_number_error}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
+                                            تنها میتوانید از اعداد و . استفاده کنید
+                                            </div>
+                                    </Fade>
+
+                                    
                             
                                 </Form.Field>
                                 <Form.Field>
@@ -179,12 +187,14 @@ class Add_business extends React.Component {
                                     
                                         
                                     />
-
-                                    {this.state.email_error && (
-                                        <Label basic pointing color="red">
-                                            تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                        </Label>    
-                                    )}
+                                    <Fade bottom collapse when={this.state.email_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
+                                        </div>
+                                    </Fade>
+                                    
                                 </Form.Field>
                             
                             
@@ -201,12 +211,14 @@ class Add_business extends React.Component {
                                 
                                     
                                 />
-
-                                {this.state.address_error && (
-                                    <Label basic pointing color="red">
-                                            لطفا فقط از زبان فارسی استفاده کنید.
-                                    </Label>    
-                                )} 
+                                <Fade bottom collapse when={this.state.address_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                </Fade>
+                               
                         
                             </Form.Field>
                             <Form.Field>
@@ -218,13 +230,14 @@ class Add_business extends React.Component {
                                     onChange={this.handle_change}
                          
                                 />
-
-                                {this.state.description_error && (
-                                    <Label basic pointing color="red">
-                                        فقط از زبان فارسی استفاده کنید
-                                    </Label>    
-                                )} 
-                        
+                                <Fade bottom collapse when={this.state.description_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                </Fade>
+                                
                             </Form.Field>
                             
                             <Button primary type='submit'>ثبت</Button>
