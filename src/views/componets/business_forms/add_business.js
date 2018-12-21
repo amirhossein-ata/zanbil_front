@@ -96,7 +96,7 @@ class Add_business extends React.Component {
     onSubmit = () => {
         console.log(this.state.informations)
         this.props.add_business(this.state.informations)
-        this.props.change_panel('dashboard')
+        this.props.change_panel('account_page')
     }
 
     render () {

@@ -2,7 +2,7 @@ import React from 'react';
 import * as account_page_actions from '../../core/account_page/account_page_actions';
 import * as business_page_actions from '../../core/business_page/business_page_actions';
 import {change_panel} from '../../core/main_page/active_panel_actions'
-import { Card,Grid,Divider,Image,Segment, Message,Button} from 'semantic-ui-react';
+import { Card,Grid,Breadcrumb,Divider,Image,Segment, Message,Button} from 'semantic-ui-react';
 import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
 import Review_form from "../componets/review/review_form"
@@ -66,7 +66,10 @@ class Account_page extends React.Component{
                                                 size="massive" 
                                             />
                                             <br></br>
-                                            <p>نام : {this.props.user.user_name}</p>              
+                                            <p>نام : {this.props.user.username}</p>
+                                            <p>ایمیل:{this.props.user.email}</p>
+                                            <p>تلفن:{this.props.user.phone_number}</p>
+            
                                         </Segment>
                                         
                                     </div>  
@@ -162,7 +165,7 @@ class Account_page extends React.Component{
                                     <div onClick={()=>this.on_business_click(business.id)}>
                                         <CardComponent
                                             info={true}
-                                            image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
+                                            image={business.pictures.length !== 0 ?  require(`../../assessts/ZanbilBackEnd/uploads/${business.pictures[business.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}                                      
                                             header={business.name}
                                             rating={5}
                                             description={business.description}
