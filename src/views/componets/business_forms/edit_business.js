@@ -6,6 +6,8 @@ import { Button, Segment, Form ,Grid,Label, Dropdown, Message} from 'semantic-ui
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
 import {connect} from "react-redux";
+import Fade from 'react-reveal/Fade';
+
 
 class Edit_business extends React.Component {
     constructor(props){
@@ -58,8 +60,9 @@ class Edit_business extends React.Component {
 
     }
     validate_email = () => {
+        var validator = require("email-validator");
         const email = this.state.informations.email
-        if(/[a-zA-Z]+@[a-zA-Z]+.[a-zA-z]/.test(email)) {
+        if(validator.validate(email)) {
             this.setState(()=>({email_error:false})); 
         }else{
             this.setState(()=>({email_error:true}));
@@ -125,12 +128,15 @@ class Edit_business extends React.Component {
                                     
                                         
                                     />
+                                    <Fade bottom collapse when={this.state.name_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
 
-                                    {this.state.name_error && (
-                                        <Label basic pointing color="red">
-                                        لطفا فقط از زبان فارسی استفاده کنید
-                                        </Label>    
-                                    )} 
+
                                 </Form.Field>
                                 <b><span>دسته بندی</span></b>
                                 <Dropdown
@@ -154,11 +160,15 @@ class Edit_business extends React.Component {
                                         
                                             
                                         />
-                                    {this.state.phone_number_error && (
-                                        <Label basic pointing color="red">
-                                            تنها میتوانید از ارقام ۰تا۹ استفاده کنید
-                                        </Label>    
-                                    )} 
+                                        <Fade bottom collapse when={this.state.phone_number_error}>
+                                            <div className="invalid-feedback" 
+                                            style={{ display: 'block',color:"#820b0b" }}
+                                            >
+                                            تنها میتوانید از ارقام ۰تا ۹ و . استفاده کنید
+                                            </div>
+                                        </Fade>
+
+                                    
                             
                                 </Form.Field>
                                 <Form.Field>
@@ -173,12 +183,14 @@ class Edit_business extends React.Component {
                                         
                                         
                                     />
-
-                                    {this.state.email_error && (
-                                        <Label basic pointing color="red">
-                                            تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
-                                        </Label>    
-                                    )}
+                                    <Fade bottom collapse when={this.state.email_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        تنها میتوانید از (a-z A-Z . 0-9 @ )استفاده کنید
+                                        </div>
+                                    </Fade>
+                                    
                                     </Form.Field>
                                 <Form.Field>
                                     <Form.Input
@@ -192,12 +204,14 @@ class Edit_business extends React.Component {
                                     
                                         
                                     />
-
-                                    {this.state.address_error && (
-                                        <Label basic pointing color="red">
-                                                لطفا فقط از زبان فارسی استفاده کنید.
-                                        </Label>    
-                                    )} 
+                                    <Fade bottom collapse when={this.state.address_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
+                                    
                             
                                 </Form.Field>
                                 <Form.Field>
@@ -212,12 +226,14 @@ class Edit_business extends React.Component {
                                     
                                         
                                     />
-
-                                    {this.state.description_error && (
-                                        <Label basic pointing color="red">
-                                            فقط از زبان فارسی استفاده کنید
-                                        </Label>    
-                                    )} 
+                                    <Fade bottom collapse when={this.state.description_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
+                                    
                             
                                 </Form.Field>
                                 {this.state.edit_success && (
@@ -226,7 +242,10 @@ class Edit_business extends React.Component {
                                     </Message>
                                    
                                 )}
-                                <Button primary type='submit'>ثبت</Button>
+                                <Button 
+                                 disabled={this.state.address_error || this.state.email_error ||this.state.description_error || this.state.name_error||this.state.phone_number_error}
+                                 primary 
+                                 type='submit'>ثبت</Button>
                             </Form>
                         </Grid.Column>         
                 </Grid>
