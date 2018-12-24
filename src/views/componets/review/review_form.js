@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import * as review_action from "../../../core/review/review_actions"
+import {Modal} from "semantic-ui-react";
 import PersianRex from "persian-rex";
 
 import { Button, Form ,Grid,Rating} from 'semantic-ui-react'
@@ -12,12 +13,24 @@ class Review_form extends React.Component {
             comment:"",
             
         },
+        modal_open:1,
         comment_error:false
     }
+    async componentDidMount() {
+         console.log("modal open here is:",this.props.modal_open)
+         //this.setState(() => ({modal_open:this.props.modal_open}))
+             
+    }
     validate_comment = () => {
+         
+         this.setState(()=>({comment_error:false}));      
         
-         this.setState(()=>({comment_error:true}));      
-        
+    }
+    handleClose = () => {
+        //this.setState(() => ({modal_open:false}));
+        var count = this.state.modal_open;
+        count++;
+        this.setState(() => ({modal_open:count}))
     }
     handle_change= (e) => {
         const input = e.target.value;
@@ -40,17 +53,20 @@ class Review_form extends React.Component {
         const rev = {
             description:this.state.credentials.comment,
             point:this.state.rating,
-            service_id:this.props.passed_through_props.service_id
+            //service_id:this.props.passed_through_props.service_id
+            service_id:this.props.service_id
         }
         console.log(rev)
         this.props.review(rev.description,rev.point,rev.service_id)
+        this.handleClose();
 
     }
 
     render(){
-        
+        console.log("modal equality in review is",(this.state.modal_open === this.props.modal_open))
         return (
             <Grid  centered>
+            <Modal size="tiny" dimmer="blurring" open={(this.state.modal_open === this.props.modal_open)} onClose={this.handleClose} closeIcon>
                 <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
                 
                 <div style={{marginLeft:'auto'}}>
@@ -74,10 +90,10 @@ class Review_form extends React.Component {
                             
                         
                         
-                        <Button primary type='submit'>ثبت نظر</Button>
+                        <Button onClick={this.handleClose} primary type='submit'>ثبت نظر</Button>
                     </Form>   
                 </Grid.Column>
-                
+                </Modal>
             </Grid>
             
         )

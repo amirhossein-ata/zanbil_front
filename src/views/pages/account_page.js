@@ -5,7 +5,7 @@ import {change_panel} from '../../core/main_page/active_panel_actions'
 import { Card,Grid,Breadcrumb,Divider,Image,Segment, Message,Button} from 'semantic-ui-react';
 import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
-import Review_form from "../componets/review/review_form"
+import ReviewForm from "../componets/review/review_form"
 import Modal from "../componets/modal/Modal"
 import ManAvatar from '../../assessts/icons/man.svg'
 
@@ -16,13 +16,20 @@ class Account_page extends React.Component{
     state={
         history_end_index : 6,
         businesses_end_index:6,
-        fethed : false
+        fethed : false,
+        modal_open:false
     }
     async componentDidMount(){
         await this.props.get_account_page()
         this.setState(()=>({fethed:true}))
     }
-    
+    handleOpen = () => {
+        // this.setState(() => ({modal_open:true}))
+        var count = this.state.modal_open;
+        count++;
+        this.setState(() => ({modal_open:count}))
+        console.log("modal open:",this.state.modal_open)
+    }
     on_review_click = () => {
         //
     }
@@ -46,7 +53,9 @@ class Account_page extends React.Component{
     render(){
         const businesses = this.props.businesses ? this.props.businesses.slice(0,this.state.businesses_end_index) : []
         const history = this.props.reserves ? this.props.reserves.slice(0,this.state.history_end_index) : []
-        const Review_modal = Modal("نظر")(Review_form)
+        
+
+        //const Review_modal = Modal("نظر")(Review_form)
         return(
             
             <Grid centered>
@@ -96,7 +105,7 @@ class Account_page extends React.Component{
                     ) : (
                         <div>
                             <Grid  centered>
-                                {history.map((reserve) => (
+                                {history.map((reserve, i ) => (
                                     <Grid.Column computer={5} tablet={7} mobile={12} textAlign="right">
                                         <Fade bottom>
                                             
@@ -113,7 +122,13 @@ class Account_page extends React.Component{
                                                     </Card.Content>
                                                 )}
                                                 <Card.Content extra>
-                                                    <Review_modal service_id={reserve.service.id}/>                            
+                                                <Grid centered> 
+                                                    <Button onClick={this.handleOpen} > نظر</Button>
+                                                    <br / >
+                                                     { this.state.modal_open &&
+                                                     <ReviewForm service_id={reserve.service_id} modal_open={this.state.modal_open}/> }
+                                                {/* <Review_modal service_id={reserve.service.id}/> */}
+                                                </Grid>                           
                                                 </Card.Content>
                                                 
                                             </Card>
