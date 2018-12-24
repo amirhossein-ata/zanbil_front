@@ -17,18 +17,34 @@ class Account_page extends React.Component{
         history_end_index : 6,
         businesses_end_index:6,
         fethed : false,
-        modal_open:false
+        modal_open:false,
+        modals:[]
     }
     async componentDidMount(){
         await this.props.get_account_page()
         this.setState(()=>({fethed:true}))
+        if(this.props.reserves.slice(0,this.state.history_end_index).length !== 0 ){
+            let temp_cond = []
+            console.log("this shit is",this.props.reserves.slice(0,this.state.history_end_index))
+            for(let j = 0; j < this.props.reserves.slice(0,this.state.history_end_index).length ;j++){
+                temp_cond.push(0)
+
+            }
+            console.log("temp_cond is:",temp_cond)
+            this.setState(() => ({modals:temp_cond}))
+        }
     }
-    handleOpen = () => {
-        // this.setState(() => ({modal_open:true}))
-        var count = this.state.modal_open;
-        count++;
-        this.setState(() => ({modal_open:count}))
-        console.log("modal open:",this.state.modal_open)
+    handleOpen = (i ,modals) => {
+        this.setState(() => ({modal_open:true}))
+        // var count = this.state.modal_open;
+        // count++;
+        // this.setState(() => ({modal_open:count}))
+        let temp_conds = this.state.modals.slice();
+        temp_conds[i]++;
+        console.log("temp_cond is motherfucker say what again",temp_conds)
+        this.setState(() => ({modals:temp_conds}))
+        console.log("asdaSDASDASC DGqwZ?",this.state.modals)
+
     }
     on_review_click = () => {
         //
@@ -53,7 +69,14 @@ class Account_page extends React.Component{
     render(){
         const businesses = this.props.businesses ? this.props.businesses.slice(0,this.state.businesses_end_index) : []
         const history = this.props.reserves ? this.props.reserves.slice(0,this.state.history_end_index) : []
-        
+        // const  modals = ;
+        // if (history.length !==0){
+        //     for(let j = 0; j < history.length ;j++){
+        //         modals.push(false)
+
+        //     }
+            
+        // }
 
         //const Review_modal = Modal("نظر")(Review_form)
         return(
@@ -123,10 +146,13 @@ class Account_page extends React.Component{
                                                 )}
                                                 <Card.Content extra>
                                                 <Grid centered> 
-                                                    <Button onClick={this.handleOpen} > نظر</Button>
+                                                    <Button onClick={() => {this.handleOpen(i, this.state.modals)}} > نظر</Button>
                                                     <br / >
+                                                    {console.log("i is",i)}
+                                                    {console.log("modals i", this.state.modals[i])}
+                                                    {console.log("asdfsadfasdsf?",this.state.modals)}
                                                      { this.state.modal_open &&
-                                                     <ReviewForm service_id={reserve.service_id} modal_open={this.state.modal_open}/> }
+                                                     <ReviewForm service_id={reserve.service_id} modal_open={this.state.modals[i]}/> }
                                                 {/* <Review_modal service_id={reserve.service.id}/> */}
                                                 </Grid>                           
                                                 </Card.Content>

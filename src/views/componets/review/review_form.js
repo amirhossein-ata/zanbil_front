@@ -13,12 +13,14 @@ class Review_form extends React.Component {
             comment:"",
             
         },
-        modal_open:1,
-        comment_error:false
+        modal_open:false,
+        comment_error:1
     }
     async componentDidMount() {
+        console.log("props is",this.props.modal_open)
+         this.setState(() => ({modal_open:this.props.modal_open}))
          console.log("modal open here is:",this.props.modal_open)
-         //this.setState(() => ({modal_open:this.props.modal_open}))
+
              
     }
     validate_comment = () => {
@@ -27,7 +29,7 @@ class Review_form extends React.Component {
         
     }
     handleClose = () => {
-        //this.setState(() => ({modal_open:false}));
+        // this.setState(() => ({modal_open:false}));
         var count = this.state.modal_open;
         count++;
         this.setState(() => ({modal_open:count}))
@@ -63,7 +65,7 @@ class Review_form extends React.Component {
     }
 
     render(){
-        console.log("modal equality in review is",(this.state.modal_open === this.props.modal_open))
+        console.log("state is ", this.state.modal_open)
         return (
             <Grid  centered>
             <Modal size="tiny" dimmer="blurring" open={(this.state.modal_open === this.props.modal_open)} onClose={this.handleClose} closeIcon>
