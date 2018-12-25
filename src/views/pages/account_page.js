@@ -130,6 +130,7 @@ class Account_page extends React.Component{
                             <Grid  centered>
                                 {history.map((reserve, i ) => (
                                     <Grid.Column computer={5} tablet={7} mobile={12} textAlign="right">
+                                   
                                         <Fade bottom>
                                             
                                             <Card color="teal" fluid raised >
@@ -146,24 +147,28 @@ class Account_page extends React.Component{
                                                 )}
                                                 <Card.Content extra>
                                                 <Grid centered> 
-                                                    <Button onClick={() => {this.handleOpen(i, this.state.modals)}} > نظر</Button>
-                                                    <br / >
+                                                    <div style = {{marginTop : '2%' , marginBottom : '2%'}}>
+                                                    <Button color="linkedin" style={{ paddingLeft: '50px',paddingRight:'50px'}} onClick={() => {this.handleOpen(i, this.state.modals)}} > نظر</Button>
+                                                    </div>
                                                     {console.log("i is",i)}
                                                     {console.log("modals i", this.state.modals[i])}
                                                     {console.log("asdfsadfasdsf?",this.state.modals)}
-                                                     { this.state.modal_open &&
-                                                     <ReviewForm service_id={reserve.service_id} modal_open={this.state.modals[i]}/> }
-                                                {/* <Review_modal service_id={reserve.service.id}/> */}
+                                                    { this.state.modals[i] !==0 && 
+                                                     <ReviewForm service_id={reserve.service_id} modal_open={this.state.modals[i]}/>} 
+                                                   
+                                                    {/* <Review_modal service_id={reserve.service.id}/> */}
                                                 </Grid>                           
                                                 </Card.Content>
                                                 
                                             </Card>
+                                           
                                         </Fade>
-                                            
+                                       
                                     </Grid.Column>
 
                                 ))}
                             </Grid>
+                            
                             {(this.props.reserves && this.props.reserves.length > 6) && (
                                 <div>
                                     <Divider hidden section/>

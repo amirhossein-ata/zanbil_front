@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import * as review_action from "../../../core/review/review_actions"
-import {Modal} from "semantic-ui-react";
+import {Modal, Header, GridColumn} from "semantic-ui-react";
 import PersianRex from "persian-rex";
 
 import { Button, Form ,Grid,Rating} from 'semantic-ui-react'
@@ -13,8 +13,8 @@ class Review_form extends React.Component {
             comment:"",
             
         },
-        modal_open:false,
-        comment_error:1
+        modal_open:1,
+        comment_error:false
     }
     async componentDidMount() {
         console.log("props is",this.props.modal_open)
@@ -65,37 +65,50 @@ class Review_form extends React.Component {
     }
 
     render(){
-        console.log("state is ", this.state.modal_open)
+        console.log("props is ", this.state.modal_open)
         return (
-            <Grid  centered>
-            <Modal size="tiny" dimmer="blurring" open={(this.state.modal_open === this.props.modal_open)} onClose={this.handleClose} closeIcon>
+            <Grid textAlign="right" centered>
+            <Grid.Column textAlign="right">
+            <Modal size="large" dimmer="blurring" open={(this.state.modal_open === this.props.modal_open)} onClose={this.handleClose} closeIcon>
+            <Header textAlign="right" dividing>
+                        فرم ثبت نظر
+            </Header>    
+            <Modal.Content>
                 <Grid.Column computer={10} tablet={12} mobile={14} textAlign="right">
                 
-                <div style={{marginLeft:'auto'}}>
-                    <Rating icon='star' defaultRating={1} maxRating={5} onRate={this.handle_rate} />
-                </div>    
-                
-                <Form onSubmit={this.onSubmit}>
-                        <Form.TextArea
-                            
-                                error={this.state.comment_error}
-                                fluid
-                                label=""
-                                name="comment"
-                                onBlur={this.validate_comment}
-                                value={this.state.credentials.comment}
-                                onChange={this.handle_change}
-                            
+                <Grid centered >
+                    <Grid.Column width={14} textAlign="right">
+                        <Rating icon='star' defaultRating={1} maxRating={5} onRate={this.handle_rate} />    
+                    </Grid.Column>
+                </Grid>
+                <Grid centered >
+                <Grid.Column width={14}>
+                    <Form onSubmit={this.onSubmit}>
+                            <Form.TextArea
                                 
-                            />
+                                    error={this.state.comment_error}
+                                    fluid
+                                    label=""
+                                    name="comment"
+                                    onBlur={this.validate_comment}
+                                    value={this.state.credentials.comment}
+                                    onChange={this.handle_change}
+                                
+                                    
+                                />
+                                
+                                
                             
                             
-                        
-                        
-                        <Button onClick={this.handleClose} primary type='submit'>ثبت نظر</Button>
-                    </Form>   
+                            <Button onClick={this.handleClose} primary type='submit'>ثبت نظر</Button>
+                        </Form>
+                        </Grid.Column>
+                    </Grid>
+                       
                 </Grid.Column>
+                </Modal.Content>
                 </Modal>
+                </Grid.Column>
             </Grid>
             
         )
