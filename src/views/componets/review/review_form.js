@@ -24,9 +24,14 @@ class Review_form extends React.Component {
              
     }
     validate_comment = () => {
-         
-         this.setState(()=>({comment_error:false}));      
-        
+        const comment = this.state.credentials.comment
+        if(PersianRex.text.test(comment) ) {
+            this.setState(()=>({comment_error:false}));      
+        }else{
+            this.setState(()=>({comment_error:true}));       
+            
+        }
+
     }
     handleClose = () => {
         // this.setState(() => ({modal_open:false}));
