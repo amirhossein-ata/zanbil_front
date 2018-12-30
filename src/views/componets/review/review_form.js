@@ -35,9 +35,10 @@ class Review_form extends React.Component {
     }
     handleClose = () => {
         // this.setState(() => ({modal_open:false}));
-        var count = this.state.modal_open;
-        count++;
-        this.setState(() => ({modal_open:count}))
+        // var count = this.state.modal_open;
+        // count++;
+        // this.setState(() => ({modal_open:count}))
+        this.props.handleClose()
     }
     handle_change= (e) => {
         const input = e.target.value;
@@ -74,7 +75,7 @@ class Review_form extends React.Component {
         return (
             <Grid textAlign="right" centered>
             <Grid.Column textAlign="right">
-            <Modal size="large" dimmer="blurring" open={(this.state.modal_open === this.props.modal_open)} onClose={this.handleClose} closeIcon>
+            <Modal size="large" dimmer="blurring" open={(this.props.modal_open)} onClose={this.handleClose} closeIcon>
             <Header textAlign="right" dividing>
                         فرم ثبت نظر
             </Header>    

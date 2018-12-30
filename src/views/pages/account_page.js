@@ -18,33 +18,37 @@ class Account_page extends React.Component{
         businesses_end_index:6,
         fethed : false,
         modal_open:false,
-        modals:[]
+        service_id:0
     }
     async componentDidMount(){
         await this.props.get_account_page()
         this.setState(()=>({fethed:true}))
-        if(this.props.reserves.slice(0,this.state.history_end_index).length !== 0 ){
-            let temp_cond = []
-            console.log("this shit is",this.props.reserves.slice(0,this.state.history_end_index))
-            for(let j = 0; j < this.props.reserves.slice(0,this.state.history_end_index).length ;j++){
-                temp_cond.push(0)
+        // if(this.props.reserves.length !== 0 ){
+        //     let temp_cond = []
+        //     console.log("this shit is",this.props.reserves)
+        //     for(let j = 0; j < this.props.reserves.slice(0,this.state.history_end_index).length ;j++){
+        //         temp_cond.push(0)
 
-            }
-            console.log("temp_cond is:",temp_cond)
-            this.setState(() => ({modals:temp_cond}))
-        }
+        //     }
+        //     console.log("temp_cond is:",temp_cond)
+        //     this.setState(() => ({modals:temp_cond}))
+        // }
     }
-    handleOpen = (i ,modals) => {
+    handleOpen = (service_id) => {
         this.setState(() => ({modal_open:true}))
+        this.setState(() => ({service_id:service_id}))
         // var count = this.state.modal_open;
         // count++;
         // this.setState(() => ({modal_open:count}))
-        let temp_conds = this.state.modals.slice();
-        temp_conds[i]++;
-        console.log("temp_cond is motherfucker say what again",temp_conds)
-        this.setState(() => ({modals:temp_conds}))
-        console.log("asdaSDASDASC DGqwZ?",this.state.modals)
+        // let temp_conds = this.state.modals.slice();
+        // temp_conds[i]++;
+        // console.log("temp_cond is motherfucker say what again",temp_conds)
+        // this.setState(() => ({modals:temp_conds}))
+        // console.log("asdaSDASDASC DGqwZ?",this.state.modals)
 
+    }
+    handleClose = () => {
+        this.setState(() => ({modal_open:false}))
     }
     on_review_click = () => {
         //
@@ -142,19 +146,15 @@ class Account_page extends React.Component{
                                                 </Card.Content>
                                                 {reserve.description && (
                                                     <Card.Content>
-                                                        <Card.Description>{reserve.description}</Card.Description>
+                                                    history                     <Card.Description>{reserve.description}</Card.Description>
                                                     </Card.Content>
                                                 )}
                                                 <Card.Content extra>
                                                 <Grid centered> 
                                                     <div style = {{marginTop : '2%' , marginBottom : '2%'}}>
-                                                    <Button color="linkedin" style={{ paddingLeft: '50px',paddingRight:'50px'}} onClick={() => {this.handleOpen(i, this.state.modals)}} > نظر</Button>
+                                                    <Button color="linkedin" style={{ paddingLeft: '50px',paddingRight:'50px'}} onClick={() => {this.handleOpen(reserve.service.id)}} > نظر</Button>
                                                     </div>
-                                                    {console.log("i is",i)}
-                                                    {console.log("modals i", this.state.modals[i])}
-                                                    {console.log("asdfsadfasdsf?",this.state.modals)}
-                                                    { this.state.modals[i] !==0 && 
-                                                     <ReviewForm service_id={reserve.service_id} modal_open={this.state.modals[i]}/>} 
+                                                    
                                                    
                                                     {/* <Review_modal service_id={reserve.service.id}/> */}
                                                 </Grid>                           
@@ -167,6 +167,7 @@ class Account_page extends React.Component{
                                     </Grid.Column>
 
                                 ))}
+                                <ReviewForm service_id={this.state.service_id} modal_open={this.state.modal_open} handleClose={this.handleClose}/>
                             </Grid>
                             
                             {(this.props.reserves && this.props.reserves.length > 6) && (
