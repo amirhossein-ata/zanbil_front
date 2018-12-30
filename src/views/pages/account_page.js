@@ -5,7 +5,7 @@ import {change_panel} from '../../core/main_page/active_panel_actions'
 import { Card,Grid,Breadcrumb,Divider,Image,Segment, Message,Button} from 'semantic-ui-react';
 import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
-import Review_form from "../componets/review/review_form"
+import ReviewForm from "../componets/review/review_form"
 import Modal from "../componets/modal/Modal"
 import ManAvatar from '../../assessts/icons/man.svg'
 
@@ -16,13 +16,40 @@ class Account_page extends React.Component{
     state={
         history_end_index : 6,
         businesses_end_index:6,
-        fethed : false
+        fethed : false,
+        modal_open:false,
+        service_id:0
     }
     async componentDidMount(){
         await this.props.get_account_page()
         this.setState(()=>({fethed:true}))
+        // if(this.props.reserves.length !== 0 ){
+        //     let temp_cond = []
+        //     console.log("this shit is",this.props.reserves)
+        //     for(let j = 0; j < this.props.reserves.slice(0,this.state.history_end_index).length ;j++){
+        //         temp_cond.push(0)
+
+        //     }
+        //     console.log("temp_cond is:",temp_cond)
+        //     this.setState(() => ({modals:temp_cond}))
+        // }
     }
-    
+    handleOpen = (service_id) => {
+        this.setState(() => ({modal_open:true}))
+        this.setState(() => ({service_id:service_id}))
+        // var count = this.state.modal_open;
+        // count++;
+        // this.setState(() => ({modal_open:count}))
+        // let temp_conds = this.state.modals.slice();
+        // temp_conds[i]++;
+        // console.log("temp_cond is motherfucker say what again",temp_conds)
+        // this.setState(() => ({modals:temp_conds}))
+        // console.log("asdaSDASDASC DGqwZ?",this.state.modals)
+
+    }
+    handleClose = () => {
+        this.setState(() => ({modal_open:false}))
+    }
     on_review_click = () => {
         //
     }
@@ -46,7 +73,16 @@ class Account_page extends React.Component{
     render(){
         const businesses = this.props.businesses ? this.props.businesses.slice(0,this.state.businesses_end_index) : []
         const history = this.props.reserves ? this.props.reserves.slice(0,this.state.history_end_index) : []
-        const Review_modal = Modal("نظر")(Review_form)
+        // const  modals = ;
+        // if (history.length !==0){
+        //     for(let j = 0; j < history.length ;j++){
+        //         modals.push(false)
+
+        //     }
+            
+        // }
+
+        //const Review_modal = Modal("نظر")(Review_form)
         return(
             
             <Grid centered>
@@ -96,8 +132,9 @@ class Account_page extends React.Component{
                     ) : (
                         <div>
                             <Grid  centered>
-                                {history.map((reserve) => (
+                                {history.map((reserve, i ) => (
                                     <Grid.Column computer={5} tablet={7} mobile={12} textAlign="right">
+                                   
                                         <Fade bottom>
                                             
                                             <Card color="teal" fluid raised >
@@ -109,20 +146,30 @@ class Account_page extends React.Component{
                                                 </Card.Content>
                                                 {reserve.description && (
                                                     <Card.Content>
-                                                        <Card.Description>{reserve.description}</Card.Description>
+                                                    history                     <Card.Description>{reserve.description}</Card.Description>
                                                     </Card.Content>
                                                 )}
                                                 <Card.Content extra>
-                                                    <Review_modal service_id={reserve.service.id}/>                            
+                                                <Grid centered> 
+                                                    <div style = {{marginTop : '2%' , marginBottom : '2%'}}>
+                                                    <Button color="linkedin" style={{ paddingLeft: '50px',paddingRight:'50px'}} onClick={() => {this.handleOpen(reserve.service.id)}} > نظر</Button>
+                                                    </div>
+                                                    
+                                                   
+                                                    {/* <Review_modal service_id={reserve.service.id}/> */}
+                                                </Grid>                           
                                                 </Card.Content>
                                                 
                                             </Card>
+                                           
                                         </Fade>
-                                            
+                                       
                                     </Grid.Column>
 
                                 ))}
+                                <ReviewForm service_id={this.state.service_id} modal_open={this.state.modal_open} handleClose={this.handleClose}/>
                             </Grid>
+                            
                             {(this.props.reserves && this.props.reserves.length > 6) && (
                                 <div>
                                     <Divider hidden section/>
