@@ -19,7 +19,8 @@ class Add_service extends React.Component{
             service_name:"",
             
             description:"",
-            price:""
+            price:"",
+            capacity: 1 
             
             },
             duration:"",
@@ -52,13 +53,13 @@ class Add_service extends React.Component{
                 checked:true , 
                 first_range :[8,12],
                 second_range:[13,18],
-                
             },
             day7:{
                 checked:true , 
                 first_range :[8,12],
                 second_range:[13,18],
             },
+        capacity_error:false,
         price_error:false,
         service_name_error:false,
         contact_number_error:false,
@@ -207,6 +208,15 @@ class Add_service extends React.Component{
             this.setState(()=>({price_error:true}));       
             
         }
+    }
+    validate_capacity = () => {
+            const price = this.state.informations.day1.capacity;
+            if(/[0-9]/.test(price)) {
+                this.setState(()=>({capacity_error:false}));      
+            }else{
+                this.setState(()=>({capacity_error:true}));       
+                
+        }
 
     }
     validate_address = () => {
@@ -233,7 +243,7 @@ class Add_service extends React.Component{
     async onSubmit(){
         console.log(this.state.day1)
         const d = [
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open:this.state.day1.checked ? "1" : "0",
                         start_time:this.state.day1.first_range[0].toString() + ":00",
                         end_time:this.state.day1.second_range[1].toString()+ ":00",
@@ -241,7 +251,7 @@ class Add_service extends React.Component{
                         rest_start_time:this.state.day1.first_range[1].toString()+ ":00",
                         rest_end_time:this.state.day1.second_range[0].toString()+ ":00"  
                     },
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open:this.state.day2.checked ? "1" : "0",
                         start_time:this.state.day2.first_range[0].toString()+ ":00",
                         end_time:this.state.day2.second_range[1].toString()+ ":00",
@@ -249,7 +259,7 @@ class Add_service extends React.Component{
                         rest_start_time:this.state.day2.first_range[1].toString()+ ":00",
                         rest_end_time:this.state.day2.second_range[0].toString()+ ":00"  
                     },
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open:this.state.day3.checked ? "1" : "0",
                         start_time:this.state.day3.first_range[0].toString()+ ":00",
                         end_time:this.state.day3.second_range[1].toString()+ ":00",
@@ -257,7 +267,7 @@ class Add_service extends React.Component{
                         rest_start_time:this.state.day3.first_range[1].toString()+ ":00",
                         rest_end_time:this.state.day3.second_range[0].toString()+ ":00"  
                     },
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open:this.state.day4.checked ? "1" : "0",
                         start_time:this.state.day4.first_range[0].toString()+ ":00",
                         end_time:this.state.day4.second_range[1].toString()+ ":00",
@@ -265,7 +275,7 @@ class Add_service extends React.Component{
                         rest_start_time:this.state.day4.first_range[1].toString()+ ":00",
                         rest_end_time:this.state.day4.second_range[0].toString()+ ":00"  
                     },
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open:this.state.day5.checked ? "1" : "0",
                         start_time:this.state.day5.first_range[0].toString()+ ":00",
                         end_time:this.state.day5.second_range[1].toString()+ ":00",
@@ -273,7 +283,7 @@ class Add_service extends React.Component{
                         rest_start_time:this.state.day5.first_range[1].toString()+ ":00",
                         rest_end_time:this.state.day5.second_range[0].toString()+ ":00"  
                     },
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open: this.state.day6.checked ? "1" : "0",
                         start_time:this.state.day6.first_range[0].toString()+ ":00",
                         end_time:this.state.day6.second_range[1].toString()+ ":00",
@@ -281,7 +291,7 @@ class Add_service extends React.Component{
                         rest_start_time:this.state.day6.first_range[1].toString()+ ":00",
                         rest_end_time:this.state.day6.second_range[0].toString()+ ":00"  
                     },
-                    {
+                    {   capacity:this.state.informations.capacity,
                         open:this.state.day7.checked ? "1" : "0",
                         start_time:this.state.day7.first_range[0].toString()+ ":00",
                         end_time:this.state.day7.second_range[1].toString()+ ":00",
@@ -296,6 +306,7 @@ class Add_service extends React.Component{
         await this.props.get_business_info(this.props.business_id)
         this.props.change_panel('dashboard')
     }
+
 
     render(){
         return(
@@ -349,6 +360,26 @@ class Add_service extends React.Component{
                                     </Fade>
 
                         
+                            </Form.Field>
+                            <Form.Field>
+                                <Form.Input
+                                    fluid
+                                    label="ظرفیت"
+                                    name="capacity"
+                                    onBlur={this.validate_capacity}
+                                    value={this.state.informations.capacity}
+                                    onChange={this.handle_change}
+                                
+                                    
+                                />
+                                <Fade bottom collapse when={this.state.capacity_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        تنها میتوانید از اعداد استفاده کنید
+                                        </div>
+                                    </Fade>
+
                             </Form.Field>
                         </Form.Group>    
                                 
