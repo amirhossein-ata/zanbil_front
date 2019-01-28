@@ -57,7 +57,8 @@ class Dashboard extends React.Component{
                     <UploadPhotoModal 
                         business_id={this.props.business.id}
                         get_business_info={this.props.get_business_info}    
-                    />
+                        for_business = {true}                     
+                        />
                 </Grid>
 
                 <Grid centered>

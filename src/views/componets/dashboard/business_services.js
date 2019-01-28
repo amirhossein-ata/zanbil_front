@@ -5,8 +5,12 @@ import { Segment, Card,Grid, Divider, Header ,Image,Button,Breadcrumb,Comment,Ra
 import * as business_page_actions from '../../../core/business_page/business_page_actions'
 import * as service_page_actions from '../../../core/service_page/service_page_actions'
 import {change_panel} from '../../../core/main_page/active_panel_actions'
+import UploadPhoto from '../business_forms/upload_photo'
+import ModalComponent from '../modal/Modal'
 
 import moment from 'jalali-moment' 
+
+const UploadPhotoModal = ModalComponent('تغییر عکس')(UploadPhoto)
 
 class Services extends React.Component{
     constructor(props){
@@ -57,7 +61,11 @@ class Services extends React.Component{
                                 <Grid.Column computer={5} tablet={8} mobile={16}>
                                     <div>
                                         <Card color="teal" fluid raised style={{height:'50vh'}}>
-                                            <Image fluid size="massive" src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" />
+                                            <Image 
+                                                // fluid 
+                                                size="massive" 
+                                                src = {service.pictures[0] ?  require(`../../../assessts/ZanbilBackEnd/uploads/${service.pictures[service.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
+                                            />
                                             <Card.Content>
                                                  
                                                 <Card.Header>{service.name}</Card.Header>
@@ -69,12 +77,16 @@ class Services extends React.Component{
                                             <Card.Content extra>
                                 
                                                 <div style={{display:'flex',justifyContent:'space-around'}}>
-                                                <Button primary onClick={()=>this.on_service_click(service.id)}>
-                                                    نمایش سرویس
-                                                </Button>
-                                                <Button onClick={()=>this.on_edit_service_click(service.id)}>
-                                                    ویرایش سرویس
-                                                </Button>
+                                                    <Button primary onClick={()=>this.on_service_click(service.id)}>
+                                                        نمایش سرویس
+                                                    </Button>
+                                                    <Button onClick={()=>this.on_edit_service_click(service.id)}>
+                                                        ویرایش سرویس
+                                                    </Button>
+                                                    <UploadPhotoModal 
+                                                        service_id = {service.id}
+                                                        get_business_info = {this.props.get_business_info}
+                                                    />
                                                 </div>
                                             </Card.Content>
                                             
