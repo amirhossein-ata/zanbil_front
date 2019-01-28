@@ -1,5 +1,6 @@
 import React from 'react';
 import * as add_business_actions from '../../../core/add_business/add_business_actions';
+import * as account_page_actions from '../../../core/account_page/account_page_actions';
 import { Button,Form ,Grid,Label, Dropdown, Divider, Header} from 'semantic-ui-react';
 import {categories} from "../../../core/constants"
 import PersianRex from "persian-rex";
@@ -10,6 +11,12 @@ import Fade from 'react-reveal/Fade';
 
 import StoreIcon from '../../../assessts/icons/online-shopping.svg'
 class Add_business extends React.Component {
+    
+    constructor(props){
+        super(props)
+
+        this.onSubmit = this.onSubmit.bind(this)
+    }
     state = {
         informations:{
             name:"",
@@ -95,9 +102,10 @@ class Add_business extends React.Component {
     
 
     }
-    onSubmit = () => {
+    async onSubmit(){
         console.log(this.state.informations)
         this.props.add_business(this.state.informations)
+        await this.props.get_account_page()
         this.props.change_panel('account_page')
     }
 
@@ -263,6 +271,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
+        get_account_page:() => dispatch(account_page_actions.get_account_page()),
         add_business : (informations) => dispatch(add_business_actions.add_business(informations)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),    
     };

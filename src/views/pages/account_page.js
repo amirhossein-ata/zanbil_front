@@ -6,7 +6,6 @@ import { Card,Grid,Breadcrumb,Divider,Image,Segment, Message,Button} from 'seman
 import CardComponent from '../componets/card/card'
 import {connect} from "react-redux";
 import ReviewForm from "../componets/review/review_form"
-import Modal from "../componets/modal/Modal"
 import ManAvatar from '../../assessts/icons/man.svg'
 
 import Fade from 'react-reveal/Fade'

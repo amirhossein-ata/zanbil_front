@@ -102,7 +102,7 @@ class Timetable extends React.Component{
     render(){
         return(
             <div>
-                <Modal  size="tiny" dimmer="blurring" open={this.state.modalOpen} onClose={this.handleClose} closeIcon>
+                <Modal size="tiny" dimmer="blurring" open={this.state.modalOpen} onClose={this.handleClose} closeIcon>
                     <Modal.Content>
                         <Grid textAlign="right">
                             <GridColumn width={16}>

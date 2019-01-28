@@ -15,7 +15,7 @@ class Edit_service_page extends React.Component {
             
             description:this.props.description,
             fee:this.props.fee
-            
+                
             },
         sanses:[],
         price_error:false,
