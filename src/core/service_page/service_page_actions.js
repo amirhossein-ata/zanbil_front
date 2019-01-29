@@ -14,8 +14,9 @@ export const get_service_page_info_success = ({service,sanses,start_of_week_date
             fee:service.fee,
             rating:service.rating,
             timetable_id:service.timetable,
-            pictures: service.pictures
-            is_protected: service.is_protected
+            pictures: service.pictures,
+            is_protected: service.is_protected,
+            cancellation_range: service.cancellation_range
         },
         start_of_week_date:start_of_week_date,
         sanses:sanses

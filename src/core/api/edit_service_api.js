@@ -1,8 +1,8 @@
 import * as api_urls from './api_urls'
 
 class edit_service_api {
-    static edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password){
-        console.log("in api",service_name,description, fee,sanses,service_id,capacity,is_protected,old_password,new_password)
+    static edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range){
+        console.log("in api",service_name,description, fee,sanses,service_id,capacity,is_protected,old_password,new_password,cancellation_range)
         const request = new Request(api_urls.SERV,{
             mode:"cors",
             method:"PATCH",
@@ -19,7 +19,8 @@ class edit_service_api {
                 sanses:sanses,
                 is_protected : is_protected,
                 old_password : old_password,
-                new_password : new_password
+                new_password : new_password,
+                cancellation_range: cancellation_range
 
 
             })

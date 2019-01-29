@@ -18,6 +18,7 @@ class Edit_service_page extends React.Component {
             description:this.props.description,
             fee:this.props.fee,
             is_protected:this.props.is_protected,
+            cancellation_range:this.props.cancellation_range,
             new_password:"",
             old_password:""
                 
@@ -286,8 +287,8 @@ class Edit_service_page extends React.Component {
         console.log("my name is:", this.state.informations.service_name)
         console.log("capacity is:",this.state.informations.capacity)
         console.log("MODIFIED SANSES",this.state.modified_sanses)
-        console.log("I give up",this.state.informations.description,this.state.informations.fee,this.state.informations.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password)
-        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password);
+        console.log("I give up",this.state.informations.description,this.state.informations.fee,this.state.informations.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password,this.state.informations.cancellation_range)
+        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password, this.state.informations.cancellation_range);
         this.props.change_panel('dashboard')
 
     }
@@ -451,6 +452,27 @@ class Edit_service_page extends React.Component {
                                 </Fade>
                                 
                             </Form.Field>
+                            <Form.Field>
+                            <Form.Input
+                                fluid
+                                label="بازه‌ی زمانی لغو رزرو"
+                                name="cancellation_range"
+                                value={this.state.informations.cancellation_range}
+                                onChange={this.handle_change}
+                            
+                                
+                            />
+                            <Fade bottom collapse when={this.state.service_name_error}>
+                                        <div className="invalid-feedback" 
+                                        style={{ display: 'block',color:"#820b0b" }}
+                                        >
+                                        لطفا فقط از زبان فارسی استفاده کنید        
+                                        </div>
+                                    </Fade>
+                            
+                            
+                        </Form.Field>
+
                             {this.props.sanses && (
                                 <PreviewTimeTable 
                                     onConfirmChange={this.onConfirmChange} 
@@ -483,13 +505,14 @@ const mapStateToProps = (state) => {
         service_name:state.service_page_reducer.service.name,
         sanses : state.service_page_reducer.sanses,
         capacity: state.service_page_reducer.sanses[0].capacity,
-        is_protected: state.service_page_reducer.service.is_protected
+        is_protected: state.service_page_reducer.service.is_protected,
+        cancellation_range: state.service_page_reducer.service.cancellation_range
         
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        edit_service : (description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password)),
+        edit_service : (description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
         get_service_info : (service_id) => dispatch(edit_service_actions.get_service_info(service_id)),
 
