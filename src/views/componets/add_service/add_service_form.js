@@ -1,6 +1,6 @@
 import React from "react";
 import * as add_service_actions from '../../../core/add_service/add_service_actions';
-import { Button, Segment, Form ,Grid,Label, Divider, Input, Header} from 'semantic-ui-react'
+import { Button, Segment, Form ,Grid,Label, Divider, Input, Header, Checkbox} from 'semantic-ui-react'
 import PersianRex from "persian-rex";
 import TimeRangeSlider from "../time_slider/time_slider";
 import {connect} from "react-redux";
@@ -20,8 +20,9 @@ class Add_service extends React.Component{
             
             description:"",
             price:"",
-            capacity: 1 
-            
+            capacity: 1, 
+            is_protected: 0,
+            password:""
             },
             duration:"",
             day1:{
@@ -190,7 +191,17 @@ class Add_service extends React.Component{
         
         this.setState(() => ({duration:newState}))
     }
-
+    on_ckeck_box_click = () =>{
+        let informations = this.state.informations
+        if (this.state.informations.is_protected){
+            informations.is_protected = 0
+        }
+         else{
+            informations.is_protected = 1
+         }
+        console.log(this.state.informations.is_protected)
+        this.setState(() =>({informations: informations}))
+    }
     validate_service_name = () => {
         const name = this.state.informations.service_name
         if(!PersianRex.text.test(name)) {
@@ -382,7 +393,28 @@ class Add_service extends React.Component{
 
                             </Form.Field>
                         </Form.Group>    
-                                
+                        <Form.Group>
+                            <Form.Field width="5">
+                                <br></br>  
+                                <Checkbox onClick={this.on_ckeck_box_click} label='سرویس مخصوص اعضا' />
+                            </Form.Field>
+                            
+                           {} <Form.Field inline width="6">
+                           <Fade left collapse when={this.state.informations.is_protected}>
+                                    <label> رمز عبور</label>
+                                    <Input 
+                                        fluid
+                                        name="password"
+                                        type='password'
+                                        // error={this.service_name_error}
+                                        // onBlur={this.validate_service_name}
+                                        value={this.state.informations.password}
+                                        onChange={this.handle_change}    
+                                    />
+                                    </Fade> 
+                                </Form.Field>
+                                   
+                        </Form.Group>                
                         <Form.Field>
                             <Form.TextArea
                               

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider, Responsive ,Popup } from 'semantic-ui-react'
+import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider, Responsive ,Popup, Input } from 'semantic-ui-react'
 import moment from 'jalali-moment' 
 import * as service_page_actions from '../../../core/service_page/service_page_actions'
 import {reserve_sans} from '../../../core/reserve/reserve_actions'
@@ -18,6 +18,8 @@ class Timetable extends React.Component{
             reserve_success:false,
             modalOpen:false,
             description:'',
+            is_protected:this.props.is_protected,
+            password:'',
             sansinfo:{
                 sansID:undefined,
                 sans_start:'',
@@ -45,7 +47,15 @@ class Timetable extends React.Component{
         this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
         console.log('sanse after reserved are',this.props.sanses)
     }
-
+    handle_change= (e) => {
+        const input = e.target.value;
+        console.log("input is:", input)
+        this.setState(() => ({
+            password:input
+        }))        
+        console.log("state is:", this.state)
+            
+    }
 
     async on_next_week_click(){
         console.log(this.state.start_of_week)
@@ -94,10 +104,11 @@ class Timetable extends React.Component{
         this.setState(() => ({
             description:description
         }))
+        console.log("state is:", this.state)
     }
 
     async on_confirm_reserve(){
-        await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date)
+        await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date,this.state.password)
         this.setState(()=>({reserve_success:true}))
     }
     render(){
@@ -119,6 +130,22 @@ class Timetable extends React.Component{
                                             onChange={this.on_description_change}
                                         />
                                     </Form.Field>
+                                    {this.state.is_protected && (
+                                        <Form.Field inline width={16}>
+                                                 <label> رمز عبور</label>
+                                                 <Input 
+                                                     fluid
+                                                     name="password"
+                                                     type='password'
+                                                     value={this.state.password}
+                                                     onChange={this.handle_change}    
+                                                 />
+                                         </Form.Field>
+
+                                    )
+
+                                    }
+
                                     {this.state.reserve_success && (
                                         <Message positive>
                                             رزرو شما با موفقیت انجام شد.
@@ -332,14 +359,16 @@ const mapStateToProps = (state) => {
         start_of_week_date:state.service_page_reducer.start_of_week_date,
         sanses : state.service_page_reducer.sanses[0],
         service : state.service_page_reducer.service,
-        reserve_success:state.reserve_reducer.reserve_success
+        reserve_success:state.reserve_reducer.reserve_success,
+        is_protected:state.service_page_reducer.service.is_protected
+       
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
         get_service_page_info : (service_id,date) => dispatch(service_page_actions.get_services_page_info(service_id,date)),
-        reserve_sans : (sansID,description,service_id,date) => dispatch(reserve_sans(sansID,description,service_id,date))
+        reserve_sans : (sansID,description,service_id,date,password) => dispatch(reserve_sans(sansID,description,service_id,date,password))
     }
 }
 

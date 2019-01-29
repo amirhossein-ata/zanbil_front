@@ -15,6 +15,7 @@ export const get_service_page_info_success = ({service,sanses,start_of_week_date
             rating:service.rating,
             timetable_id:service.timetable,
             pictures: service.pictures
+            is_protected: service.is_protected
         },
         start_of_week_date:start_of_week_date,
         sanses:sanses

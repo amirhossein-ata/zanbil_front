@@ -138,10 +138,8 @@ class preview_timetable extends React.Component {
                     </Modal.Actions>
                 </Modal>
     
-                <Segment>
                 <Timetable sanses={this.props.sanses} onSansClick={this.onSansClick} edit={true} />
                 
-                </Segment>
 
                 </div>
             
