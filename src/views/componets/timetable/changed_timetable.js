@@ -36,7 +36,7 @@ class Timetable extends React.Component{
         const start_of_week = moment(this.props.start_of_week_date,'jYYYY/jMM/jDD').locale('fa').format('YYYY/MM/DD') 
         this.setState(()=>({last_of_week:last_of_week , start_of_week:start_of_week}))
         await this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
-
+        // console.log(this.props.sanses)
     }
     handleOpen = () => this.setState({ modalOpen: true })
 
@@ -101,6 +101,7 @@ class Timetable extends React.Component{
         this.setState(()=>({reserve_success:true}))
     }
     render(){
+        console.log(this.props.sanses[3])
         return(
             <div>
                 <Modal  size="tiny" dimmer="blurring" open={this.state.modalOpen} onClose={this.handleClose} closeIcon>
@@ -171,7 +172,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
                                         ))}
                                     </div>
@@ -194,7 +195,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
                                         ))}
                                     </div>    
@@ -216,7 +217,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
                                         ))}
                                             
@@ -239,7 +240,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
         
                                         ))}
@@ -262,7 +263,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
                                         ))}
                                             
@@ -285,7 +286,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
                                         ))}
                                         
@@ -308,7 +309,7 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.capacity} />
                                             
                                         ))}
                                             
@@ -326,7 +327,7 @@ class Timetable extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state.service_page_reducer.sanses[0])
     return{
         start_of_week_date:state.service_page_reducer.start_of_week_date,
         sanses : state.service_page_reducer.sanses[0],
