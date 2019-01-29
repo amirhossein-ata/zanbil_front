@@ -1,6 +1,6 @@
 import React from "react";
 import PersianRex from "persian-rex";
-import {Form,Label,Segment,Button} from "semantic-ui-react";
+import {Form,Label,Segment,Button, Grid,Input, Checkbox} from "semantic-ui-react";
 import * as edit_service_actions from "../../core/edit_service/edit_service_actions";
 import PreviewTimeTable from "../componets/timetable/preview_timetable";
 import {change_panel} from "../../core/main_page/active_panel_actions";
@@ -11,11 +11,15 @@ class Edit_service_page extends React.Component {
     state = {
         service_id:17,
         modified_sanses:[],
+        prev_is_protected:this.props.is_protected,
         informations:{
             service_name:this.props.service_name,
             capacity: this.props.capacity,
             description:this.props.description,
-            fee:this.props.fee
+            fee:this.props.fee,
+            is_protected:this.props.is_protected,
+            new_password:"",
+            old_password:""
                 
             },
         sanses:[],
@@ -44,6 +48,17 @@ class Edit_service_page extends React.Component {
             sanses:temp_sanses
         }))
 
+    }
+    on_ckeck_box_click = () =>{
+        let informations = this.state.informations
+        if (this.state.informations.is_protected){
+            informations.is_protected = 0
+        }
+         else{
+            informations.is_protected = 1
+         }
+        console.log(this.state.informations.is_protected)
+        this.setState(() =>({informations: informations}))
     }
     handle_change= (e) => {
         const input = e.target.value;
@@ -268,15 +283,23 @@ class Edit_service_page extends React.Component {
         console.log("t is:",t)
         console.log("service id is:")
         console.log(this.state.service_id)
-        this.props.edit_service(this.state.informations.service_name,this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.service_id);
+        console.log("my name is:", this.state.informations.service_name)
+        console.log("capacity is:",this.state.informations.capacity)
+        console.log("MODIFIED SANSES",this.state.modified_sanses)
+        console.log("I give up",this.state.informations.description,this.state.informations.fee,this.state.informations.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password)
+        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password);
         this.props.change_panel('dashboard')
 
     }
     render(){
+        console.log("previous is protected is:", this.props.is_protected)
+        console.log("props are:",this.props)
         return (
             <div>
-            <Segment textAlign="right">  
+            <Grid centered textAlign="right">
+                <Grid.Column width={13} textAlign="right">
                 <Form >
+                <Form.Group widths="equal">
                         <Form.Field>
                             <Form.Input
                                 fluid
@@ -298,7 +321,7 @@ class Edit_service_page extends React.Component {
                             
                             
                         </Form.Field>
-                        <Form.Group widths="equal">
+                        
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -341,8 +364,75 @@ class Edit_service_page extends React.Component {
                                 
                         
                             </Form.Field>
+                    </Form.Group>
+                    { this.state.prev_is_protected === 0 &&
+                        <Form.Group>
+                            <Form.Field width="5">
+                                <br></br>  
+                                <Checkbox 
+                                  onClick={this.on_ckeck_box_click} 
+                                  checked={this.state.informations.is_protected} 
+                                  label='سرویس مخصوص اعضا' />
+                            </Form.Field>
                             
-                        </Form.Group>
+                           <Form.Field inline width="6">
+                           <Fade left collapse when={this.state.informations.is_protected}>
+                                    <label> رمز عبور</label>
+                                    <Input 
+                                        fluid
+                                        name="password"
+                                        type='password'
+                                        // error={this.service_name_error}
+                                        // onBlur={this.validate_service_name}
+                                        value={this.state.informations.password}
+                                        onChange={this.handle_change}    
+                                    />
+                                    </Fade> 
+                            </Form.Field>
+                                   
+                        </Form.Group>                
+                    }
+                    { this.state.prev_is_protected === 1 &&
+                        <Form.Group>
+                            <Form.Field width="2">
+                                <br></br>  
+                                <Checkbox 
+                                  onClick={this.on_ckeck_box_click} 
+                                  checked={this.state.informations.is_protected} 
+                                  label='سرویس مخصوص اعضا' />                            
+                            </Form.Field>
+                            
+                           <Form.Field inline width="6">
+                            <Fade left collapse when={this.state.informations.is_protected}>
+                                    <label> رمز عبور پیشین</label>
+                                    <Input 
+                                        fluid
+                                        name="old_password"
+                                        type='password'
+                                        // error={this.service_name_error}
+                                        // onBlur={this.validate_service_name}
+                                        value={this.state.informations.old_password}
+                                        onChange={this.handle_change}    
+                                    />
+                                    </Fade> 
+                            </Form.Field>
+                           <Form.Field inline width="6">
+                            <Fade left collapse when={this.state.informations.is_protected}>
+                                    <label>  رمز عبور جدید</label>
+                                    <Input 
+                                        fluid
+                                        name="new_password"
+                                        type='password'
+                                        // error={this.service_name_error}
+                                        // onBlur={this.validate_service_name}
+                                        value={this.state.informations.new_password}
+                                        onChange={this.handle_change}    
+                                    />
+                                    </Fade> 
+                            </Form.Field>       
+                        </Form.Group>                
+                    }
+                    
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -373,11 +463,14 @@ class Edit_service_page extends React.Component {
 
                                 />
                             )}
-                            <Button onClick = {this.onSubmit} primary type='submit'>اعمال تغییرات</Button>
+                            <br /> <br />
+                            <Grid centered>
+                                <Button onClick = {this.onSubmit} primary type='submit'>اعمال تغییرات</Button>
+                            </Grid>
                             </Form>
-                            </Segment>
-            
-            </div>
+                        </Grid.Column>
+                    </Grid>        
+          </div>
         )
     }
 }
@@ -389,13 +482,14 @@ const mapStateToProps = (state) => {
         service_id:state.service_page_reducer.service.id,
         service_name:state.service_page_reducer.service.name,
         sanses : state.service_page_reducer.sanses,
-        capacity: state.service_page_reducer.sanses[0].capacity 
-    
+        capacity: state.service_page_reducer.sanses[0].capacity,
+        //is_protected: state.service_page_reducer.service.is_protected
+        is_protected: 1 
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        edit_service : (description,fee,sanses,service_name,service_id) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id)),
+        edit_service : (description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
         get_service_info : (service_id) => dispatch(edit_service_actions.get_service_info(service_id)),
 

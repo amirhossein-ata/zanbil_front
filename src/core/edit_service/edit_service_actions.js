@@ -27,9 +27,11 @@ export const get_service_page_info_success = ({service,sanses}) => {
     }
 }
 
-export const edit_service = (service_name,description, fee,sanses,service_id) => {
+export const edit_service = (description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password) => {
+    console.log("FUUUUUUUUUUUU is///////////////////////////////////////////////:")
+    console.log(service_name,description, fee,sanses,service_id,capacity,is_protected,old_password,new_password)
     return function(dispatch){
-        return (edit_service_api.edit_service(service_name,description, fee,sanses,service_id))
+        return (edit_service_api.edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password))
                                     .then((response) => {
                                         if(response){
                                             console.log('response from edit service',response)

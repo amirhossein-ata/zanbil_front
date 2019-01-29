@@ -7,8 +7,10 @@ const initialState = {
 }
 
 export const service_page_reducer = (state=initialState ,action) => {
+    
     switch(action.type){
         case service_page_action_types.GET_SERVICE_PAGE_INFO_SUCCESS:
+            console.log("action in service_page is", action)
             return {
                 ...state,
                 service:action.service,
