@@ -221,7 +221,7 @@ class Add_service extends React.Component{
         }
     }
     validate_capacity = () => {
-            const price = this.state.informations.day1.capacity;
+            const price = this.state.informations.capacity;
             if(/[0-9]/.test(price)) {
                 this.setState(()=>({capacity_error:false}));      
             }else{
@@ -256,66 +256,67 @@ class Add_service extends React.Component{
         const d = [
                     {   capacity:this.state.informations.capacity,
                         open:this.state.day1.checked ? "1" : "0",
-                        start_time:this.state.day1.first_range[0].toString() + ":00",
-                        end_time:this.state.day1.second_range[1].toString()+ ":00",
+                        start_time:this.state.day1.first_range[0],
+                        end_time:this.state.day1.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day1.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day1.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day1.first_range[1],
+                        rest_end_time:this.state.day1.second_range[0]  
                     },
                     {   capacity:this.state.informations.capacity,
                         open:this.state.day2.checked ? "1" : "0",
-                        start_time:this.state.day2.first_range[0].toString()+ ":00",
-                        end_time:this.state.day2.second_range[1].toString()+ ":00",
+                        start_time:this.state.day2.first_range[0],
+                        end_time:this.state.day2.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day2.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day2.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day2.first_range[1],
+                        rest_end_time:this.state.day2.second_range[0]  
                     },
                     {   capacity:this.state.informations.capacity,
                         open:this.state.day3.checked ? "1" : "0",
-                        start_time:this.state.day3.first_range[0].toString()+ ":00",
-                        end_time:this.state.day3.second_range[1].toString()+ ":00",
+                        start_time:this.state.day3.first_range[0],
+                        end_time:this.state.day3.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day3.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day3.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day3.first_range[1],
+                        rest_end_time:this.state.day3.second_range[0]  
                     },
                     {   capacity:this.state.informations.capacity,
                         open:this.state.day4.checked ? "1" : "0",
-                        start_time:this.state.day4.first_range[0].toString()+ ":00",
-                        end_time:this.state.day4.second_range[1].toString()+ ":00",
+                        start_time:this.state.day4.first_range[0],
+                        end_time:this.state.day4.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day4.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day4.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day4.first_range[1],
+                        rest_end_time:this.state.day4.second_range[0]  
                     },
                     {   capacity:this.state.informations.capacity,
                         open:this.state.day5.checked ? "1" : "0",
-                        start_time:this.state.day5.first_range[0].toString()+ ":00",
-                        end_time:this.state.day5.second_range[1].toString()+ ":00",
+                        start_time:this.state.day5.first_range[0],
+                        end_time:this.state.day5.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day5.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day5.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day5.first_range[1],
+                        rest_end_time:this.state.day5.second_range[0]  
                     },
                     {   capacity:this.state.informations.capacity,
                         open: this.state.day6.checked ? "1" : "0",
-                        start_time:this.state.day6.first_range[0].toString()+ ":00",
-                        end_time:this.state.day6.second_range[1].toString()+ ":00",
+                        start_time:this.state.day6.first_range[0],
+                        end_time:this.state.day6.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day6.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day6.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day6.first_range[1],
+                        rest_end_time:this.state.day6.second_range[0]  
                     },
                     {   capacity:this.state.informations.capacity,
                         open:this.state.day7.checked ? "1" : "0",
-                        start_time:this.state.day7.first_range[0].toString()+ ":00",
-                        end_time:this.state.day7.second_range[1].toString()+ ":00",
+                        start_time:this.state.day7.first_range[0],
+                        end_time:this.state.day7.second_range[1],
                         duration:this.state.duration,
-                        rest_start_time:this.state.day7.first_range[1].toString()+ ":00",
-                        rest_end_time:this.state.day7.second_range[0].toString()+ ":00"  
+                        rest_start_time:this.state.day7.first_range[1],
+                        rest_end_time:this.state.day7.second_range[0].toString()+":00"  
                     }
                     
                 ]
     
-        await this.props.add_service(this.state.informations,d,this.props.business_id)
-        await this.props.get_business_info(this.props.business_id)
-        this.props.change_panel('dashboard')
+        // await this.props.add_service(this.state.informations,d,this.props.business_id)
+        // await this.props.get_business_info(this.props.business_id)
+        this.props.set_service_information(this.state.informations,d,this.props.business_id)
+        this.props.change_panel('preview_timetable_on_addService')
     }
 
 
@@ -612,7 +613,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        add_service : (informations, days,business_id) => dispatch(add_service_actions.add_service(informations, days,business_id)),
+        set_service_information : (informations, days,business_id) => dispatch(add_service_actions.set_service_information(informations, days,business_id)),
         get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
 

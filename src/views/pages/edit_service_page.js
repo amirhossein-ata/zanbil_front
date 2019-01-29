@@ -31,16 +31,14 @@ class Edit_service_page extends React.Component {
         second_range_error:false
     }
     async componentDidMount(){
-           console.log(this.props.service_id)
         this.setState(()=>({service_id:this.props.service_id}))
         let temp_information = this.state.informations;
         temp_information.informations=this.props.service_id
-        // temp_information.service_name = this.props.sanses; 
         temp_information.fee =this.props.fee;
         temp_information.capacity = this.props.capacity;
         temp_information.description =this.props.description;
         temp_information.service_name =this.props.service_name;
-         this.setState(() => ({
+        this.setState(() => ({
             informations : temp_information
         }))
         let temp_sanses=this.props.sanses;
@@ -183,11 +181,8 @@ class Edit_service_page extends React.Component {
 
     }
     onConfirmChange= (sansinfo) => {
-        // console.log("confirm sans is",sansinfo);
            let temp_sanses= this.state.sanses;
-        //    console.log("tempSanses:", temp_sanses)
            const day=temp_sanses[0][sansinfo.weekday];
-        //    console.log("day:",day)
            let prev_sans=undefined;
            let next_sans=undefined;
            let temp_sans = day[sansinfo.sans_num];
@@ -218,17 +213,12 @@ class Edit_service_page extends React.Component {
                console.log("next sans is:",next_sans.sans)
             
             if((parseInt(next_sans.sans.start_time.slice(0,3),10) < parseInt(sansinfo.end_time.slice(0,3) ,10)) || ((parseInt(next_sans.sans.start_time.slice(0,3),10) === parseInt(sansinfo.end_time.slice(0,3) ,10)) && ((parseInt(next_sans.sans.start_time.slice(3),10) < parseInt(sansinfo.end_time.slice(3) ,10))))){
-                console.log("fuck off")
                 let next_temp_sans=next_sans;
                 next_temp_sans.sans.start_time = sansinfo.end_time;
                 next_temp_sans.sans.sans_id = next_temp_sans.sans.id;
                 next_temp_sans.sans.is_deleted = 0;
-                console.log("next_temp_sans_is:",next_temp_sans)
                 temp_sanses[0][sansinfo.weekday][sansinfo.sans_num+1] = next_temp_sans; 
                 temp_modified.push(next_temp_sans.sans);
-                
-                
-
         }
 
            }
@@ -239,8 +229,6 @@ class Edit_service_page extends React.Component {
            console.log("tempsans is:",temp_sans)
            temp_sans.sans.sans_id = temp_sans.sans.id;
            temp_modified.push(temp_sans.sans);
-        //    console.log("tempsanses before setState:",temp_sans)
-        //    console.log("before setState:",this.state)
            this.setState(() => ({
                modified_sanses : temp_modified,
                sanses:temp_sanses

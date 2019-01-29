@@ -19,6 +19,7 @@ import {NavBarDesktop , NavBarMobile} from '../componets/navbar/navbar'
 import Dashboard from "../componets/dashboard/dashboard";
 import AddBusiness from "../componets/business_forms/add_business"
 import EditService from "../pages/edit_service_page"
+import Preview_timetable_on_addService from '../componets/add_service//preview_timetable_on_addService'
 import {categories} from '../../core/constants'
 
 class Main_page extends React.Component{
@@ -88,6 +89,8 @@ class Main_page extends React.Component{
                 return <AddBusiness />
             case "edit_service_page":
                 return <EditService />
+            case 'preview_timetable_on_addService':
+                return <Preview_timetable_on_addService />
             default:
                 return ''
         }
