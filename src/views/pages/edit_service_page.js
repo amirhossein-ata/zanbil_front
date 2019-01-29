@@ -365,7 +365,7 @@ class Edit_service_page extends React.Component {
                         
                             </Form.Field>
                     </Form.Group>
-                    { this.state.prev_is_protected === 0 &&
+                    { !this.state.prev_is_protected  &&
                         <Form.Group>
                             <Form.Field width="5">
                                 <br></br>  
@@ -392,7 +392,7 @@ class Edit_service_page extends React.Component {
                                    
                         </Form.Group>                
                     }
-                    { this.state.prev_is_protected === 1 &&
+                    { this.state.prev_is_protected  &&
                         <Form.Group>
                             <Form.Field width="2">
                                 <br></br>  
@@ -483,8 +483,8 @@ const mapStateToProps = (state) => {
         service_name:state.service_page_reducer.service.name,
         sanses : state.service_page_reducer.sanses,
         capacity: state.service_page_reducer.sanses[0].capacity,
-        //is_protected: state.service_page_reducer.service.is_protected
-        is_protected: 1 
+        is_protected: state.service_page_reducer.service.is_protected
+        
     }
 }
 const mapDispatchToProps = (dispatch) => {
