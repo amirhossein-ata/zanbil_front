@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider, Responsive } from 'semantic-ui-react'
+import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider, Responsive ,Popup } from 'semantic-ui-react'
 import moment from 'jalali-moment' 
 import * as service_page_actions from '../../../core/service_page/service_page_actions'
 import {reserve_sans} from '../../../core/reserve/reserve_actions'
@@ -22,7 +22,8 @@ class Timetable extends React.Component{
                 sansID:undefined,
                 sans_start:'',
                 sans_end:'',
-                date:''
+                date:'',
+                // capacity:1
             }
         }
     
@@ -162,7 +163,7 @@ class Timetable extends React.Component{
                                 ):(
                                     <div>
                                         {this.props.sanses[0].map((sans) => (
-                                            <Button 
+                                            <Popup trigger={<Button 
                                                 onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
@@ -170,7 +171,8 @@ class Timetable extends React.Component{
                                                 style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
                                         ))}
                                     </div>
                                 )}
@@ -184,15 +186,16 @@ class Timetable extends React.Component{
                                     <div>
                                     
                                         {this.props.sanses[1].map((sans) => (
-                                            <Button 
-                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,1)} 
+                                            <Popup trigger={<Button 
+                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
                                                 fluid 
-                                                style={style}
+                                                style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
                                         ))}
                                     </div>    
                                 )}
@@ -205,15 +208,16 @@ class Timetable extends React.Component{
                                 ):(
                                     <div>
                                         {this.props.sanses[2].map((sans) => (
-                                            <Button 
-                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,2)} 
+                                            <Popup trigger={<Button 
+                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
                                                 fluid 
-                                                style={style}
+                                                style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
                                         ))}
                                             
                                     </div>
@@ -227,15 +231,16 @@ class Timetable extends React.Component{
                                 ):(
                                     <div>
                                         {this.props.sanses[3].map((sans) => (
-                                            <Button 
-                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,3)} 
+                                            <Popup trigger={<Button 
+                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
                                                 fluid 
-                                                style={style}
+                                                style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
         
                                         ))}
                                     </div>
@@ -249,15 +254,16 @@ class Timetable extends React.Component{
                                 ):(
                                     <div>
                                         {this.props.sanses[4].map((sans) => (
-                                            <Button 
-                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,4)} 
+                                            <Popup trigger={<Button 
+                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
                                                 fluid 
-                                                style={style}
+                                                style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
                                         ))}
                                             
                                     </div>
@@ -271,15 +277,16 @@ class Timetable extends React.Component{
                                 ):(
                                     <div>
                                         {this.props.sanses[5].map((sans) => (
-                                            <Button 
-                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,5)} 
+                                            <Popup trigger={<Button 
+                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
                                                 fluid 
-                                                style={style}
+                                                style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
                                         ))}
                                         
                                     </div>
@@ -293,15 +300,16 @@ class Timetable extends React.Component{
                                 ):(
                                     <div>
                                         {this.props.sanses[6].map((sans) => (
-                                            <Button 
-                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,6)}  
+                                            <Popup trigger={<Button 
+                                                onClick={()=>this.onSansClick(sans.sans.id,sans.sans.start_time,sans.sans.end_time,0)} 
                                                 color="linkedin" 
                                                 disabled={sans.is_reserved} 
                                                 fluid 
-                                                style={style}
+                                                style={style} 
                                             >
                                                 {sans.sans.start_time} - {sans.sans.end_time}
-                                            </Button>
+                                            </Button>} content={"ظرفیت باقیمانده : " + sans.sans.capacity} />
+                                            
                                         ))}
                                             
                                     </div>
