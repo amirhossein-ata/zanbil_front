@@ -58,7 +58,7 @@ class Search_page extends React.Component{
                             <div onClick={()=>this.on_service_click(search_result)}>
                                 <CardComponent 
                                         info={true}
-                                        image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"
+                                        image={search_result.business.pictures.length !== 0 ?  require(`../../assessts/ZanbilBackEnd/uploads/${search_result.business.pictures[search_result.business.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                                         header={`${search_result.business.name}/${search_result.name}`}
                                         rating={search_result.rating}
                                         description={`قیمت : ${search_result.fee}`}

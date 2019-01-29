@@ -27,8 +27,8 @@ class Service_page extends React.Component{
                                     style={{height:'50vh'}} 
                                 >
                                     <Image 
-                                        size="massive" 
-                                        src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" 
+                                        size="massive"
+                                        src={this.props.service.pictures[0] ?  require(`../../assessts/ZanbilBackEnd/uploads/${this.props.service.pictures[this.props.service.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                                     />
                                     <Card.Content textAlign="right">
                                         <Card.Header>{this.props.service.name}</Card.Header>
@@ -61,11 +61,12 @@ class Service_page extends React.Component{
                                     raised 
                                     fluid  
                                     color="teal" 
-                                    style={{height:'50vh'}} 
+                                    style={{height:'97vh'}} 
+
                                 >
                                     <Image 
                                         size="massive" 
-                                        src="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg" 
+                                        src= {this.props.service.pictures[0] ?  require(`../../assessts/ZanbilBackEnd/uploads/${this.props.service.pictures[this.props.service.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                                     />
                                     <Card.Content textAlign="right">
                                         <Card.Header>{this.props.service.name}</Card.Header>
@@ -88,10 +89,11 @@ class Service_page extends React.Component{
                             {this.props.service && (
                                 <Card 
                                     info={true}
-                                    image="https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"                                
+                                    image = {this.props.service.pictures[0] ?  require(`../../assessts/ZanbilBackEnd/uploads/${this.props.service.pictures[this.props.service.pictures.length - 1].id}`) : "https://tehdooni.com/wp-content/uploads/2017/12/7715_%DA%A9%D8%A7%D9%81%D9%87-%D8%AA%D9%88-%DA%A9%D8%A7%D9%81%D9%87-%D8%AC%D9%87%D8%A7%D9%86-%D8%A2%D8%B1%D8%A7.jpg"}
                                     rating={this.props.service.rating}
                                     header={this.props.service.name}
                                     description={`قیمت : ${this.props.service.fee}`}
+                                    height = "100vh"
                                 />
                             )}  
                         </Grid.Column>

@@ -26,10 +26,12 @@ const amirhossein_style = (props) => ({
     alignItems:'center'
 })
 
-const info_style = (props) => ({
-    height:'50vh',
-
-})
+const info_style = (props) => {
+    console.log(props)
+    return{
+       height:props.height ? props.height : '50vh' ,
+    }
+}
 
 const AnimatedCard = posed.div({
     // hoverable: true,
