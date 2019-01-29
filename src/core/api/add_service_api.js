@@ -1,7 +1,7 @@
 import * as api_urls from './api_urls'
 class Add_service_api{
     static add_service(informations, days,business_id){
-        console.log(days)
+        console.log(informations,days,business_id)
         const request = new Request(api_urls.SERV,{
             mode:'cors',
             method:'PUT',
@@ -13,13 +13,12 @@ class Add_service_api{
                         name:informations.service_name,
                         is_protected:informations.is_protected,
                         capacity:informations.capacity,
+                        cancellation_range:informations.cancellation_range,
                         password:informations.password,
                         price:informations.price,
                         description:informations.description,
                         business_id:business_id,
                         days: days
-
-
             })
         });
 

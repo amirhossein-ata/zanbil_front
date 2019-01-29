@@ -17,7 +17,7 @@ class Add_service extends React.Component{
     state = {
         informations:{
             service_name:"",
-            
+            cancellation_range:'',
             description:"",
             price:"",
             capacity: 1, 
@@ -181,7 +181,6 @@ class Add_service extends React.Component{
             default:
                 break   
         }
-        console.log('caaaaaaaaaaaaaaled')
     }
     on_duration_change = (e) => {
         const value = e.target.value
@@ -415,7 +414,19 @@ class Add_service extends React.Component{
                                     </Fade> 
                                 </Form.Field>
                                    
-                        </Form.Group>                
+                        </Form.Group> 
+                        <Form.Field>
+                            <Form.Input
+                                fluid
+                                label="بازه‌ی مجاز لغو رزرو"
+                                name="cancellation_range"
+                                value={this.state.informations.cancellation_range}
+                                onChange={this.handle_change}
+                            
+                                
+                            />
+                        </Form.Field>
+                              
                         <Form.Field>
                             <Form.TextArea
                               
@@ -582,6 +593,7 @@ class Add_service extends React.Component{
                                     <Form.Field>
                                         <Form.Input 
                                             label="طول هر سانس"
+                                            value={this.state.duration}
                                             onChange={this.on_duration_change}
                                         />
             
@@ -589,12 +601,16 @@ class Add_service extends React.Component{
                                             
                                 </Grid.Column>
                         </Grid>
-                       
-                        <Button 
-                            primary 
-                            disbled={this.state.description_error || this.state.price_error || this.state.price_error ||this.state.service_name_error}
-                            type='submit'>ایجاد سرویس</Button>
-                    
+                        <Grid centered>
+                            <Button 
+                                primary 
+                                disbled={this.state.description_error || this.state.price_error || this.state.price_error ||this.state.service_name_error}
+                                type='submit'>مشاهده‌ی جدول زمانی
+                            </Button>
+                        
+                        </Grid>
+                        
+                        <Divider hidden section />
                                 
                     </Form>
                 </Grid.Column>
