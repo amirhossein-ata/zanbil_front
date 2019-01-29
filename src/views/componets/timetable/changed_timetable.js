@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider, Responsive ,Popup, Input } from 'semantic-ui-react'
+import { Grid, Button, Segment ,Icon ,Modal, Form, GridColumn, Message, Divider, Popup, Input } from 'semantic-ui-react'
 import moment from 'jalali-moment' 
 import * as service_page_actions from '../../../core/service_page/service_page_actions'
 import {reserve_sans} from '../../../core/reserve/reserve_actions'
@@ -16,6 +16,7 @@ class Timetable extends React.Component{
             start_of_week:'',
             last_of_week:'',
             reserve_success:false,
+            reserve_error:false,
             modalOpen:false,
             description:'',
             is_protected:this.props.is_protected,
@@ -43,7 +44,7 @@ class Timetable extends React.Component{
     handleOpen = () => this.setState({ modalOpen: true })
 
     handleClose = () => {
-        this.setState({ modalOpen: false,reserve_success:false })
+        this.setState({ modalOpen: false,reserve_success:false,reserve_error:false })
         this.props.get_service_page_info(this.props.service.id  , this.state.start_of_week)
         console.log('sanse after reserved are',this.props.sanses)
     }
@@ -109,7 +110,11 @@ class Timetable extends React.Component{
 
     async on_confirm_reserve(){
         await this.props.reserve_sans(this.state.sansinfo.sansID,this.state.description,this.props.service.id,this.state.sansinfo.date,this.state.password)
-        this.setState(()=>({reserve_success:true}))
+        if(this.props.reserve_success){
+            this.setState(()=>({reserve_success:true,reserve_error:false}))
+        }else{
+            this.setState(()=>({reserve_error:true,reserve_success:false}))
+        }
     }
     render(){
         console.log(this.props.sanses[3])
@@ -149,6 +154,11 @@ class Timetable extends React.Component{
                                     {this.state.reserve_success && (
                                         <Message positive>
                                             رزرو شما با موفقیت انجام شد.
+                                        </Message>
+                                    )}
+                                    {this.state.reserve_error && (
+                                        <Message negative>
+                                           مشکلی در ثبت رزرو شما پیش آمده است . 
                                         </Message>
                                     )}
                                 </Form>

@@ -11,7 +11,11 @@ export const reserve_reducer = (state=initialState,action) => {
                 ...state,
                 reserve_success:true
             }
-    
+        case reserve_action_types.RESERVE_FAILUR:
+            return{
+                ...state,
+                    reserve_success:false
+            }
         default:
             return state
     }

@@ -1,7 +1,8 @@
 import reserve_sans_api from '../api/reserve_sans_api'
 
 export const reserve_action_types = {
-    RESERVE_SUCCESS : 'RESERVE_SUCCESS'
+    RESERVE_SUCCESS : 'RESERVE_SUCCESS',
+    RESERVE_FAILUR : 'RESERVE_FAILUR'
 }
 
 export const reserve_success = (response) => {
@@ -19,6 +20,11 @@ export const reserve_sans = (sansID,description,service_id,date,week_day,passwor
                                     if(response){
                                         console.log('response from reserve sans : ',response)
                                         dispatch(reserve_success(response))
+                                    }
+                                    else{
+                                        dispatch({
+                                            type:reserve_action_types.RESERVE_FAILUR
+                                        })
                                     }
                                 })
     }
