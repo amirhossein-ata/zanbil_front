@@ -280,8 +280,7 @@ class Edit_service_page extends React.Component {
 
     }
     render(){
-        console.log("previous is protected is:", this.props.is_protected)
-        console.log("props are:",this.props)
+        console.log(this.props)
         return (
             <div>
             <Grid centered textAlign="right">
@@ -443,7 +442,7 @@ class Edit_service_page extends React.Component {
                                 <PreviewTimeTable 
                                     onConfirmChange={this.onConfirmChange} 
                                     deleteSans={this.deleteSans} 
-                                    sanses={this.props.sanses}
+                                    sanses={this.props.sanses[0]}
                                     firstRangeValidation={this.validate_first_range}
                                     firstRangeError={this.state.first_range_error}
                                     secondRangeValidation={this.validate_second_range}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button ,GridColumn,  Responsive } from 'semantic-ui-react';
+import {Button } from 'semantic-ui-react';
 
 const style={
     marginTop:'2px'

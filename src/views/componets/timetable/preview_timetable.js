@@ -104,6 +104,7 @@ class preview_timetable extends React.Component {
     }
     on_delete_sans = () => {
         this.props.deleteSans(this.state.sansinfo)
+        this.handleClose();
     }
     firstRangeValidation = () => {
         this.props.firstRangeValidation(this.state.sansinfo);
@@ -115,7 +116,7 @@ class preview_timetable extends React.Component {
 
     render(){
         
-        console.log(this.props.sanses[0])
+        console.log(this.props.sanses)
         
         return(
             <div>

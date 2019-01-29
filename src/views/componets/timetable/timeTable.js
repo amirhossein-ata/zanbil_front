@@ -7,7 +7,7 @@ class TimeTable extends React.Component {
 
     render() {
         let days=[]
-        this.props.sanses[0] &&this.props.sanses[0].map((day,i)=>{
+        this.props.sanses &&this.props.sanses.map((day,i)=>{
             days[i]=day
         })
         console.log(days)        
