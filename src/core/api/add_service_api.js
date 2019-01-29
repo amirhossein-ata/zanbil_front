@@ -11,7 +11,8 @@ class Add_service_api{
            },
             body : JSON.stringify({
                         name:informations.service_name,
-                        
+                        is_protected:informations.is_protected,
+                        password:informations.password,
                         price:informations.price,
                         description:informations.description,
                         business_id:business_id,
