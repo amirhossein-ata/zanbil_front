@@ -3,6 +3,7 @@ import PersianRex from "persian-rex";
 import {Form,Label,Segment,Button} from "semantic-ui-react";
 import * as edit_service_actions from "../../core/edit_service/edit_service_actions";
 import PreviewTimeTable from "../componets/timetable/preview_timetable";
+import {change_panel} from "../../core/main_page/active_panel_actions";
 import {connect} from "react-redux"
 import Fade from 'react-reveal/Fade';
 
@@ -12,13 +13,14 @@ class Edit_service_page extends React.Component {
         modified_sanses:[],
         informations:{
             service_name:this.props.service_name,
-            
+            capacity: this.props.capacity,
             description:this.props.description,
             fee:this.props.fee
                 
             },
         sanses:[],
         price_error:false,
+        capacity_error:false,
         service_name_error:false,
         description_error:false,
         first_range_error:false,
@@ -29,8 +31,9 @@ class Edit_service_page extends React.Component {
         this.setState(()=>({service_id:this.props.service_id}))
         let temp_information = this.state.informations;
         temp_information.informations=this.props.service_id
-        temp_information.service_name = this.props.sanses; 
+        // temp_information.service_name = this.props.sanses; 
         temp_information.fee =this.props.fee;
+        temp_information.capacity = this.props.capacity;
         temp_information.description =this.props.description;
         temp_information.service_name =this.props.service_name;
          this.setState(() => ({
@@ -69,6 +72,17 @@ class Edit_service_page extends React.Component {
             this.setState(()=>({price_error:false}));      
         }else{
             this.setState(()=>({price_error:true}));       
+            
+        }
+
+    }
+
+    validate_capacity = () => {
+        const capacity = this.state.informations.capacity;
+        if(/[0-9]/.test(capacity)) {
+            this.setState(()=>({capacity_error:false}));      
+        }else{
+            this.setState(()=>({capacity_error:true}));       
             
         }
 
@@ -235,11 +249,28 @@ class Edit_service_page extends React.Component {
 
     }
     onSubmit = () => {
-        // let t = []
+         let t = []
+         let temp;
         // this.state.modified_sanses.map((mod_sans)=>(
-        //     t.push(mod_sans.sans)
-        // ))
+             
+        //     t.push(mod_sans.sans);
+        //  ))
+        this.state.modified_sanses.map((mod_sans) => (
+            temp = mod_sans,
+            temp.capacity = this.state.informations.capacity,
+            t.push(temp)
+
+
+
+        ));
+        console.log("modified sanses are:")
+        console.log(this.state.modified_sanses)
+        console.log("t is:",t)
+        console.log("service id is:")
+        console.log(this.state.service_id)
         this.props.edit_service(this.state.informations.service_name,this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.service_id);
+        this.props.change_panel('dashboard')
+
     }
     render(){
         return (
@@ -267,6 +298,7 @@ class Edit_service_page extends React.Component {
                             
                             
                         </Form.Field>
+                        <Form.Group widths="equal">
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -288,8 +320,29 @@ class Edit_service_page extends React.Component {
                                 
                         
                             </Form.Field>
+                            <Form.Field>
+                                <Form.Input
+                                    fluid
+                                    label="ظرفیت"
+                                    name="capacity"
+                                    onBlur={this.validate_capacity}
+                                    value={this.state.informations.capacity}
+                                    onChange={this.handle_change}
+                                
+                                    
+                                />
+                                <Fade bottom collapse when={this.state.price_error}>
+                                    <div className="invalid-feedback" 
+                                    style={{ display: 'block',color:"#820b0b" }}
+                                    >
+                                    تنها میتوانید از اعداد استفاده کنید
+                                    </div>
+                                </Fade>
+                                
+                        
+                            </Form.Field>
                             
-                            
+                        </Form.Group>
                             <Form.Field>
                                 <Form.Input
                                     fluid
@@ -335,14 +388,15 @@ const mapStateToProps = (state) => {
         description: state.service_page_reducer.service.description,
         service_id:state.service_page_reducer.service.id,
         service_name:state.service_page_reducer.service.name,
-        sanses : state.service_page_reducer.sanses
+        sanses : state.service_page_reducer.sanses,
+        capacity: state.service_page_reducer.sanses[0].capacity 
     
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return{
         edit_service : (description,fee,sanses,service_name,service_id) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id)),
-        
+        change_panel:(panel_name) => dispatch(change_panel(panel_name)),
         get_service_info : (service_id) => dispatch(edit_service_actions.get_service_info(service_id)),
 
     }
