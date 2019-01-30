@@ -1,6 +1,7 @@
 import React from 'react';
 import * as account_page_actions from '../../core/account_page/account_page_actions';
 import * as business_page_actions from '../../core/business_page/business_page_actions';
+import * as cancellation_actions from "../../core/cancellation/cancellation_actions";
 import {change_panel} from '../../core/main_page/active_panel_actions'
 import { Card,Grid,Breadcrumb,Divider,Image,Segment, Message,Button} from 'semantic-ui-react';
 import CardComponent from '../componets/card/card'
@@ -45,6 +46,10 @@ class Account_page extends React.Component{
         // this.setState(() => ({modals:temp_conds}))
         // console.log("asdaSDASDASC DGqwZ?",this.state.modals)
 
+    }
+    cancel = (id) => {
+        console.log("reserve_id is:", id)
+        this.cancel_reserve(id)
     }
     handleClose = () => {
         this.setState(() => ({modal_open:false}))
@@ -150,10 +155,16 @@ class Account_page extends React.Component{
                                                 )}
                                                 <Card.Content extra>
                                                 <Grid centered> 
-                                                    <div style = {{marginTop : '2%' , marginBottom : '2%'}}>
-                                                    <Button color="linkedin" style={{ paddingLeft: '50px',paddingRight:'50px'}} onClick={() => {this.handleOpen(reserve.service.id)}} > نظر</Button>
-                                                    </div>
-                                                    
+                                                    <Grid.Column>
+                                                        <div style = {{marginTop : '2%' , marginBottom : '2%'}}>
+                                                            <Button color="linkedin" style={{ paddingLeft: '50px',paddingRight:'50px'}} onClick={() => {this.handleOpen(reserve.service.id)}} > نظر</Button>
+                                                        </div>
+                                                    </Grid.Column>
+                                                    <Grid.Column>
+                                                        <div style = {{marginTop : '2%' , marginBottom : '2%'}}>
+                                                            <Button color="red"  onClick={() => {this.cancel(reserve.service.id)}} > لغو</Button>
+                                                        </div>
+                                                    </Grid.Column>
                                                    
                                                     {/* <Review_modal service_id={reserve.service.id}/> */}
                                                 </Grid>                           
@@ -260,6 +271,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         get_account_page:() => dispatch(account_page_actions.get_account_page()),
         get_business_info : (business_id) => dispatch(business_page_actions.get_business_info(business_id)),
+        cancel_reserve : (reserve_id) => dispatch(cancellation_actions.cancel_reserve(reserve_id)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
     };
 }
