@@ -6,3 +6,4 @@ export const CATEGORY_PAGE = MAIN + 'api/category/'
 export const REVIEW = MAIN + 'api/service/review/';
 export const ACC = MAIN + 'api/user/';
 export const ESERV = MAIN + "api/edit_service";
+export const CANCEL = MAIN + "api/cancel";
