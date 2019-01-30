@@ -12,6 +12,7 @@ class Edit_service_page extends React.Component {
         service_id:17,
         modified_sanses:[],
         prev_is_protected:this.props.is_protected,
+        prev_capcity:this.props.capacity,
         informations:{
             service_name:this.props.service_name,
             capacity: this.props.capacity,
@@ -276,7 +277,11 @@ class Edit_service_page extends React.Component {
         console.log("capacity is:",this.state.informations.capacity)
         console.log("MODIFIED SANSES",this.state.modified_sanses)
         console.log("I give up",this.state.informations.description,this.state.informations.fee,this.state.informations.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password,this.state.informations.cancellation_range)
-        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password, this.state.informations.cancellation_range);
+        let capacity_changed = 0
+        if(this.state.prev_capcity !== this.state.informations.capacity ){
+            capacity_changed = 1
+        }
+        this.props.edit_service(this.state.informations.description,this.state.informations.fee,this.state.modified_sanses,this.state.informations.service_name,this.state.service_id,this.state.informations.capacity,this.state.informations.is_protected,this.state.informations.old_password,this.state.informations.new_password, this.state.informations.cancellation_range,capacity_changed);
         this.props.change_panel('dashboard')
 
     }
@@ -499,7 +504,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        edit_service : (description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range)),
+        edit_service : (description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range,capacity_changed) => dispatch(edit_service_actions.edit_service(description,fee,sanses,service_name,service_id,capacity,is_protected,old_password,new_password,cancellation_range,capacity_changed)),
         change_panel:(panel_name) => dispatch(change_panel(panel_name)),
         get_service_info : (service_id) => dispatch(edit_service_actions.get_service_info(service_id)),
 
